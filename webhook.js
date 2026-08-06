@@ -56,3 +56,60 @@ module.exports = async (req, res) => {
     res.status(400).send('Invalid Signature');
   }
 };
+// ==========================================
+// AI STYLE FEATURE (ADDED TO WEBBOOK.JS)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // AI Style container ko detect karna
+    const aiContainer = document.getElementById('control-ai-style');
+    if (!aiContainer) return;
+
+    const buttons = aiContainer.querySelectorAll('button');
+    const outfitBtn = buttons[0];     // Outfit Button
+    const sunglassesBtn = buttons[1]; // Sunglasses Button
+
+    // 1. Change Outfit Logic
+    if (outfitBtn) {
+        outfitBtn.addEventListener('click', () => {
+            const imagePreview = document.getElementById('imagePreview');
+            if (!imagePreview || imagePreview.classList.contains('hidden')) {
+                alert("Please upload an image first!");
+                return;
+            }
+
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingText = document.getElementById('loadingText');
+            
+            if (loadingText) loadingText.innerText = "AI is changing outfit...";
+            if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+
+            setTimeout(() => {
+                if (loadingOverlay) loadingOverlay.classList.add('hidden');
+                alert("Outfit Feature Triggered! Backend API Key connect karne ke baad ye live photo edit karega.");
+            }, 1500);
+        });
+    }
+
+    // 2. Add Sunglasses Logic
+    if (sunglassesBtn) {
+        sunglassesBtn.addEventListener('click', () => {
+            const imagePreview = document.getElementById('imagePreview');
+            if (!imagePreview || imagePreview.classList.contains('hidden')) {
+                alert("Please upload an image first!");
+                return;
+            }
+
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingText = document.getElementById('loadingText');
+
+            if (loadingText) loadingText.innerText = "AI is adding sunglasses...";
+            if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+
+            setTimeout(() => {
+                if (loadingOverlay) loadingOverlay.classList.add('hidden');
+                alert("Sunglasses Feature Triggered! Backend API Key connect karne ke baad ye live photo edit karega.");
+            }, 1500);
+        });
+    }
+});
