@@ -157,20 +157,20 @@
                     </button>
                 </div>
 
-                <!-- AI Style Mods (Outfits/Glasses placeholder) -->
+                <!-- AI Style Mods (Outfits/Glasses) -->
                 <div id="control-ai-style" class="hidden w-full max-w-lg text-center">
                     <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Virtual Try-On & Styles</h3>
                     <div class="grid grid-cols-2 gap-4 mb-4">
-                        <button class="bg-gray-800 hover:bg-gray-700 border border-gray-600 px-4 py-4 rounded-xl flex flex-col items-center gap-2 transition">
+                        <button id="btn-outfit" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 px-4 py-4 rounded-xl flex flex-col items-center gap-2 transition">
                             <i class="fas fa-tshirt text-3xl text-purple-400"></i>
                             <span class="text-sm font-bold text-gray-300">Change Outfit</span>
                         </button>
-                        <button class="bg-gray-800 hover:bg-gray-700 border border-gray-600 px-4 py-4 rounded-xl flex flex-col items-center gap-2 transition">
+                        <button id="btn-sunglasses" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 px-4 py-4 rounded-xl flex flex-col items-center gap-2 transition">
                             <i class="fas fa-glasses text-3xl text-blue-400"></i>
                             <span class="text-sm font-bold text-gray-300">Add Sunglasses</span>
                         </button>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2">API Integration Required for these modules to function live.</p>
+                    <p class="text-xs text-gray-500 mt-2">Powered by Secure Vercel API.</p>
                 </div>
 
             </div>
@@ -334,7 +334,6 @@
         import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 
-        // FIREBASE CREDENTIALS (UNCHANGED)
         const firebaseConfig = {
           apiKey: "AIzaSyDSFwn1log1-ehfYwLudOAPVWzGfsp86Bg",
           authDomain: "mahieyai.firebaseapp.com",
@@ -366,7 +365,7 @@
         const MAX_BG = 5;
         const MAX_BASIC = 10;
         let emailMode = 'login'; 
-        let transparentBgImage = null; // Store bg removed image
+        let transparentBgImage = null;
 
         window.showAuthModal = (msg) => {
             if(msg) document.getElementById('authSubtitle').innerText = msg;
@@ -551,7 +550,7 @@
         let originalImageSrc = null;
         let currentFile = null;
 
-        // SWITCH TOOLS LOGIC (Updated with new tools)
+        // SWITCH TOOLS LOGIC 
         window.switchTool = (tool) => {
             const allTools = ['bg-remove', 'compress', 'edit', 'convert', 'ai-style'];
             allTools.forEach(t => {
@@ -582,7 +581,7 @@
                     imagePreview.classList.remove('hidden');
                     previewText.classList.add('hidden');
                     imagePreview.style.filter = 'none';
-                    transparentBgImage = null; // Reset BG removed image
+                    transparentBgImage = null; 
                     document.getElementById('applyBgColorBtn').classList.add('hidden');
                     downloadSection.classList.add('hidden');
                 }
@@ -632,7 +631,7 @@
                     const imgUrl = URL.createObjectURL(blob);
                     transparentBgImage = new Image();
                     transparentBgImage.onload = async () => {
-                        renderBgImage(null); // Render without BG initially
+                        renderBgImage(null); 
                         document.getElementById('applyBgColorBtn').classList.remove('hidden');
                         await incrementUsage('bg'); 
                     }
@@ -669,7 +668,7 @@
             downloadSection.classList.remove('hidden');
         }
 
-        // ADVANCED COMPRESSOR LOGIC (Includes Target KB)
+        // ADVANCED COMPRESSOR LOGIC 
         document.getElementById('compressBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
             if (!checkLimits('basic', 'Compressor')) return;
@@ -691,7 +690,6 @@
                     
                     let finalDataUrl = "";
                     if(targetKbInput && targetKbInput > 0) {
-                        // Binary search style size approximation for Target KB
                         let min_q = 0.01, max_q = 1.0;
                         let targetBytes = targetKbInput * 1024;
                         
@@ -775,7 +773,7 @@
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
             if (!checkLimits('basic', 'Converter')) return;
             
-            const format = document.getElementById('convertFormat').value; // 'image/png', 'image/jpeg', 'image/webp'
+            const format = document.getElementById('convertFormat').value; 
             let ext = format.split('/')[1];
             if(ext === 'jpeg') ext = 'jpg';
 
@@ -807,5 +805,81 @@
         compressSlider.addEventListener('input', (e) => document.getElementById('qualityValue').innerText = e.target.value + '%');
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
+    
+    <!-- 🔥 SECURE AI STYLE LOGIC 🔥 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const outfitBtn = document.getElementById('btn-outfit');
+        const sunglassesBtn = document.getElementById('btn-sunglasses');
+
+        async function processImageWithBackend(promptText, loadingMessage) {
+            const imageInput = document.getElementById('imageInput');
+            if (!imageInput || !imageInput.files[0]) {
+                alert("Please upload an image first!");
+                return;
+            }
+
+            const currentFile = imageInput.files[0];
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingText = document.getElementById('loadingText');
+            
+            if (loadingText) loadingText.innerText = loadingMessage + " (Takes ~10-15 sec)";
+            if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+
+            try {
+                const reader = new FileReader();
+                reader.readAsDataURL(currentFile);
+                reader.onload = async () => {
+                    const base64Image = reader.result;
+
+                    // IMPORTANT: API Route ko '/api/webhook' diya gaya hai.
+                    const response = await fetch('/api/webhook', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-action-type': 'ai-style' 
+                        },
+                        body: JSON.stringify({ promptText: promptText, base64Image: base64Image })
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) throw new Error(data.error || "Server Error!");
+
+                    const imagePreview = document.getElementById('imagePreview');
+                    if (imagePreview) {
+                        imagePreview.src = data.resultImage;
+                        imagePreview.classList.remove('hidden');
+                    }
+                    
+                    const downloadBtn = document.getElementById('downloadBtn');
+                    const downloadSection = document.getElementById('downloadSection');
+                    if (downloadBtn && downloadSection) {
+                        downloadBtn.href = data.resultImage;
+                        downloadBtn.download = "MahieyAI_Style.jpg";
+                        downloadSection.classList.remove('hidden');
+                    }
+                    
+                    if (loadingOverlay) loadingOverlay.classList.add('hidden');
+                };
+            } catch (error) {
+                alert("Process Failed: " + error.message);
+                if (loadingOverlay) loadingOverlay.classList.add('hidden');
+            }
+        }
+
+        if (outfitBtn) {
+            outfitBtn.addEventListener('click', () => {
+                processImageWithBackend("change clothes to a stylish red jacket, realistic", "AI is changing your outfit...");
+            });
+        }
+
+        if (sunglassesBtn) {
+            sunglassesBtn.addEventListener('click', () => {
+                processImageWithBackend("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
+            });
+        }
+    });
+    </script>
 </body>
 </html>
