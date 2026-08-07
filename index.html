@@ -806,7 +806,7 @@
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
     
-<!-- 🔥 SECURE AI STYLE LOGIC (Auto-Resize + Vercel Backend) 🔥 -->
+<!-- 🔥 SECURE AI STYLE LOGIC (Bina Token Ke + Auto-Resizer + Crash Fix) 🔥 -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const outfitBtn = document.getElementById('btn-outfit');
@@ -823,10 +823,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingText = document.getElementById('loadingText');
         
-        if (loadingText) loadingText.innerText = loadingMessage + " (Auto-resizing...)";
+        if (loadingText) loadingText.innerText = loadingMessage + " (Processing...)";
         if (loadingOverlay) loadingOverlay.classList.remove('hidden');
 
-        // Photo padhna
         const reader = new FileReader();
         reader.readAsDataURL(currentFile);
         reader.onload = (e) => {
@@ -835,13 +834,13 @@ document.addEventListener('DOMContentLoaded', () => {
             img.onload = async () => {
                 try {
                     // ==========================================
-                    // 1. AUTO-RESIZER (Photo ko chhota karna taaki crash na ho)
+                    // 1. AUTO-RESIZER (Photo chhoti karna)
                     // ==========================================
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
                     let width = img.width;
                     let height = img.height;
-                    const MAX_SIZE = 750; // Vercel ke liye ekdum safe size
+                    const MAX_SIZE = 750;
 
                     if (width > height && width > MAX_SIZE) {
                         height = Math.round(height * (MAX_SIZE / width));
@@ -857,10 +856,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const base64Image = canvas.toDataURL('image/jpeg', 0.8);
 
-                    if (loadingText) loadingText.innerText = loadingMessage + " (Sending to Server...)";
+                    if (loadingText) loadingText.innerText = loadingMessage + " (Sending to Secure Vercel...)";
 
                     // ==========================================
-                    // 2. VERCEL BACKEND KO BHEJNA (Bina Token Ke)
+                    // 2. SEND TO VERCEL BACKEND (Token Yahan Nahi Hai)
                     // ==========================================
                     const response = await fetch('/api/webhook', {
                         method: 'POST',
@@ -871,10 +870,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         body: JSON.stringify({ promptText: promptText, base64Image: base64Image })
                     });
 
-                    const data = await response.json();
+                    // JSON 'T' ERROR FIX: Pehle check karenge ki response JSON hai ya HTML Error
+                    const textResponse = await response.text();
+                    let data;
+                    
+                    try {
+                        data = JSON.parse(textResponse);
+                    } catch (parseError) {
+                        // Agar Vercel ne 10 sec me HTML Timeout error diya
+                        if (textResponse.includes('504') || textResponse.includes('Timeout') || textResponse.includes('Unexpected')) {
+                            throw new Error("HuggingFace AI so raha tha! Usne 10 sec me reply nahi diya. Please 'OK' dabakar turant dobara button dabayein.");
+                        }
+                        throw new Error("Vercel Server Error. Backend check karein.");
+                    }
 
-                    // Agar AI so raha hai, toh clear message dena
-                    if (response.status === 503 || response.status === 504 || (data.error && data.error.includes('warming up'))) {
+                    // Agar backend ne bataya ki AI warm-up kar raha hai
+                    if (response.status === 503 || (data.error && data.error.includes('warming up'))) {
                          throw new Error("AI is warming up! Please wait 10 seconds and click the button again.");
                     }
 
@@ -896,7 +907,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                 } catch (error) {
-                    alert("Status: " + error.message);
+                    // Message ko saaf tarike se screen par dikhana
+                    alert(error.message);
                 } finally {
                     if (loadingOverlay) loadingOverlay.classList.add('hidden');
                 }
