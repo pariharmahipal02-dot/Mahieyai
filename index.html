@@ -806,19 +806,13 @@
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
     
-<!-- 🔥 DIRECT AI STYLE LOGIC (Auto-Resizer + Token Set) 🔥 -->
+<!-- 🔥 SECURE AI STYLE LOGIC (Auto-Resize + Vercel Backend) 🔥 -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 👉 Tumhara Token maine yahan set kar diya hai!
-    const HF_API_TOKEN = "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"; 
-    
-    const MODEL_URL = "https://api-inference.huggingface.co/models/timbrooks/instruct-pix2pix";
-
     const outfitBtn = document.getElementById('btn-outfit');
     const sunglassesBtn = document.getElementById('btn-sunglasses');
 
-    async function processImageDirectly(promptText, loadingMessage) {
+    async function processImageWithBackend(promptText, loadingMessage) {
         const imageInput = document.getElementById('imageInput');
         if (!imageInput || !imageInput.files[0]) {
             alert("Please upload an image first!");
@@ -832,6 +826,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loadingText) loadingText.innerText = loadingMessage + " (Auto-resizing...)";
         if (loadingOverlay) loadingOverlay.classList.remove('hidden');
 
+        // Photo padhna
         const reader = new FileReader();
         reader.readAsDataURL(currentFile);
         reader.onload = (e) => {
@@ -840,13 +835,13 @@ document.addEventListener('DOMContentLoaded', () => {
             img.onload = async () => {
                 try {
                     // ==========================================
-                    // 1. AUTO-RESIZER (Photo chhoti karna)
+                    // 1. AUTO-RESIZER (Photo ko chhota karna taaki crash na ho)
                     // ==========================================
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
                     let width = img.width;
                     let height = img.height;
-                    const MAX_SIZE = 750; // AI ke liye safe size
+                    const MAX_SIZE = 750; // Vercel ke liye ekdum safe size
 
                     if (width > height && width > MAX_SIZE) {
                         height = Math.round(height * (MAX_SIZE / width));
@@ -860,63 +855,48 @@ document.addEventListener('DOMContentLoaded', () => {
                     canvas.height = height;
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    const base64Image = canvas.toDataURL('image/jpeg', 0.8).replace(/^data:image\/\w+;base64,/, "");
+                    const base64Image = canvas.toDataURL('image/jpeg', 0.8);
+
+                    if (loadingText) loadingText.innerText = loadingMessage + " (Sending to Server...)";
 
                     // ==========================================
-                    // 2. SEND TO AI & RETRY LOGIC
+                    // 2. VERCEL BACKEND KO BHEJNA (Bina Token Ke)
                     // ==========================================
-                    let attempt = 0;
-                    let success = false;
+                    const response = await fetch('/api/webhook', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-action-type': 'ai-style'
+                        },
+                        body: JSON.stringify({ promptText: promptText, base64Image: base64Image })
+                    });
 
-                    while (attempt < 3 && !success) {
-                        attempt++;
-                        if (loadingText) loadingText.innerText = `AI is processing... [Attempt ${attempt}/3]`;
+                    const data = await response.json();
 
-                        const response = await fetch(MODEL_URL, {
-                            method: 'POST',
-                            headers: {
-                                'Authorization': `Bearer ${HF_API_TOKEN}`,
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                inputs: promptText,
-                                image: base64Image
-                            })
-                        });
-
-                        // Agar AI so raha hai, toh code khud 10 second rukega
-                        if (response.status === 503) {
-                            if (loadingText) loadingText.innerText = `AI is waking up... Please wait 10 sec`;
-                            await new Promise(r => setTimeout(r, 10000));
-                            continue; 
-                        }
-
-                        if (!response.ok) throw new Error("Server ya Network me problem hai!");
-
-                        // Final Edited Photo
-                        const blob = await response.blob();
-                        const imageUrl = URL.createObjectURL(blob);
-
-                        const imagePreview = document.getElementById('imagePreview');
-                        if (imagePreview) {
-                            imagePreview.src = imageUrl;
-                            imagePreview.classList.remove('hidden');
-                        }
-                        
-                        const downloadBtn = document.getElementById('downloadBtn');
-                        const downloadSection = document.getElementById('downloadSection');
-                        if (downloadBtn && downloadSection) {
-                            downloadBtn.href = imageUrl;
-                            downloadBtn.download = "MahieyAI_Style_Edit.jpg";
-                            downloadSection.classList.remove('hidden');
-                        }
-                        success = true;
+                    // Agar AI so raha hai, toh clear message dena
+                    if (response.status === 503 || response.status === 504 || (data.error && data.error.includes('warming up'))) {
+                         throw new Error("AI is warming up! Please wait 10 seconds and click the button again.");
                     }
 
-                    if (!success) alert("AI thoda busy hai. Please 1-2 minute baad dobara button dabayein.");
+                    if (!response.ok) throw new Error(data.error || "Server Error Aaya!");
+
+                    // Final Photo Dikhana
+                    const imagePreview = document.getElementById('imagePreview');
+                    if (imagePreview) {
+                        imagePreview.src = data.resultImage;
+                        imagePreview.classList.remove('hidden');
+                    }
+                    
+                    const downloadBtn = document.getElementById('downloadBtn');
+                    const downloadSection = document.getElementById('downloadSection');
+                    if (downloadBtn && downloadSection) {
+                        downloadBtn.href = data.resultImage;
+                        downloadBtn.download = "MahieyAI_Style_Edit.jpg";
+                        downloadSection.classList.remove('hidden');
+                    }
 
                 } catch (error) {
-                    alert("Process Failed: " + error.message);
+                    alert("Status: " + error.message);
                 } finally {
                     if (loadingOverlay) loadingOverlay.classList.add('hidden');
                 }
@@ -926,13 +906,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (outfitBtn) {
         outfitBtn.addEventListener('click', () => {
-            processImageDirectly("change clothes to a stylish red jacket, highly realistic", "AI is changing your outfit...");
+            processImageWithBackend("change clothes to a stylish red jacket, highly realistic", "AI is changing your outfit...");
         });
     }
 
     if (sunglassesBtn) {
         sunglassesBtn.addEventListener('click', () => {
-            processImageDirectly("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
+            processImageWithBackend("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
         });
     }
 });
