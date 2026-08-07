@@ -806,11 +806,11 @@
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
     
-<!-- 🔥 DIRECT AI STYLE LOGIC (With Auto-Resizer & Timeout Bypass) 🔥 -->
+<!-- 🔥 DIRECT AI STYLE LOGIC (Auto-Resizer + Token Set) 🔥 -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 👉 YAHAN APNA TOKEN PASTE KAREIN (hf_... wala)
+    // 👉 Tumhara Token maine yahan set kar diya hai!
     const HF_API_TOKEN = "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"; 
     
     const MODEL_URL = "https://api-inference.huggingface.co/models/timbrooks/instruct-pix2pix";
@@ -829,7 +829,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingText = document.getElementById('loadingText');
         
-        if (loadingText) loadingText.innerText = loadingMessage;
+        if (loadingText) loadingText.innerText = loadingMessage + " (Auto-resizing...)";
         if (loadingOverlay) loadingOverlay.classList.remove('hidden');
 
         const reader = new FileReader();
@@ -840,7 +840,7 @@ document.addEventListener('DOMContentLoaded', () => {
             img.onload = async () => {
                 try {
                     // ==========================================
-                    // 1. AUTO-RESIZER (Prepares small image to prevent crash)
+                    // 1. AUTO-RESIZER (Photo chhoti karna)
                     // ==========================================
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
@@ -860,7 +860,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     canvas.height = height;
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    // Choti photo ko Base64 me badalna (Size < 200KB)
                     const base64Image = canvas.toDataURL('image/jpeg', 0.8).replace(/^data:image\/\w+;base64,/, "");
 
                     // ==========================================
@@ -871,9 +870,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     while (attempt < 3 && !success) {
                         attempt++;
-                        if (attempt > 1 && loadingText) {
-                            loadingText.innerText = `AI is warming up... (Wait ~10 sec) [Attempt ${attempt}/3]`;
-                        }
+                        if (loadingText) loadingText.innerText = `AI is processing... [Attempt ${attempt}/3]`;
 
                         const response = await fetch(MODEL_URL, {
                             method: 'POST',
@@ -887,13 +884,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             })
                         });
 
-                        // Agar AI wake-up mode me hai
+                        // Agar AI so raha hai, toh code khud 10 second rukega
                         if (response.status === 503) {
-                            await new Promise(r => setTimeout(r, 10000)); // 10 second ruk kar dobara try
+                            if (loadingText) loadingText.innerText = `AI is waking up... Please wait 10 sec`;
+                            await new Promise(r => setTimeout(r, 10000));
                             continue; 
                         }
 
-                        if (!response.ok) throw new Error("Server ne request reject kar di. Try again!");
+                        if (!response.ok) throw new Error("Server ya Network me problem hai!");
 
                         // Final Edited Photo
                         const blob = await response.blob();
@@ -915,7 +913,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         success = true;
                     }
 
-                    if (!success) alert("AI ko load hone me time lag raha hai. Thodi der baad try karein.");
+                    if (!success) alert("AI thoda busy hai. Please 1-2 minute baad dobara button dabayein.");
 
                 } catch (error) {
                     alert("Process Failed: " + error.message);
@@ -928,14 +926,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (outfitBtn) {
         outfitBtn.addEventListener('click', () => {
-            if (HF_API_TOKEN === "YAHAN_APNA_TOKEN_PASTE_KAREIN") return alert("Apna Token code me paste karein!");
             processImageDirectly("change clothes to a stylish red jacket, highly realistic", "AI is changing your outfit...");
         });
     }
 
     if (sunglassesBtn) {
         sunglassesBtn.addEventListener('click', () => {
-            if (HF_API_TOKEN === "YAHAN_APNA_TOKEN_PASTE_KAREIN") return alert("Apna Token code me paste karein!");
             processImageDirectly("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
         });
     }
