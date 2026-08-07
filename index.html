@@ -806,80 +806,125 @@
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
     
-    <!-- 🔥 SECURE AI STYLE LOGIC 🔥 -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const outfitBtn = document.getElementById('btn-outfit');
-        const sunglassesBtn = document.getElementById('btn-sunglasses');
+ <!-- 🔥 DIRECT AI STYLE LOGIC (Bypasses Vercel Timeouts & Auto-Retries) 🔥 -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 👉 YAHAN APNA TOKEN PASTE KAREIN (hf_... wala)
+    const HF_API_TOKEN = "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"; 
+    
+    const MODEL_URL = "https://api-inference.huggingface.co/models/timbrooks/instruct-pix2pix";
 
-        async function processImageWithBackend(promptText, loadingMessage) {
-            const imageInput = document.getElementById('imageInput');
-            if (!imageInput || !imageInput.files[0]) {
-                alert("Please upload an image first!");
-                return;
-            }
+    const outfitBtn = document.getElementById('btn-outfit');
+    const sunglassesBtn = document.getElementById('btn-sunglasses');
 
-            const currentFile = imageInput.files[0];
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            const loadingText = document.getElementById('loadingText');
-            
-            if (loadingText) loadingText.innerText = loadingMessage + " (Takes ~10-15 sec)";
-            if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+    async function processImageDirectly(promptText, loadingMessage) {
+        const imageInput = document.getElementById('imageInput');
+        if (!imageInput || !imageInput.files[0]) {
+            alert("Please upload an image first!");
+            return;
+        }
 
+        const currentFile = imageInput.files[0];
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        
+        if (loadingText) loadingText.innerText = loadingMessage;
+        if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+
+        // Photo ko Base64 text me badalna
+        const reader = new FileReader();
+        reader.readAsDataURL(currentFile);
+        reader.onload = async () => {
             try {
-                const reader = new FileReader();
-                reader.readAsDataURL(currentFile);
-                reader.onload = async () => {
-                    const base64Image = reader.result;
+                // API ke liye aage ka hissa hatana zaroori hai
+                const base64Image = reader.result.replace(/^data:image\/\w+;base64,/, "");
 
-                    // IMPORTANT: API Route ko '/api/webhook' diya gaya hai.
-                    const response = await fetch('/api/webhook', {
+                let attempt = 0;
+                let success = false;
+
+                // Auto-Retry System: Agar AI Model so raha hai, toh code khud 3 baar try karega
+                while (attempt < 3 && !success) {
+                    attempt++;
+                    if (attempt > 1) {
+                        if (loadingText) loadingText.innerText = `AI is warming up... (Wait ~10 sec) [Attempt ${attempt}/3]`;
+                    }
+
+                    const response = await fetch(MODEL_URL, {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'x-action-type': 'ai-style' 
+                            'Authorization': `Bearer ${HF_API_TOKEN}`,
+                            'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ promptText: promptText, base64Image: base64Image })
+                        body: JSON.stringify({
+                            inputs: promptText,
+                            image: base64Image
+                        })
                     });
 
-                    const data = await response.json();
+                    // Agar AI wake-up kar raha hai (503 Error)
+                    if (response.status === 503) {
+                        await new Promise(r => setTimeout(r, 10000)); // 10 second wait karega
+                        continue; // Phir se check karega
+                    }
 
-                    if (!response.ok) throw new Error(data.error || "Server Error!");
+                    if (!response.ok) throw new Error("API Error ya Image Size bahut bada hai!");
+
+                    // Final Photo nikalna
+                    const blob = await response.blob();
+                    const imageUrl = URL.createObjectURL(blob);
 
                     const imagePreview = document.getElementById('imagePreview');
                     if (imagePreview) {
-                        imagePreview.src = data.resultImage;
+                        imagePreview.src = imageUrl;
                         imagePreview.classList.remove('hidden');
                     }
                     
                     const downloadBtn = document.getElementById('downloadBtn');
                     const downloadSection = document.getElementById('downloadSection');
                     if (downloadBtn && downloadSection) {
-                        downloadBtn.href = data.resultImage;
+                        downloadBtn.href = imageUrl;
                         downloadBtn.download = "MahieyAI_Style.jpg";
                         downloadSection.classList.remove('hidden');
                     }
-                    
-                    if (loadingOverlay) loadingOverlay.classList.add('hidden');
-                };
+                    success = true;
+                }
+
+                if (!success) {
+                    alert("AI is taking too long to load! Please try a smaller image size or try again later.");
+                }
+
             } catch (error) {
                 alert("Process Failed: " + error.message);
+            } finally {
                 if (loadingOverlay) loadingOverlay.classList.add('hidden');
             }
-        }
+        };
+        
+        reader.onerror = () => {
+            alert("Error reading photo file!");
+            if (loadingOverlay) loadingOverlay.classList.add('hidden');
+        };
+    }
 
-        if (outfitBtn) {
-            outfitBtn.addEventListener('click', () => {
-                processImageWithBackend("change clothes to a stylish red jacket, realistic", "AI is changing your outfit...");
-            });
-        }
+    if (outfitBtn) {
+        outfitBtn.addEventListener('click', () => {
+            if (HF_API_TOKEN === "YAHAN_APNA_TOKEN_PASTE_KAREIN") {
+                alert("Bhai, pehle code me apna HF Token toh daal do!");
+                return;
+            }
+            processImageDirectly("change clothes to a stylish red jacket, highly realistic", "AI is changing your outfit...");
+        });
+    }
 
-        if (sunglassesBtn) {
-            sunglassesBtn.addEventListener('click', () => {
-                processImageWithBackend("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
-            });
-        }
-    });
-    </script>
-</body>
-</html>
+    if (sunglassesBtn) {
+        sunglassesBtn.addEventListener('click', () => {
+            if (HF_API_TOKEN === "YAHAN_APNA_TOKEN_PASTE_KAREIN") {
+                alert("Bhai, pehle code me apna HF Token toh daal do!");
+                return;
+            }
+            processImageDirectly("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
+        });
+    }
+});
+</script>
