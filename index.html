@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>MahieyAI - Free 4K Photo Enhancer & Editor</title>
-    <meta name="description" content="Apni photos ko 4K me enhance karein, background change karein aur edit karein MahieyAI ke sath bilkul free." />
-    <meta name="keywords" content="AI photo editor, background remover, 4K enhancer, face enhance, image compressor, format converter, MahieyAI">
+    <title>Bgremove - Free 4K Photo Enhancer & Editor</title>
+    <meta name="description" content="Apni photos ko 4K me enhance karein, background change karein aur edit karein Bgremove ke sath bilkul free." />
+    <meta name="keywords" content="AI photo editor, background remover, 4K enhancer, face enhance, image compressor, format converter, Bgremove">
     <meta name="author" content="Mahiey Parihar">
     
     <!-- Google Search Console Verification Meta -->
@@ -15,6 +15,9 @@
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7150707787101119" crossorigin="anonymous"></script>
+
+    <!-- PDF Converter Tool -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -31,8 +34,10 @@
 
     <!-- Navbar -->
     <nav class="fixed w-full z-40 glass px-6 py-4 flex justify-between items-center shadow-2xl">
-        <div class="text-2xl font-extrabold flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 cursor-pointer">
-            <i class="fas fa-layer-group text-blue-500"></i> MahieyAI
+        <div class="text-2xl font-extrabold flex items-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 cursor-pointer">
+            <!-- Yahan tumhara logo add kiya hai aur usko invert kiya hai taaki dark theme par white dikhe -->
+            <img src="7335.webp" alt="Bgremove Logo" class="h-8 md:h-10 w-auto invert object-contain">
+            Bgremove
         </div>
         
         <div class="flex items-center gap-4" id="navAuthArea">
@@ -70,10 +75,6 @@
             <button onclick="window.switchTool('convert')" id="tab-convert" class="px-4 py-3 rounded-lg font-bold text-gray-400 hover:text-white hover:bg-gray-700 transition-all flex flex-col items-center gap-1">
                 <div class="flex items-center gap-2"><i class="fas fa-exchange-alt"></i> Converter</div>
                 <span class="text-xs text-gray-500">Shared</span>
-            </button>
-            <button onclick="window.switchTool('ai-style')" id="tab-ai-style" class="px-4 py-3 rounded-lg font-bold text-gray-400 hover:text-white hover:bg-gray-700 transition-all flex flex-col items-center gap-1">
-                <div class="flex items-center gap-2"><i class="fas fa-glasses"></i> AI Style</div>
-                <span class="text-xs text-gray-500">New</span>
             </button>
         </div>
 
@@ -151,26 +152,11 @@
                         <option value="image/jpeg">JPG / JPEG</option>
                         <option value="image/png">PNG</option>
                         <option value="image/webp">WEBP</option>
+                        <option value="application/pdf">PDF Document</option>
                     </select>
                     <button id="convertBtn" class="bg-green-600 hover:bg-green-500 px-8 py-3 rounded-lg font-bold shadow-lg transition w-full flex justify-center items-center gap-2">
                         <i class="fas fa-random"></i> Convert Now
                     </button>
-                </div>
-
-                <!-- AI Style Mods (Outfits/Glasses) -->
-                <div id="control-ai-style" class="hidden w-full max-w-lg text-center">
-                    <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Virtual Try-On & Styles</h3>
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <button id="btn-outfit" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 px-4 py-4 rounded-xl flex flex-col items-center gap-2 transition">
-                            <i class="fas fa-tshirt text-3xl text-purple-400"></i>
-                            <span class="text-sm font-bold text-gray-300">Change Outfit</span>
-                        </button>
-                        <button id="btn-sunglasses" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 px-4 py-4 rounded-xl flex flex-col items-center gap-2 transition">
-                            <i class="fas fa-glasses text-3xl text-blue-400"></i>
-                            <span class="text-sm font-bold text-gray-300">Add Sunglasses</span>
-                        </button>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">Powered by Secure Vercel API.</p>
                 </div>
 
             </div>
@@ -217,8 +203,10 @@
                 <i class="fas fa-times"></i>
             </button>
             <div class="text-center mb-6 mt-2">
-                <div class="text-3xl font-extrabold flex items-center justify-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-1">
-                    <i class="fas fa-layer-group text-blue-500"></i> MahieyAI
+                <div class="text-3xl font-extrabold flex items-center justify-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-1">
+                    <!-- Auth modal logo -->
+                    <img src="7335.webp" alt="Bgremove Logo" class="h-8 w-auto invert object-contain">
+                    Bgremove
                 </div>
                 <p class="text-gray-400 text-sm" id="authSubtitle">Join to unlock premium features.</p>
             </div>
@@ -312,8 +300,10 @@
 
     <footer class="bg-black py-10 border-t border-gray-800">
         <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-                <i class="fas fa-layer-group text-blue-500"></i> MahieyAI
+            <div class="text-2xl font-extrabold flex items-center justify-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                <!-- Footer logo -->
+                <img src="7335.webp" alt="Bgremove Logo" class="h-8 w-auto invert object-contain">
+                Bgremove
             </div>
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-sm font-medium text-gray-400">
                 <a href="#" class="hover:text-white transition">Privacy Policy</a>
@@ -323,7 +313,7 @@
             </div>
         </div>
         <div class="text-center text-gray-600 text-xs mt-8">
-            <p>&copy; 2026 MahieyAI by Mahiey Parihar. All rights reserved.</p>
+            <p>&copy; 2026 Bgremove by Mahiey Parihar. All rights reserved.</p>
         </div>
     </footer>
 
@@ -550,23 +540,29 @@
         let originalImageSrc = null;
         let currentFile = null;
 
-        // SWITCH TOOLS LOGIC 
+        // SWITCH TOOLS LOGIC
         window.switchTool = (tool) => {
-            const allTools = ['bg-remove', 'compress', 'edit', 'convert', 'ai-style'];
+            const allTools = ['bg-remove', 'compress', 'edit', 'convert'];
             allTools.forEach(t => {
                 const tab = document.getElementById(`tab-${t}`);
-                tab.classList.remove('bg-blue-600', 'text-white', 'bg-gray-800');
-                if(t !== tool) {
-                    tab.classList.add('text-gray-400');
-                    if(tab.querySelector('span')) tab.querySelector('span').classList.replace('text-blue-200', 'text-gray-500');
+                if(tab) {
+                    tab.classList.remove('bg-blue-600', 'text-white', 'bg-gray-800');
+                    if(t !== tool) {
+                        tab.classList.add('text-gray-400');
+                        if(tab.querySelector('span')) tab.querySelector('span').classList.replace('text-blue-200', 'text-gray-500');
+                    }
                 }
-                document.getElementById(`control-${t}`).classList.add('hidden');
+                const controlEl = document.getElementById(`control-${t}`);
+                if(controlEl) controlEl.classList.add('hidden');
             });
             const activeTab = document.getElementById(`tab-${tool}`);
-            activeTab.classList.add('bg-blue-600', 'text-white');
-            activeTab.classList.remove('text-gray-400');
-            if(activeTab.querySelector('span')) activeTab.querySelector('span').classList.replace('text-gray-500', 'text-blue-200');
-            document.getElementById(`control-${tool}`).classList.remove('hidden');
+            if(activeTab) {
+                activeTab.classList.add('bg-blue-600', 'text-white');
+                activeTab.classList.remove('text-gray-400');
+                if(activeTab.querySelector('span')) activeTab.querySelector('span').classList.replace('text-gray-500', 'text-blue-200');
+            }
+            const activeControl = document.getElementById(`control-${tool}`);
+            if(activeControl) activeControl.classList.remove('hidden');
             downloadSection.classList.add('hidden');
         };
 
@@ -591,7 +587,7 @@
 
         function applyWatermark(canvas, ctx) {
             if (currentUser && userData.isPro) return; 
-            const text = "MahieyAI";
+            const text = "Bgremove";
             const fontSize = Math.max(16, canvas.width * 0.03); 
             ctx.font = `bold ${fontSize}px Arial`;
             ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
@@ -664,7 +660,7 @@
             const finalImgUrl = canvas.toDataURL(finalExt);
             imagePreview.src = finalImgUrl;
             downloadBtn.href = finalImgUrl; 
-            downloadBtn.download = bgColor ? "MahieyAI_New_BG.jpg" : "MahieyAI_No_BG.png";
+            downloadBtn.download = bgColor ? "Bgremove_New_BG.jpg" : "Bgremove_No_BG.png";
             downloadSection.classList.remove('hidden');
         }
 
@@ -708,7 +704,7 @@
                     
                     imagePreview.src = finalDataUrl;
                     downloadBtn.href = finalDataUrl; 
-                    downloadBtn.download = "MahieyAI_Compressed.jpg";
+                    downloadBtn.download = "Bgremove_Compressed.jpg";
                     downloadSection.classList.remove('hidden');
                     await incrementUsage('basic'); 
                     loadingOverlay.classList.add('hidden');
@@ -759,7 +755,7 @@
                     const finalDataUrl = canvas.toDataURL('image/jpeg', 0.9);
                     imagePreview.src = finalDataUrl;
                     downloadBtn.href = finalDataUrl; 
-                    downloadBtn.download = "MahieyAI_ProEdit.jpg";
+                    downloadBtn.download = "Bgremove_ProEdit.jpg";
                     downloadSection.classList.remove('hidden');
                     await incrementUsage('basic'); 
                     loadingOverlay.classList.add('hidden');
@@ -768,7 +764,7 @@
             }, 500);
         });
 
-        // FORMAT CONVERTER LOGIC
+        // FORMAT CONVERTER LOGIC (WITH PDF SUPPORT)
         document.getElementById('convertBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
             if (!checkLimits('basic', 'Converter')) return;
@@ -776,6 +772,7 @@
             const format = document.getElementById('convertFormat').value; 
             let ext = format.split('/')[1];
             if(ext === 'jpeg') ext = 'jpg';
+            if(format === 'application/pdf') ext = 'pdf'; // PDF extension
 
             loadingText.innerText = `Converting to ${ext.toUpperCase()}...`;
             loadingOverlay.classList.remove('hidden');
@@ -789,10 +786,42 @@
                     ctx.drawImage(img, 0, 0);
                     applyWatermark(canvas, ctx);
                     
-                    const finalDataUrl = canvas.toDataURL(format, 0.9);
-                    imagePreview.src = finalDataUrl;
-                    downloadBtn.href = finalDataUrl; 
-                    downloadBtn.download = `MahieyAI_Converted.${ext}`;
+                    if (format === 'application/pdf') {
+                        // =====================================
+                        // PDF GENERATION LOGIC
+                        // =====================================
+                        const { jsPDF } = window.jspdf;
+                        
+                        // Photo landscape hai ya portrait check karna
+                        const orientation = img.width > img.height ? 'l' : 'p';
+                        
+                        // Page size exactly photo jaisa set karna
+                        const pdf = new jsPDF({ 
+                            orientation: orientation, 
+                            unit: 'px', 
+                            format: [img.width, img.height] 
+                        });
+                        
+                        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                        pdf.addImage(imgData, 'JPEG', 0, 0, img.width, img.height);
+                        
+                        // PDF ka link banana
+                        const pdfBlob = pdf.output('blob');
+                        const pdfUrl = URL.createObjectURL(pdfBlob);
+                        
+                        imagePreview.src = imgData; // Preview me image dikhayenge
+                        downloadBtn.href = pdfUrl; 
+                        downloadBtn.download = `Bgremove_Converted.pdf`;
+                    } else {
+                        // =====================================
+                        // NORMAL IMAGE GENERATION LOGIC
+                        // =====================================
+                        const finalDataUrl = canvas.toDataURL(format, 0.9);
+                        imagePreview.src = finalDataUrl;
+                        downloadBtn.href = finalDataUrl; 
+                        downloadBtn.download = `Bgremove_Converted.${ext}`;
+                    }
+
                     downloadSection.classList.remove('hidden');
                     await incrementUsage('basic'); 
                     loadingOverlay.classList.add('hidden');
@@ -805,74 +834,5 @@
         compressSlider.addEventListener('input', (e) => document.getElementById('qualityValue').innerText = e.target.value + '%');
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
-    
-<!-- 🔥 DIRECT AI STYLE LOGIC (Bypasses Vercel 10s Limit) 🔥 -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // 👉 Tumhara Token (Ab Vercel beech me nahi aayega!)
-    const HF_API_TOKEN = "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"; 
-    
-    const MODEL_URL = "https://api-inference.huggingface.co/models/timbrooks/instruct-pix2pix";
-
-    const outfitBtn = document.getElementById('btn-outfit');
-    const sunglassesBtn = document.getElementById('btn-sunglasses');
-
-    async function processImageDirectly(promptText, loadingMessage) {
-        const imageInput = document.getElementById('imageInput');
-        if (!imageInput || !imageInput.files[0]) {
-            alert("Please upload an image first!");
-            return;
-        }
-
-        const currentFile = imageInput.files[0];
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const loadingText = document.getElementById('loadingText');
-        
-        if (loadingText) loadingText.innerText = loadingMessage + " (Preparing...)";
-        if (loadingOverlay) loadingOverlay.classList.remove('hidden');
-
-        const reader = new FileReader();
-        reader.readAsDataURL(currentFile);
-        reader.onload = (e) => {
-            const img = new Image();
-            img.src = e.target.result;
-            img.onload = async () => {
-                try {
-                    // ==========================================
-                    // 1. AUTO-RESIZER (Photo size chhota karna)
-                    // ==========================================
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    let width = img.width;
-                    let height = img.height;
-                    const MAX_SIZE = 750; 
-
-                    if (width > height && width > MAX_SIZE) {
-                        height = Math.round(height * (MAX_SIZE / width));
-                        width = MAX_SIZE;
-                    } else if (height > MAX_SIZE) {
-                        width = Math.round(width * (MAX_SIZE / height));
-                        height = MAX_SIZE;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    const base64Image = canvas.toDataURL('image/jpeg', 0.8).replace(/^data:image\/\w+;base64,/, "");
-
-                    // ==========================================
-                    // 2. DIRECT SEND TO AI (Vercel ki chhutti!)
-                    // ==========================================
-                    let attempt = 0;
-                    let success = false;
-
-                    while (attempt < 3 && !success) {
-                        attempt++;
-                        if (loadingText) loadingText.innerText = `AI is processing... [Attempt ${attempt}/3]`;
-
-                        const response = await fetch(MODEL_URL, {
-                            method: 'POST',
-                            headers: {
-                                'Authorization': `Bearer ${HF_API_TOKEN}`,
+</body>
+</html>
