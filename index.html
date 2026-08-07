@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>Bgremove - Free 4K Photo Enhancer & Editor</title>
-    <meta name="description" content="Apni photos ko 4K me enhance karein, background change karein aur edit karein Bgremove ke sath bilkul free." />
-    <meta name="keywords" content="AI photo editor, background remover, 4K enhancer, face enhance, image compressor, format converter, Bgremove">
+    <title>BG Remove - Free 4K Photo Enhancer & Editor</title>
+    <meta name="description" content="Apni photos ko 4K me enhance karein, background change karein aur edit karein BG Remove ke sath bilkul free." />
+    <meta name="keywords" content="AI photo editor, background remover, 4K enhancer, face enhance, image compressor, format converter, BG Remove">
     <meta name="author" content="Mahiey Parihar">
     
     <!-- Google Search Console Verification Meta -->
@@ -23,25 +23,25 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-track { background: #f3f4f6; }
         ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
-        .glass { background: rgba(31, 41, 55, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
         input[type=range] { accent-color: #3b82f6; }
         .modal-transition { transition: opacity 0.3s ease, transform 0.3s ease; }
     </style>
 </head>
-<body class="bg-gray-900 text-white font-sans antialiased relative overflow-x-hidden">
+<body class="bg-gray-50 text-gray-900 font-sans antialiased relative overflow-x-hidden">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-40 glass px-6 py-4 flex justify-between items-center shadow-2xl">
-        <div class="text-2xl font-extrabold flex items-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 cursor-pointer">
-            <!-- Yahan tumhara logo add kiya hai aur usko invert kiya hai taaki dark theme par white dikhe -->
-            <img src="7335.webp" alt="Bgremove Logo" class="h-8 md:h-10 w-auto invert object-contain">
-            Bgremove
+    <nav class="fixed w-full z-40 glass px-6 py-4 flex justify-between items-center shadow-sm">
+        <div class="text-2xl font-extrabold flex items-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 cursor-pointer">
+            <!-- Normal Black Logo for Light Theme -->
+            <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 md:h-10 w-auto object-contain">
+            BG Remove
         </div>
         
         <div class="flex items-center gap-4" id="navAuthArea">
-            <button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full font-bold transition text-sm shadow-lg">
+            <button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition text-sm shadow-md">
                 Login / Sign Up
             </button>
         </div>
@@ -49,209 +49,208 @@
 
     <!-- Main Workspace Section -->
     <div class="pt-28 pb-10 px-4 max-w-6xl mx-auto text-center">
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Your AI-Powered <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Photo Studio</span></h1>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Your AI-Powered <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Photo Studio</span></h1>
         
         <!-- Clear Features Bullet Points -->
-        <div class="flex flex-wrap justify-center gap-3 md:gap-6 mb-8 text-sm md:text-base text-gray-300 font-medium">
-            <span class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-full border border-gray-700"><i class="fas fa-magic text-blue-400"></i> AI Background Remove & Change</span>
-            <span class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-full border border-gray-700"><i class="fas fa-expand-arrows-alt text-purple-400"></i> Pro Editor & Size Compressor</span>
-            <span class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-full border border-gray-700"><i class="fas fa-exchange-alt text-green-400"></i> Format Converter</span>
+        <div class="flex flex-wrap justify-center gap-3 md:gap-6 mb-8 text-sm md:text-base text-gray-700 font-medium">
+            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-magic text-blue-500"></i> AI Background Remove & Change</span>
+            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-expand-arrows-alt text-purple-500"></i> Pro Editor & Size Compressor</span>
+            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-exchange-alt text-green-500"></i> Format Converter</span>
         </div>
         
         <!-- Tool Selector -->
-        <div class="flex flex-wrap justify-center gap-2 mb-8 bg-gray-800 p-2 rounded-xl inline-flex shadow-xl border border-gray-700">
-            <button onclick="window.switchTool('bg-remove')" id="tab-bg-remove" class="px-4 py-3 rounded-lg font-bold bg-blue-600 text-white shadow-lg transition-all flex flex-col items-center gap-1 border border-transparent">
+        <div class="flex flex-wrap justify-center gap-2 mb-8 bg-white p-2 rounded-xl inline-flex shadow-md border border-gray-200">
+            <button onclick="window.switchTool('bg-remove')" id="tab-bg-remove" class="px-4 py-3 rounded-lg font-bold bg-blue-600 text-white shadow-md transition-all flex flex-col items-center gap-1 border border-transparent">
                 <div class="flex items-center gap-2"><i class="fas fa-eraser"></i> BG Tool</div>
                 <span id="bgCountDisplay" class="text-xs text-blue-200">5/5 Left</span>
             </button>
-            <button onclick="window.switchTool('compress')" id="tab-compress" class="px-4 py-3 rounded-lg font-bold text-gray-400 hover:text-white hover:bg-gray-700 transition-all flex flex-col items-center gap-1">
+            <button onclick="window.switchTool('compress')" id="tab-compress" class="px-4 py-3 rounded-lg font-bold text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-all flex flex-col items-center gap-1">
                 <div class="flex items-center gap-2"><i class="fas fa-compress-arrows-alt"></i> Compress</div>
-                <span id="compressCountDisplay" class="text-xs text-gray-500">10/10 Left</span>
+                <span id="compressCountDisplay" class="text-xs text-gray-400">10/10 Left</span>
             </button>
-            <button onclick="window.switchTool('edit')" id="tab-edit" class="px-4 py-3 rounded-lg font-bold text-gray-400 hover:text-white hover:bg-gray-700 transition-all flex flex-col items-center gap-1">
+            <button onclick="window.switchTool('edit')" id="tab-edit" class="px-4 py-3 rounded-lg font-bold text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-all flex flex-col items-center gap-1">
                 <div class="flex items-center gap-2"><i class="fas fa-sliders-h"></i> Pro Editor</div>
-                <span id="editCountDisplay" class="text-xs text-gray-500">Shared</span>
+                <span id="editCountDisplay" class="text-xs text-gray-400">Shared</span>
             </button>
-            <button onclick="window.switchTool('convert')" id="tab-convert" class="px-4 py-3 rounded-lg font-bold text-gray-400 hover:text-white hover:bg-gray-700 transition-all flex flex-col items-center gap-1">
+            <button onclick="window.switchTool('convert')" id="tab-convert" class="px-4 py-3 rounded-lg font-bold text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-all flex flex-col items-center gap-1">
                 <div class="flex items-center gap-2"><i class="fas fa-exchange-alt"></i> Converter</div>
-                <span class="text-xs text-gray-500">Shared</span>
+                <span class="text-xs text-gray-400">Shared</span>
             </button>
         </div>
 
-        <div class="bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 p-6 md:p-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 md:p-8 max-w-5xl mx-auto">
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Upload Box -->
-                <div class="border-2 border-dashed border-gray-600 rounded-xl p-8 flex flex-col items-center justify-center hover:border-blue-500 transition-colors cursor-pointer relative bg-gray-800/50 h-[320px]">
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 flex flex-col items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-colors cursor-pointer relative bg-gray-50 h-[320px]">
                     <input type="file" id="imageInput" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
                     <i class="fas fa-cloud-upload-alt text-5xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Upload Image</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Upload Image</h3>
                     <p class="text-gray-500 text-sm">PNG, JPG supports up to 10MB</p>
                 </div>
 
                 <!-- Preview Box -->
-                <div class="relative bg-gray-900 rounded-xl border border-gray-700 flex flex-col items-center justify-center overflow-hidden h-[320px] shadow-inner">
+                <div class="relative bg-gray-100 rounded-xl border border-gray-200 flex flex-col items-center justify-center overflow-hidden h-[320px] shadow-inner">
                     <img id="imagePreview" class="hidden max-h-full max-w-full object-contain p-2" src="" alt="Preview">
-                    <div id="loadingOverlay" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm flex flex-col items-center justify-center z-10">
-                        <i class="fas fa-spinner fa-spin text-4xl text-blue-500 mb-3"></i>
-                        <p id="loadingText" class="font-semibold text-white animate-pulse">Processing...</p>
+                    <div id="loadingOverlay" class="hidden absolute inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center z-10">
+                        <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-3"></i>
+                        <p id="loadingText" class="font-bold text-gray-800 animate-pulse">Processing...</p>
                     </div>
-                    <div id="previewText" class="text-gray-500 text-center">
-                        <i class="fas fa-image text-5xl mb-4 opacity-30"></i>
-                        <p class="font-medium">Result Preview</p>
+                    <div id="previewText" class="text-gray-400 text-center">
+                        <i class="fas fa-image text-5xl mb-4 opacity-50"></i>
+                        <p class="font-medium text-gray-500">Result Preview</p>
                     </div>
                 </div>
             </div>
 
             <!-- Controls -->
-            <div class="mt-8 bg-gray-900 p-6 rounded-xl border border-gray-700 min-h-[12rem] flex items-center justify-center">
+            <div class="mt-8 bg-gray-50 p-6 rounded-xl border border-gray-200 min-h-[12rem] flex items-center justify-center">
                 
                 <!-- BG Remove & Change -->
                 <div id="control-bg-remove" class="w-full text-center">
-                    <button id="removeBgBtn" class="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-xl font-bold shadow-lg hover:scale-105 transition w-full md:w-auto text-lg mb-4">
+                    <button id="removeBgBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-xl font-bold shadow-md hover:scale-105 transition w-full md:w-auto text-lg mb-4">
                         <i class="fas fa-eraser mr-2"></i> Remove Background
                     </button>
                     <div class="flex items-center justify-center gap-4 mt-2">
-                        <span class="text-gray-300 text-sm font-medium">Add New Background Color:</span>
-                        <input type="color" id="bgColorPicker" value="#ffffff" class="w-10 h-10 rounded cursor-pointer border-0 bg-transparent">
-                        <button id="applyBgColorBtn" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-sm transition font-bold shadow hidden">Apply Color</button>
+                        <span class="text-gray-700 text-sm font-medium">Add New Background Color:</span>
+                        <input type="color" id="bgColorPicker" value="#ffffff" class="w-10 h-10 rounded cursor-pointer border border-gray-300 bg-white">
+                        <button id="applyBgColorBtn" class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 px-4 py-2 rounded text-sm transition font-bold shadow-sm hidden">Apply Color</button>
                     </div>
-                    <p class="text-yellow-500 text-xs mt-3"><i class="fas fa-info-circle"></i> Watermark applies to free limits. Upgrade for clean exports.</p>
+                    <p class="text-yellow-600 font-medium text-xs mt-3"><i class="fas fa-info-circle"></i> Watermark applies to free limits. Upgrade for clean exports.</p>
                 </div>
 
                 <!-- Compress Tool -->
                 <div id="control-compress" class="hidden w-full max-w-md text-center">
                     <div class="mb-4 text-left">
-                        <label class="block text-sm font-medium text-gray-300 mb-2">Target File Size (KB)</label>
-                        <input type="number" id="targetKbInput" placeholder="e.g. 50 or 100" class="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition text-sm">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Target File Size (KB)</label>
+                        <input type="number" id="targetKbInput" placeholder="e.g. 50 or 100" class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-blue-500 transition text-sm">
                         <p class="text-xs text-gray-500 mt-1">Leave blank to use manual slider below.</p>
                     </div>
-                    <div class="flex justify-between text-sm mb-2 font-medium text-gray-300">
-                        <span>Manual Quality</span> <span id="qualityValue" class="text-blue-400">70%</span>
+                    <div class="flex justify-between text-sm mb-2 font-medium text-gray-700">
+                        <span>Manual Quality</span> <span id="qualityValue" class="text-blue-600 font-bold">70%</span>
                     </div>
                     <input type="range" id="compressQuality" min="10" max="100" value="70" class="w-full mb-6">
-                    <button id="compressBtn" class="bg-blue-600 hover:bg-blue-500 px-8 py-3 rounded-lg font-bold shadow-lg transition w-full">Compress Image</button>
+                    <button id="compressBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold shadow-md transition w-full">Compress Image</button>
                 </div>
 
                 <!-- Pro Editor Tool -->
                 <div id="control-edit" class="hidden w-full max-w-4xl">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div><label class="flex justify-between text-sm mb-2 text-gray-300">Brightness <span id="valBright" class="text-blue-400">100%</span></label><input type="range" id="editBright" min="0" max="200" value="100" class="w-full"></div>
-                        <div><label class="flex justify-between text-sm mb-2 text-gray-300">Contrast <span id="valContrast" class="text-blue-400">100%</span></label><input type="range" id="editContrast" min="0" max="200" value="100" class="w-full"></div>
-                        <div><label class="flex justify-between text-sm mb-2 text-gray-300">Saturation <span id="valSat" class="text-blue-400">100%</span></label><input type="range" id="editSat" min="0" max="200" value="100" class="w-full"></div>
-                        <div><label class="flex justify-between text-sm mb-2 text-gray-300">Blur <span id="valBlur" class="text-blue-400">0px</span></label><input type="range" id="editBlur" min="0" max="20" value="0" class="w-full"></div>
-                        <div><label class="flex justify-between text-sm mb-2 text-gray-300">Sepia <span id="valSepia" class="text-blue-400">0%</span></label><input type="range" id="editSepia" min="0" max="100" value="0" class="w-full"></div>
-                        <div><label class="flex justify-between text-sm mb-2 text-gray-300">Hue Rotate <span id="valHue" class="text-blue-400">0deg</span></label><input type="range" id="editHue" min="0" max="360" value="0" class="w-full"></div>
+                        <div><label class="flex justify-between text-sm mb-2 text-gray-700 font-medium">Brightness <span id="valBright" class="text-blue-600 font-bold">100%</span></label><input type="range" id="editBright" min="0" max="200" value="100" class="w-full"></div>
+                        <div><label class="flex justify-between text-sm mb-2 text-gray-700 font-medium">Contrast <span id="valContrast" class="text-blue-600 font-bold">100%</span></label><input type="range" id="editContrast" min="0" max="200" value="100" class="w-full"></div>
+                        <div><label class="flex justify-between text-sm mb-2 text-gray-700 font-medium">Saturation <span id="valSat" class="text-blue-600 font-bold">100%</span></label><input type="range" id="editSat" min="0" max="200" value="100" class="w-full"></div>
+                        <div><label class="flex justify-between text-sm mb-2 text-gray-700 font-medium">Blur <span id="valBlur" class="text-blue-600 font-bold">0px</span></label><input type="range" id="editBlur" min="0" max="20" value="0" class="w-full"></div>
+                        <div><label class="flex justify-between text-sm mb-2 text-gray-700 font-medium">Sepia <span id="valSepia" class="text-blue-600 font-bold">0%</span></label><input type="range" id="editSepia" min="0" max="100" value="0" class="w-full"></div>
+                        <div><label class="flex justify-between text-sm mb-2 text-gray-700 font-medium">Hue Rotate <span id="valHue" class="text-blue-600 font-bold">0deg</span></label><input type="range" id="editHue" min="0" max="360" value="0" class="w-full"></div>
                     </div>
-                    <button id="applyEditBtn" class="mt-6 bg-blue-600 hover:bg-blue-500 px-8 py-3 rounded-lg font-bold shadow-lg transition w-full md:w-auto mx-auto block">Apply Pro Filters</button>
+                    <button id="applyEditBtn" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold shadow-md transition w-full md:w-auto mx-auto block">Apply Pro Filters</button>
                 </div>
 
                 <!-- Format Converter -->
                 <div id="control-convert" class="hidden w-full max-w-md text-center">
-                    <label class="block text-sm font-medium text-gray-300 mb-2 text-left">Select Target Format</label>
-                    <select id="convertFormat" class="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2 text-left">Select Target Format</label>
+                    <select id="convertFormat" class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-blue-500 transition mb-6">
                         <option value="image/jpeg">JPG / JPEG</option>
                         <option value="image/png">PNG</option>
                         <option value="image/webp">WEBP</option>
                         <option value="application/pdf">PDF Document</option>
                     </select>
-                    <button id="convertBtn" class="bg-green-600 hover:bg-green-500 px-8 py-3 rounded-lg font-bold shadow-lg transition w-full flex justify-center items-center gap-2">
+                    <button id="convertBtn" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-bold shadow-md transition w-full flex justify-center items-center gap-2">
                         <i class="fas fa-random"></i> Convert Now
                     </button>
                 </div>
 
             </div>
 
-            <div id="downloadSection" class="hidden flex justify-center mt-6 pt-6 border-t border-gray-700">
-                <a id="downloadBtn" class="bg-green-600 hover:bg-green-500 text-white px-10 py-3 rounded-xl font-bold shadow-lg transition flex items-center hover:scale-105"><i class="fas fa-download mr-2"></i> Download Result</a>
+            <div id="downloadSection" class="hidden flex justify-center mt-6 pt-6 border-t border-gray-200">
+                <a id="downloadBtn" class="bg-green-600 hover:bg-green-700 text-white px-10 py-3 rounded-xl font-bold shadow-lg transition flex items-center hover:scale-105"><i class="fas fa-download mr-2"></i> Download Result</a>
             </div>
         </div>
     </div>
 
     <!-- Pricing Section -->
-    <div id="pricingSection" class="py-20 bg-gray-950 border-t border-gray-800">
+    <div id="pricingSection" class="py-20 bg-gray-50 border-t border-gray-200">
         <div class="max-w-md mx-auto px-4">
-            <div class="bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl p-10 border-2 border-yellow-500 shadow-[0_0_30px_rgba(234,179,8,0.15)] relative transform hover:-translate-y-2 transition duration-300 text-center">
-                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black font-extrabold px-6 py-1 rounded-full text-sm">PREMIUM PRO</div>
-                <h3 class="text-3xl font-bold mb-2 text-white">Monthly Pass</h3>
-                <div class="mb-8"><span class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">₹49</span><span class="text-gray-500">/mo</span></div>
-                <ul class="space-y-4 mb-8 text-gray-300 font-medium text-left">
+            <div class="bg-gradient-to-b from-white to-gray-50 rounded-3xl p-10 border-2 border-yellow-400 shadow-[0_0_40px_rgba(234,179,8,0.15)] relative transform hover:-translate-y-2 transition duration-300 text-center">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black font-extrabold px-6 py-1 rounded-full text-sm shadow-md">PREMIUM PRO</div>
+                <h3 class="text-3xl font-bold mb-2 text-gray-900">Monthly Pass</h3>
+                <div class="mb-8"><span class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">₹49</span><span class="text-gray-500">/mo</span></div>
+                <ul class="space-y-4 mb-8 text-gray-700 font-medium text-left">
                     <li class="flex items-center"><i class="fas fa-check-circle text-yellow-500 mr-3 text-xl"></i> Unlimited Background Removal</li>
                     <li class="flex items-center"><i class="fas fa-check-circle text-yellow-500 mr-3 text-xl"></i> Access to 4K Upscale Tools</li>
                     <li class="flex items-center"><i class="fas fa-check-circle text-yellow-500 mr-3 text-xl"></i> NO WATERMARKS (Clean Export)</li>
                 </ul>
-                <button onclick="window.handleProUpgrade()" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-4 rounded-xl font-extrabold shadow-lg text-lg hover:scale-105 transition">Subscribe Securely</button>
+                <button onclick="window.handleProUpgrade()" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black py-4 rounded-xl font-extrabold shadow-lg text-lg hover:scale-105 transition">Subscribe Securely</button>
             </div>
         </div>
     </div>
 
     <!-- Limit Modal -->
-    <div id="limitModal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] flex justify-center items-center p-4">
-        <div class="bg-gray-800 border-2 border-yellow-500 p-8 rounded-2xl w-full max-w-md text-center relative shadow-[0_0_40px_rgba(234,179,8,0.3)]">
-            <button onclick="document.getElementById('limitModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl transition"><i class="fas fa-times"></i></button>
+    <div id="limitModal" class="hidden fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[100] flex justify-center items-center p-4">
+        <div class="bg-white border-2 border-yellow-400 p-8 rounded-2xl w-full max-w-md text-center relative shadow-[0_0_40px_rgba(234,179,8,0.2)]">
+            <button onclick="document.getElementById('limitModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl transition"><i class="fas fa-times"></i></button>
             <i class="fas fa-lock text-6xl text-yellow-500 mb-4"></i>
-            <h2 class="text-3xl font-bold mb-2">Free Limit Reached!</h2>
-            <p class="text-gray-400 mb-6" id="limitMessage">You have used all your free credits.</p>
-            <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.handleProUpgrade();" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-3 rounded-lg font-bold shadow-lg text-lg mb-3">Upgrade to Pro (₹49)</button>
-            <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.showAuthModal();" class="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-lg font-bold transition">Login for Bonus Credits</button>
+            <h2 class="text-3xl font-bold mb-2 text-gray-900">Free Limit Reached!</h2>
+            <p class="text-gray-600 mb-6" id="limitMessage">You have used all your free credits.</p>
+            <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.handleProUpgrade();" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black py-3 rounded-lg font-bold shadow-md text-lg mb-3">Upgrade to Pro (₹49)</button>
+            <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.showAuthModal();" class="w-full bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-800 py-3 rounded-lg font-bold transition">Login for Bonus Credits</button>
         </div>
     </div>
 
     <!-- 🚀 AUTH MODAL 🚀 -->
-    <div id="authModal" class="hidden fixed inset-0 z-[200] bg-black/95 flex justify-center items-center p-4 modal-transition overflow-y-auto">
-        <div class="bg-gray-900 border border-gray-700 p-6 md:p-8 rounded-3xl w-full max-w-md shadow-[0_0_50px_rgba(59,130,246,0.15)] relative my-8">
-            <button onclick="window.hideAuthModal()" class="absolute top-4 right-5 text-gray-500 hover:text-white text-2xl transition">
+    <div id="authModal" class="hidden fixed inset-0 z-[200] bg-gray-900/60 backdrop-blur-sm flex justify-center items-center p-4 modal-transition overflow-y-auto">
+        <div class="bg-white border border-gray-200 p-6 md:p-8 rounded-3xl w-full max-w-md shadow-2xl relative my-8">
+            <button onclick="window.hideAuthModal()" class="absolute top-4 right-5 text-gray-400 hover:text-gray-800 text-2xl transition">
                 <i class="fas fa-times"></i>
             </button>
             <div class="text-center mb-6 mt-2">
-                <div class="text-3xl font-extrabold flex items-center justify-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-1">
-                    <!-- Auth modal logo -->
-                    <img src="7335.webp" alt="Bgremove Logo" class="h-8 w-auto invert object-contain">
-                    Bgremove
+                <div class="text-3xl font-extrabold flex items-center justify-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-1">
+                    <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 w-auto object-contain">
+                    BG Remove
                 </div>
-                <p class="text-gray-400 text-sm" id="authSubtitle">Join to unlock premium features.</p>
+                <p class="text-gray-500 text-sm" id="authSubtitle">Join to unlock premium features.</p>
             </div>
             <!-- GOOGLE LOGIN BUTTON -->
             <div class="mb-6">
-                <button onclick="window.loginWithGoogle()" class="w-full bg-white hover:bg-gray-100 text-black py-3 rounded-xl font-bold shadow transition flex justify-center items-center gap-3 text-lg">
+                <button onclick="window.loginWithGoogle()" class="w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 py-3 rounded-xl font-bold shadow-sm transition flex justify-center items-center gap-3 text-lg">
                     <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google"> Continue with Google
                 </button>
             </div>
             <div class="flex items-center justify-center gap-2 mb-6">
-                <div class="h-px bg-gray-700 flex-1"></div>
+                <div class="h-px bg-gray-200 flex-1"></div>
                 <span class="text-gray-500 text-xs font-bold uppercase tracking-wider">Or select method</span>
-                <div class="h-px bg-gray-700 flex-1"></div>
+                <div class="h-px bg-gray-200 flex-1"></div>
             </div>
             <!-- MAIN AUTH TYPE TABS -->
-            <div class="flex border-b border-gray-800 mb-5">
-                <button onclick="window.setAuthType('email')" id="tabEmailAuth" class="flex-1 pb-3 text-center font-bold text-blue-500 border-b-2 border-blue-500 transition-all">Email</button>
-                <button onclick="window.setAuthType('phone')" id="tabPhoneAuth" class="flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-300 transition-all">Mobile OTP</button>
+            <div class="flex border-b border-gray-200 mb-5">
+                <button onclick="window.setAuthType('email')" id="tabEmailAuth" class="flex-1 pb-3 text-center font-bold text-blue-600 border-b-2 border-blue-600 transition-all">Email</button>
+                <button onclick="window.setAuthType('phone')" id="tabPhoneAuth" class="flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-800 transition-all">Mobile OTP</button>
             </div>
             <!-- EMAIL/PASSWORD SECTION -->
             <div id="emailAuthContainer">
                 <div class="flex justify-center gap-6 mb-4 text-sm">
-                    <button onclick="window.setEmailMode('login')" id="subTabLogin" class="text-blue-400 font-bold underline transition">Login</button>
-                    <button onclick="window.setEmailMode('register')" id="subTabRegister" class="text-gray-400 hover:text-gray-200 font-bold transition">Register</button>
+                    <button onclick="window.setEmailMode('login')" id="subTabLogin" class="text-blue-600 font-bold underline transition">Login</button>
+                    <button onclick="window.setEmailMode('register')" id="subTabRegister" class="text-gray-500 hover:text-gray-800 font-bold transition">Register</button>
                 </div>
                 <form id="authForm" class="space-y-4">
                     <div id="nameField" class="hidden">
                         <div class="relative">
-                            <i class="fas fa-user absolute left-4 top-3 text-gray-500"></i>
-                            <input type="text" id="authName" class="w-full bg-gray-950 border border-gray-700 rounded-lg pl-11 pr-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition text-sm" placeholder="Full Name">
+                            <i class="fas fa-user absolute left-4 top-3 text-gray-400"></i>
+                            <input type="text" id="authName" class="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 transition text-sm shadow-sm" placeholder="Full Name">
                         </div>
                     </div>
                     <div>
                         <div class="relative">
-                            <i class="fas fa-envelope absolute left-4 top-3 text-gray-500"></i>
-                            <input type="email" id="authEmail" required class="w-full bg-gray-950 border border-gray-700 rounded-lg pl-11 pr-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition text-sm" placeholder="you@example.com">
+                            <i class="fas fa-envelope absolute left-4 top-3 text-gray-400"></i>
+                            <input type="email" id="authEmail" required class="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 transition text-sm shadow-sm" placeholder="you@example.com">
                         </div>
                     </div>
                     <div>
                         <div class="relative">
-                            <i class="fas fa-lock absolute left-4 top-3 text-gray-500"></i>
-                            <input type="password" id="authPassword" required minlength="6" class="w-full bg-gray-950 border border-gray-700 rounded-lg pl-11 pr-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition text-sm" placeholder="Password (Min 6 chars)">
+                            <i class="fas fa-lock absolute left-4 top-3 text-gray-400"></i>
+                            <input type="password" id="authPassword" required minlength="6" class="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 transition text-sm shadow-sm" placeholder="Password (Min 6 chars)">
                         </div>
                     </div>
-                    <button type="submit" id="authSubmitBtn" class="w-full bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white py-3 rounded-lg font-bold shadow-lg transition mt-2">
+                    <button type="submit" id="authSubmitBtn" class="w-full bg-gray-900 hover:bg-black text-white py-3 rounded-lg font-bold shadow-md transition mt-2">
                         Log in
                     </button>
                 </form>
@@ -259,28 +258,28 @@
             <!-- MOBILE OTP SECTION -->
             <div id="phoneAuthContainer" class="hidden">
                 <div id="phoneEnterSection">
-                    <label class="block text-sm font-medium text-gray-300 mb-1">Mobile Number</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
                     <div class="relative mb-4">
-                        <span class="absolute left-4 top-2.5 text-gray-400 font-bold border-r border-gray-700 pr-2">+91</span>
-                        <input type="tel" id="phoneNumber" class="w-full bg-gray-950 border border-gray-700 rounded-lg pl-16 pr-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition tracking-wider" placeholder="9876543210" maxlength="10">
+                        <span class="absolute left-4 top-2.5 text-gray-500 font-bold border-r border-gray-300 pr-2">+91</span>
+                        <input type="tel" id="phoneNumber" class="w-full bg-white border border-gray-300 rounded-lg pl-16 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 transition tracking-wider shadow-sm" placeholder="9876543210" maxlength="10">
                     </div>
-                    <button onclick="window.sendOtp()" id="sendOtpBtn" class="w-full bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white py-3 rounded-lg font-bold shadow-lg transition mt-2">
+                    <button onclick="window.sendOtp()" id="sendOtpBtn" class="w-full bg-gray-900 hover:bg-black text-white py-3 rounded-lg font-bold shadow-md transition mt-2">
                         Send OTP
                     </button>
                 </div>
                 <div id="otpVerifySection" class="hidden">
-                    <label class="block text-sm font-medium text-gray-300 mb-1 text-center">Enter 6-Digit OTP</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1 text-center">Enter 6-Digit OTP</label>
                     <div class="relative mb-4">
-                        <i class="fas fa-key absolute left-4 top-3 text-gray-500"></i>
-                        <input type="number" id="otpCode" class="w-full bg-gray-950 border border-gray-700 rounded-lg pl-11 pr-4 py-2.5 text-white focus:outline-none focus:border-green-500 transition text-center tracking-[0.5em] text-lg font-bold" placeholder="••••••" maxlength="6">
+                        <i class="fas fa-key absolute left-4 top-3 text-gray-400"></i>
+                        <input type="number" id="otpCode" class="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-green-500 transition text-center tracking-[0.5em] text-lg font-bold shadow-sm" placeholder="••••••" maxlength="6">
                     </div>
-                    <button onclick="window.verifyOtp()" id="verifyOtpBtn" class="w-full bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg font-bold shadow-lg transition mt-2">
+                    <button onclick="window.verifyOtp()" id="verifyOtpBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold shadow-md transition mt-2">
                         Verify & Login
                     </button>
-                    <button onclick="window.resetPhoneAuth()" class="w-full text-center text-sm text-gray-500 hover:text-gray-300 mt-4 underline">Change Number</button>
+                    <button onclick="window.resetPhoneAuth()" class="w-full text-center text-sm text-gray-500 hover:text-gray-800 mt-4 underline">Change Number</button>
                 </div>
             </div>
-            <div id="authError" class="bg-red-500/10 border border-red-500/50 text-red-400 text-xs p-2.5 rounded-lg hidden font-medium items-start gap-2 mt-4 text-left">
+            <div id="authError" class="bg-red-50 border border-red-200 text-red-600 text-xs p-2.5 rounded-lg hidden font-medium items-start gap-2 mt-4 text-left">
                 <i class="fas fa-exclamation-circle mt-0.5"></i> <span id="authErrorText">Error message</span>
             </div>
             <div id="recaptcha-container"></div>
@@ -288,36 +287,35 @@
     </div>
 
     <!-- Creator Section -->
-    <div class="py-16 text-center border-t border-gray-800 bg-gray-900 mt-10">
-        <h3 class="text-xl font-bold mb-6 text-gray-400 uppercase tracking-widest text-sm">Developed By</h3>
+    <div class="py-16 text-center border-t border-gray-200 bg-gray-50 mt-10">
+        <h3 class="text-xl font-bold mb-6 text-gray-500 uppercase tracking-widest text-sm">Developed By</h3>
         <div class="inline-block relative">
-            <div class="absolute inset-0 bg-blue-500 rounded-full blur-md opacity-50"></div>
-            <img src="5421.jpg" alt="Mahiey Parihar" class="relative w-32 h-32 rounded-full object-cover border-4 border-gray-800 z-10 shadow-xl">
+            <div class="absolute inset-0 bg-blue-400 rounded-full blur-md opacity-30"></div>
+            <img src="5421.jpg" alt="Mahiey Parihar" class="relative w-32 h-32 rounded-full object-cover border-4 border-white z-10 shadow-lg">
         </div>
-        <h4 class="text-3xl font-extrabold mt-4 text-white">Mahiey Parihar</h4>
-        <p class="text-blue-400 font-medium mt-1">Creator & CEO</p>
+        <h4 class="text-3xl font-extrabold mt-4 text-gray-900">Mahiey Parihar</h4>
+        <p class="text-blue-600 font-bold mt-1">Creator & CEO</p>
     </div>
 
-    <footer class="bg-black py-10 border-t border-gray-800">
+    <footer class="bg-white py-10 border-t border-gray-200">
         <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-2xl font-extrabold flex items-center justify-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-                <!-- Footer logo -->
-                <img src="7335.webp" alt="Bgremove Logo" class="h-8 w-auto invert object-contain">
-                Bgremove
+            <div class="text-2xl font-extrabold flex items-center justify-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 w-auto object-contain">
+                BG Remove
             </div>
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-sm font-medium text-gray-400">
-                <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition">Terms & Conditions</a>
-                <a href="#" class="hover:text-white transition">Refund Policy</a>
-                <a href="#" class="hover:text-white transition">Contact Us</a>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-sm font-medium text-gray-600">
+                <a href="#" class="hover:text-blue-600 transition">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-600 transition">Terms & Conditions</a>
+                <a href="#" class="hover:text-blue-600 transition">Refund Policy</a>
+                <a href="#" class="hover:text-blue-600 transition">Contact Us</a>
             </div>
         </div>
-        <div class="text-center text-gray-600 text-xs mt-8">
-            <p>&copy; 2026 Bgremove by Mahiey Parihar. All rights reserved.</p>
+        <div class="text-center text-gray-500 text-xs mt-8">
+            <p>&copy; 2026 BG Remove by Mahiey Parihar. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- 🔥 FIREBASE & JS LOGIC 🔥 -->
+    <!-- 🔥 FIREBASE & JS LOGIC (UNCHANGED) 🔥 -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -375,8 +373,8 @@
         window.setAuthType = (type) => {
             document.getElementById('authError').classList.add('hidden');
             const isEmail = type === 'email';
-            document.getElementById('tabEmailAuth').className = isEmail ? "flex-1 pb-3 text-center font-bold text-blue-500 border-b-2 border-blue-500 transition-all" : "flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-300 transition-all";
-            document.getElementById('tabPhoneAuth').className = !isEmail ? "flex-1 pb-3 text-center font-bold text-blue-500 border-b-2 border-blue-500 transition-all" : "flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-300 transition-all";
+            document.getElementById('tabEmailAuth').className = isEmail ? "flex-1 pb-3 text-center font-bold text-blue-600 border-b-2 border-blue-600 transition-all" : "flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-800 transition-all";
+            document.getElementById('tabPhoneAuth').className = !isEmail ? "flex-1 pb-3 text-center font-bold text-blue-600 border-b-2 border-blue-600 transition-all" : "flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-800 transition-all";
             document.getElementById('emailAuthContainer').classList.toggle('hidden', !isEmail);
             document.getElementById('phoneAuthContainer').classList.toggle('hidden', isEmail);
             if(!isEmail && !window.recaptchaVerifier) {
@@ -387,8 +385,8 @@
         window.setEmailMode = (mode) => {
             emailMode = mode;
             const isReg = mode === 'register';
-            document.getElementById('subTabLogin').className = !isReg ? "text-blue-400 font-bold underline transition" : "text-gray-400 hover:text-gray-200 font-bold transition";
-            document.getElementById('subTabRegister').className = isReg ? "text-blue-400 font-bold underline transition" : "text-gray-400 hover:text-gray-200 font-bold transition";
+            document.getElementById('subTabLogin').className = !isReg ? "text-blue-600 font-bold underline transition" : "text-gray-500 hover:text-gray-800 font-bold transition";
+            document.getElementById('subTabRegister').className = isReg ? "text-blue-600 font-bold underline transition" : "text-gray-500 hover:text-gray-800 font-bold transition";
             document.getElementById('nameField').classList.toggle('hidden', !isReg);
             document.getElementById('authName').required = isReg;
             document.getElementById('authSubmitBtn').innerText = isReg ? "Create Account" : "Log in";
@@ -484,20 +482,20 @@
                     } catch(err) { console.warn("DB init warning", err); }
                     updateCountersUI();
                     navAuthArea.innerHTML = `
-                        <div class="hidden md:flex items-center gap-2 bg-gray-800 px-4 py-1.5 rounded-full border border-gray-700">
-                            <img src="${user.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-600" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
-                            <span class="text-sm font-semibold text-gray-300 max-w-[100px] truncate">${user.displayName || (user.phoneNumber ? 'Verified' : 'User')}</span>
+                        <div class="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">
+                            <img src="${user.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-200" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
+                            <span class="text-sm font-semibold text-gray-800 max-w-[100px] truncate">${user.displayName || (user.phoneNumber ? 'Verified' : 'User')}</span>
                         </div>
-                        <button onclick="window.handleProUpgrade()" class="bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-4 py-1.5 rounded-full font-bold shadow-lg transition hover:scale-105 text-sm">
+                        <button onclick="window.handleProUpgrade()" class="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-4 py-1.5 rounded-full font-bold shadow-sm transition hover:scale-105 text-sm">
                             <i class="fas fa-crown mr-1"></i> Pro
                         </button>
-                        <button onclick="window.logoutUser()" class="text-gray-400 hover:text-red-400 ml-1 text-lg"><i class="fas fa-sign-out-alt"></i></button>
+                        <button onclick="window.logoutUser()" class="text-gray-500 hover:text-red-500 ml-1 text-lg"><i class="fas fa-sign-out-alt"></i></button>
                     `;
                 } else {
                     currentUser = null;
                     userData = { bgUses: 0, basicUses: 0, isPro: false }; 
                     updateCountersUI();
-                    navAuthArea.innerHTML = `<button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full font-bold transition text-sm">Login / Sign Up</button>`;
+                    navAuthArea.innerHTML = `<button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition text-sm">Login / Sign Up</button>`;
                 }
             });
         }
@@ -546,10 +544,10 @@
             allTools.forEach(t => {
                 const tab = document.getElementById(`tab-${t}`);
                 if(tab) {
-                    tab.classList.remove('bg-blue-600', 'text-white', 'bg-gray-800');
+                    tab.classList.remove('bg-blue-600', 'text-white', 'bg-gray-50');
                     if(t !== tool) {
-                        tab.classList.add('text-gray-400');
-                        if(tab.querySelector('span')) tab.querySelector('span').classList.replace('text-blue-200', 'text-gray-500');
+                        tab.classList.add('text-gray-500');
+                        if(tab.querySelector('span')) tab.querySelector('span').classList.replace('text-blue-200', 'text-gray-400');
                     }
                 }
                 const controlEl = document.getElementById(`control-${t}`);
@@ -558,8 +556,8 @@
             const activeTab = document.getElementById(`tab-${tool}`);
             if(activeTab) {
                 activeTab.classList.add('bg-blue-600', 'text-white');
-                activeTab.classList.remove('text-gray-400');
-                if(activeTab.querySelector('span')) activeTab.querySelector('span').classList.replace('text-gray-500', 'text-blue-200');
+                activeTab.classList.remove('text-gray-500');
+                if(activeTab.querySelector('span')) activeTab.querySelector('span').classList.replace('text-gray-400', 'text-blue-200');
             }
             const activeControl = document.getElementById(`control-${tool}`);
             if(activeControl) activeControl.classList.remove('hidden');
@@ -587,7 +585,7 @@
 
         function applyWatermark(canvas, ctx) {
             if (currentUser && userData.isPro) return; 
-            const text = "Bgremove";
+            const text = "BG Remove";
             const fontSize = Math.max(16, canvas.width * 0.03); 
             ctx.font = `bold ${fontSize}px Arial`;
             ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
@@ -660,7 +658,7 @@
             const finalImgUrl = canvas.toDataURL(finalExt);
             imagePreview.src = finalImgUrl;
             downloadBtn.href = finalImgUrl; 
-            downloadBtn.download = bgColor ? "Bgremove_New_BG.jpg" : "Bgremove_No_BG.png";
+            downloadBtn.download = bgColor ? "BG_Remove_New_BG.jpg" : "BG_Remove_No_BG.png";
             downloadSection.classList.remove('hidden');
         }
 
@@ -704,7 +702,7 @@
                     
                     imagePreview.src = finalDataUrl;
                     downloadBtn.href = finalDataUrl; 
-                    downloadBtn.download = "Bgremove_Compressed.jpg";
+                    downloadBtn.download = "BG_Remove_Compressed.jpg";
                     downloadSection.classList.remove('hidden');
                     await incrementUsage('basic'); 
                     loadingOverlay.classList.add('hidden');
@@ -755,7 +753,7 @@
                     const finalDataUrl = canvas.toDataURL('image/jpeg', 0.9);
                     imagePreview.src = finalDataUrl;
                     downloadBtn.href = finalDataUrl; 
-                    downloadBtn.download = "Bgremove_ProEdit.jpg";
+                    downloadBtn.download = "BG_Remove_ProEdit.jpg";
                     downloadSection.classList.remove('hidden');
                     await incrementUsage('basic'); 
                     loadingOverlay.classList.add('hidden');
@@ -811,7 +809,7 @@
                         
                         imagePreview.src = imgData; // Preview me image dikhayenge
                         downloadBtn.href = pdfUrl; 
-                        downloadBtn.download = `Bgremove_Converted.pdf`;
+                        downloadBtn.download = `BG_Remove_Converted.pdf`;
                     } else {
                         // =====================================
                         // NORMAL IMAGE GENERATION LOGIC
@@ -819,7 +817,7 @@
                         const finalDataUrl = canvas.toDataURL(format, 0.9);
                         imagePreview.src = finalDataUrl;
                         downloadBtn.href = finalDataUrl; 
-                        downloadBtn.download = `Bgremove_Converted.${ext}`;
+                        downloadBtn.download = `BG_Remove_Converted.${ext}`;
                     }
 
                     downloadSection.classList.remove('hidden');
