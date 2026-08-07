@@ -806,7 +806,7 @@
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
     
- <!-- 🔥 DIRECT AI STYLE LOGIC (Bypasses Vercel Timeouts & Auto-Retries) 🔥 -->
+<!-- 🔥 DIRECT AI STYLE LOGIC (With Auto-Resizer & Timeout Bypass) 🔥 -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -832,97 +832,110 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loadingText) loadingText.innerText = loadingMessage;
         if (loadingOverlay) loadingOverlay.classList.remove('hidden');
 
-        // Photo ko Base64 text me badalna
         const reader = new FileReader();
         reader.readAsDataURL(currentFile);
-        reader.onload = async () => {
-            try {
-                // API ke liye aage ka hissa hatana zaroori hai
-                const base64Image = reader.result.replace(/^data:image\/\w+;base64,/, "");
+        reader.onload = (e) => {
+            const img = new Image();
+            img.src = e.target.result;
+            img.onload = async () => {
+                try {
+                    // ==========================================
+                    // 1. AUTO-RESIZER (Prepares small image to prevent crash)
+                    // ==========================================
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    let width = img.width;
+                    let height = img.height;
+                    const MAX_SIZE = 750; // AI ke liye safe size
 
-                let attempt = 0;
-                let success = false;
-
-                // Auto-Retry System: Agar AI Model so raha hai, toh code khud 3 baar try karega
-                while (attempt < 3 && !success) {
-                    attempt++;
-                    if (attempt > 1) {
-                        if (loadingText) loadingText.innerText = `AI is warming up... (Wait ~10 sec) [Attempt ${attempt}/3]`;
+                    if (width > height && width > MAX_SIZE) {
+                        height = Math.round(height * (MAX_SIZE / width));
+                        width = MAX_SIZE;
+                    } else if (height > MAX_SIZE) {
+                        width = Math.round(width * (MAX_SIZE / height));
+                        height = MAX_SIZE;
                     }
 
-                    const response = await fetch(MODEL_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${HF_API_TOKEN}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            inputs: promptText,
-                            image: base64Image
-                        })
-                    });
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
 
-                    // Agar AI wake-up kar raha hai (503 Error)
-                    if (response.status === 503) {
-                        await new Promise(r => setTimeout(r, 10000)); // 10 second wait karega
-                        continue; // Phir se check karega
+                    // Choti photo ko Base64 me badalna (Size < 200KB)
+                    const base64Image = canvas.toDataURL('image/jpeg', 0.8).replace(/^data:image\/\w+;base64,/, "");
+
+                    // ==========================================
+                    // 2. SEND TO AI & RETRY LOGIC
+                    // ==========================================
+                    let attempt = 0;
+                    let success = false;
+
+                    while (attempt < 3 && !success) {
+                        attempt++;
+                        if (attempt > 1 && loadingText) {
+                            loadingText.innerText = `AI is warming up... (Wait ~10 sec) [Attempt ${attempt}/3]`;
+                        }
+
+                        const response = await fetch(MODEL_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${HF_API_TOKEN}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                inputs: promptText,
+                                image: base64Image
+                            })
+                        });
+
+                        // Agar AI wake-up mode me hai
+                        if (response.status === 503) {
+                            await new Promise(r => setTimeout(r, 10000)); // 10 second ruk kar dobara try
+                            continue; 
+                        }
+
+                        if (!response.ok) throw new Error("Server ne request reject kar di. Try again!");
+
+                        // Final Edited Photo
+                        const blob = await response.blob();
+                        const imageUrl = URL.createObjectURL(blob);
+
+                        const imagePreview = document.getElementById('imagePreview');
+                        if (imagePreview) {
+                            imagePreview.src = imageUrl;
+                            imagePreview.classList.remove('hidden');
+                        }
+                        
+                        const downloadBtn = document.getElementById('downloadBtn');
+                        const downloadSection = document.getElementById('downloadSection');
+                        if (downloadBtn && downloadSection) {
+                            downloadBtn.href = imageUrl;
+                            downloadBtn.download = "MahieyAI_Style_Edit.jpg";
+                            downloadSection.classList.remove('hidden');
+                        }
+                        success = true;
                     }
 
-                    if (!response.ok) throw new Error("API Error ya Image Size bahut bada hai!");
+                    if (!success) alert("AI ko load hone me time lag raha hai. Thodi der baad try karein.");
 
-                    // Final Photo nikalna
-                    const blob = await response.blob();
-                    const imageUrl = URL.createObjectURL(blob);
-
-                    const imagePreview = document.getElementById('imagePreview');
-                    if (imagePreview) {
-                        imagePreview.src = imageUrl;
-                        imagePreview.classList.remove('hidden');
-                    }
-                    
-                    const downloadBtn = document.getElementById('downloadBtn');
-                    const downloadSection = document.getElementById('downloadSection');
-                    if (downloadBtn && downloadSection) {
-                        downloadBtn.href = imageUrl;
-                        downloadBtn.download = "MahieyAI_Style.jpg";
-                        downloadSection.classList.remove('hidden');
-                    }
-                    success = true;
+                } catch (error) {
+                    alert("Process Failed: " + error.message);
+                } finally {
+                    if (loadingOverlay) loadingOverlay.classList.add('hidden');
                 }
-
-                if (!success) {
-                    alert("AI is taking too long to load! Please try a smaller image size or try again later.");
-                }
-
-            } catch (error) {
-                alert("Process Failed: " + error.message);
-            } finally {
-                if (loadingOverlay) loadingOverlay.classList.add('hidden');
-            }
-        };
-        
-        reader.onerror = () => {
-            alert("Error reading photo file!");
-            if (loadingOverlay) loadingOverlay.classList.add('hidden');
+            };
         };
     }
 
     if (outfitBtn) {
         outfitBtn.addEventListener('click', () => {
-            if (HF_API_TOKEN === "YAHAN_APNA_TOKEN_PASTE_KAREIN") {
-                alert("Bhai, pehle code me apna HF Token toh daal do!");
-                return;
-            }
+            if (HF_API_TOKEN === "YAHAN_APNA_TOKEN_PASTE_KAREIN") return alert("Apna Token code me paste karein!");
             processImageDirectly("change clothes to a stylish red jacket, highly realistic", "AI is changing your outfit...");
         });
     }
 
     if (sunglassesBtn) {
         sunglassesBtn.addEventListener('click', () => {
-            if (HF_API_TOKEN === "YAHAN_APNA_TOKEN_PASTE_KAREIN") {
-                alert("Bhai, pehle code me apna HF Token toh daal do!");
-                return;
-            }
+            if (HF_API_TOKEN === "YAHAN_APNA_TOKEN_PASTE_KAREIN") return alert("Apna Token code me paste karein!");
             processImageDirectly("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
         });
     }
