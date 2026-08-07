@@ -806,13 +806,19 @@
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
     
-<!-- 🔥 SECURE AI STYLE LOGIC (Bina Token Ke + Auto-Resizer + Crash Fix) 🔥 -->
+<!-- 🔥 DIRECT AI STYLE LOGIC (Bypasses Vercel 10s Limit) 🔥 -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // 👉 Tumhara Token (Ab Vercel beech me nahi aayega!)
+    const HF_API_TOKEN = "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"; 
+    
+    const MODEL_URL = "https://api-inference.huggingface.co/models/timbrooks/instruct-pix2pix";
+
     const outfitBtn = document.getElementById('btn-outfit');
     const sunglassesBtn = document.getElementById('btn-sunglasses');
 
-    async function processImageWithBackend(promptText, loadingMessage) {
+    async function processImageDirectly(promptText, loadingMessage) {
         const imageInput = document.getElementById('imageInput');
         if (!imageInput || !imageInput.files[0]) {
             alert("Please upload an image first!");
@@ -823,7 +829,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingText = document.getElementById('loadingText');
         
-        if (loadingText) loadingText.innerText = loadingMessage + " (Processing...)";
+        if (loadingText) loadingText.innerText = loadingMessage + " (Preparing...)";
         if (loadingOverlay) loadingOverlay.classList.remove('hidden');
 
         const reader = new FileReader();
@@ -834,13 +840,13 @@ document.addEventListener('DOMContentLoaded', () => {
             img.onload = async () => {
                 try {
                     // ==========================================
-                    // 1. AUTO-RESIZER (Photo chhoti karna)
+                    // 1. AUTO-RESIZER (Photo size chhota karna)
                     // ==========================================
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
                     let width = img.width;
                     let height = img.height;
-                    const MAX_SIZE = 750;
+                    const MAX_SIZE = 750; 
 
                     if (width > height && width > MAX_SIZE) {
                         height = Math.round(height * (MAX_SIZE / width));
@@ -854,61 +860,63 @@ document.addEventListener('DOMContentLoaded', () => {
                     canvas.height = height;
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    const base64Image = canvas.toDataURL('image/jpeg', 0.8);
-
-                    if (loadingText) loadingText.innerText = loadingMessage + " (Sending to Secure Vercel...)";
+                    const base64Image = canvas.toDataURL('image/jpeg', 0.8).replace(/^data:image\/\w+;base64,/, "");
 
                     // ==========================================
-                    // 2. SEND TO VERCEL BACKEND (Token Yahan Nahi Hai)
+                    // 2. DIRECT SEND TO AI (Vercel ki chhutti!)
                     // ==========================================
-                    const response = await fetch('/api/webhook', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'x-action-type': 'ai-style'
-                        },
-                        body: JSON.stringify({ promptText: promptText, base64Image: base64Image })
-                    });
+                    let attempt = 0;
+                    let success = false;
 
-                    // JSON 'T' ERROR FIX: Pehle check karenge ki response JSON hai ya HTML Error
-                    const textResponse = await response.text();
-                    let data;
-                    
-                    try {
-                        data = JSON.parse(textResponse);
-                    } catch (parseError) {
-                        // Agar Vercel ne 10 sec me HTML Timeout error diya
-                        if (textResponse.includes('504') || textResponse.includes('Timeout') || textResponse.includes('Unexpected')) {
-                            throw new Error("HuggingFace AI so raha tha! Usne 10 sec me reply nahi diya. Please 'OK' dabakar turant dobara button dabayein.");
+                    while (attempt < 3 && !success) {
+                        attempt++;
+                        if (loadingText) loadingText.innerText = `AI is processing... [Attempt ${attempt}/3]`;
+
+                        const response = await fetch(MODEL_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${HF_API_TOKEN}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                inputs: promptText,
+                                image: base64Image
+                            })
+                        });
+
+                        // Agar AI so raha hai, toh browser khud 10 second wait karega (Browser me timeout nahi hota)
+                        if (response.status === 503) {
+                            if (loadingText) loadingText.innerText = `AI is waking up... Please wait ~15 sec`;
+                            await new Promise(r => setTimeout(r, 10000));
+                            continue; 
                         }
-                        throw new Error("Vercel Server Error. Backend check karein.");
+
+                        if (!response.ok) throw new Error("Network Error! Thodi der baad try karein.");
+
+                        // Final Edited Photo screen par lana
+                        const blob = await response.blob();
+                        const imageUrl = URL.createObjectURL(blob);
+
+                        const imagePreview = document.getElementById('imagePreview');
+                        if (imagePreview) {
+                            imagePreview.src = imageUrl;
+                            imagePreview.classList.remove('hidden');
+                        }
+                        
+                        const downloadBtn = document.getElementById('downloadBtn');
+                        const downloadSection = document.getElementById('downloadSection');
+                        if (downloadBtn && downloadSection) {
+                            downloadBtn.href = imageUrl;
+                            downloadBtn.download = "MahieyAI_Style_Edit.jpg";
+                            downloadSection.classList.remove('hidden');
+                        }
+                        success = true;
                     }
 
-                    // Agar backend ne bataya ki AI warm-up kar raha hai
-                    if (response.status === 503 || (data.error && data.error.includes('warming up'))) {
-                         throw new Error("AI is warming up! Please wait 10 seconds and click the button again.");
-                    }
-
-                    if (!response.ok) throw new Error(data.error || "Server Error Aaya!");
-
-                    // Final Photo Dikhana
-                    const imagePreview = document.getElementById('imagePreview');
-                    if (imagePreview) {
-                        imagePreview.src = data.resultImage;
-                        imagePreview.classList.remove('hidden');
-                    }
-                    
-                    const downloadBtn = document.getElementById('downloadBtn');
-                    const downloadSection = document.getElementById('downloadSection');
-                    if (downloadBtn && downloadSection) {
-                        downloadBtn.href = data.resultImage;
-                        downloadBtn.download = "MahieyAI_Style_Edit.jpg";
-                        downloadSection.classList.remove('hidden');
-                    }
+                    if (!success) alert("AI ko load hone me time lag raha hai. Please baad me dobara try karein.");
 
                 } catch (error) {
-                    // Message ko saaf tarike se screen par dikhana
-                    alert(error.message);
+                    alert("Process Failed: " + error.message);
                 } finally {
                     if (loadingOverlay) loadingOverlay.classList.add('hidden');
                 }
@@ -918,13 +926,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (outfitBtn) {
         outfitBtn.addEventListener('click', () => {
-            processImageWithBackend("change clothes to a stylish red jacket, highly realistic", "AI is changing your outfit...");
+            processImageDirectly("change clothes to a stylish red jacket, highly realistic", "AI is changing your outfit...");
         });
     }
 
     if (sunglassesBtn) {
         sunglassesBtn.addEventListener('click', () => {
-            processImageWithBackend("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
+            processImageDirectly("add cool black sunglasses on the eyes", "AI is adding sunglasses...");
         });
     }
 });
