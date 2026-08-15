@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Champions Contest | BG Remove AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans min-h-screen">
+
+    <div class="max-w-3xl mx-auto px-4 py-10">
+        <!-- Header -->
+        <a href="index.html" class="text-blue-400 font-bold mb-6 block"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">AI Champions Contest 🏆</h1>
+            <p class="text-gray-400">Share your link, climb the leaderboard & win big!</p>
+            <!-- Countdown Timer -->
+            <div id="timer" class="mt-6 flex justify-center gap-4 text-2xl font-mono font-bold bg-gray-800 p-4 rounded-xl border border-gray-700">
+                <span>Result in 30 Days</span>
+            </div>
+        </div>
+
+        <!-- Prizes -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+            <div class="bg-gradient-to-br from-yellow-500 to-amber-700 p-6 rounded-2xl shadow-lg">
+                <h3 class="text-xl font-bold mb-2">🥇 Top 3 Winners</h3>
+                <ul class="text-sm opacity-90 space-y-1">
+                    <li>• ₹500 Cash Reward 💸</li>
+                    <li>• Lifetime Premium Access 👑</li>
+                </ul>
+            </div>
+            <div class="bg-gradient-to-br from-gray-500 to-gray-700 p-6 rounded-2xl shadow-lg">
+                <h3 class="text-xl font-bold mb-2">🥈 Top 5 Runners-up</h3>
+                <ul class="text-sm opacity-90 space-y-1">
+                    <li>• 1 Month Premium Access 🚀</li>
+                    <li>• Featured as AI Master 🌟</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Referral Link -->
+        <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-10 text-center">
+            <h3 class="font-bold mb-4">Your Unique Link</h3>
+            <input type="text" id="refLink" readonly class="w-full bg-gray-900 text-blue-400 font-bold p-4 rounded-lg mb-4 border border-gray-600 text-center">
+            <button onclick="copyLink()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold w-full transition">Copy & Share Link 🔗</button>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+            <h3 class="font-bold text-xl mb-6 flex items-center gap-2"><i class="fas fa-trophy text-yellow-400"></i> Live Leaderboard</h3>
+            <div id="leaderboardBody" class="space-y-3">
+                <p class="text-gray-500 text-center">Loading leaderboard...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // --- PASTE YOUR CONFIG HERE ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyDSFwn1log1-ehfYwLudOAPVWzGfsp86Bg",
+          authDomain: "mahieyai.firebaseapp.com",
+          projectId: "mahieyai",
+          storageBucket: "mahieyai.firebasestorage.app",
+          messagingSenderId: "618821654527",
+          appId: "1:618821654527:web:21b27ff53fb6a923d839ca"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if(user) {
+                document.getElementById('refLink').value = `${window.location.origin}/?ref=${user.uid}`;
+            } else {
+                document.getElementById('refLink').value = "Please login on Home page first!";
+            }
+        });
+
+        async function loadLeaderboard() {
+            const q = query(collection(db, "users"), orderBy("referrals", "desc"), limit(10));
+            const querySnapshot = await getDocs(q);
+            const body = document.getElementById('leaderboardBody');
+            body.innerHTML = "";
+            querySnapshot.forEach((doc, index) => {
+                const user = doc.data();
+                body.innerHTML += `
+                    <div class="flex justify-between items-center p-4 bg-gray-900 rounded-lg border border-gray-700">
+                        <span class="font-bold">${index + 1}. ${user.name || 'User'}</span>
+                        <span class="bg-blue-600 px-3 py-1 rounded-full text-sm font-bold">${user.referrals || 0} Invites</span>
+                    </div>
+                `;
+            });
+        }
+        loadLeaderboard();
+        window.copyLink = () => {
+            const copyText = document.getElementById("refLink");
+            copyText.select(); document.execCommand("copy");
+            alert("Copied! Share on WhatsApp & Insta Stories now!");
+        }
+    </script>
+</body>
+</html>
