@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO Meta Tags & Favicon -->
+    <!-- SEO & Viral Meta Tags -->
     <title>BG Remove AI - Free 4K Photo Enhancer & Background Remover</title>
-    <meta name="description" content="Free AI Background Remover, 4K Photo Enhancer, and Image Compressor. Upload your photo and remove bg automatically with BG Remove AI." />
-    <meta name="keywords" content="bg remove, background remover, bgremoveai, ai photo editor, remove bg free, bg remover ai, photo background change">
+    <meta name="description" content="Free AI Background Remover, 4K Photo Enhancer, and Image Compressor. Join the AI Challenge and win Premium Perks!" />
+    <meta name="keywords" content="bg remove, background remover, bgremoveai, ai photo editor, remove bg free, bg remover ai">
     <meta name="author" content="Mahiey Parihar">
     
-    <!-- Google Search ke liye Logo (Favicon) -->
+    <!-- Open Graph (WhatsApp/Facebook/Insta Preview ke liye) -->
+    <meta property="og:title" content="🔥 Win ₹500 & Pro Access - BG Remove AI">
+    <meta property="og:description" content="Remove backgrounds in 2 seconds for free! Join the Top 3 AI Champions Contest today. Click to claim your credits!">
+    <meta property="og:image" content="7335_2.webp">
+    <meta property="og:url" content="https://bgremove.is-a.bot">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
     <link rel="icon" type="image/webp" href="7335_2.webp">
     <link rel="apple-touch-icon" href="7335_2.webp">
     
@@ -36,30 +43,55 @@
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased relative overflow-x-hidden">
 
+    <!-- 🔥 CONTEST BANNER 🔥 -->
+    <div class="bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 text-white text-center py-2 px-4 font-extrabold text-sm md:text-base relative z-50 cursor-pointer shadow-md" onclick="document.getElementById('referralSection').scrollIntoView({behavior: 'smooth'})">
+        🏆 WIN BIG: Refer Friends to Win ₹500 Cash + Lifetime Pro! <span class="underline decoration-white underline-offset-2 ml-2">Get Your Link Now 🚀</span>
+    </div>
+
     <!-- Navbar -->
-    <nav class="fixed w-full z-40 glass px-6 py-4 flex justify-between items-center shadow-sm">
+    <nav class="sticky top-0 w-full z-40 glass px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="text-2xl font-extrabold flex items-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 cursor-pointer">
-            <!-- Normal Black Logo for Light Theme -->
             <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 md:h-10 w-auto object-contain">
             BG Remove
         </div>
         
         <div class="flex items-center gap-4" id="navAuthArea">
-            <button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition text-sm shadow-md">
-                Login / Sign Up
+            <button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition text-sm shadow-md animate-bounce">
+                Login to Get Link
             </button>
         </div>
     </nav>
 
     <!-- Main Workspace Section -->
-    <div class="pt-28 pb-10 px-4 max-w-6xl mx-auto text-center">
+    <div class="pt-10 pb-10 px-4 max-w-6xl mx-auto text-center">
+        
+        <!-- 🚀 REFERRAL DASHBOARD 🚀 -->
+        <div id="referralSection" class="mb-10 bg-white p-6 md:p-8 rounded-3xl shadow-xl border-4 border-orange-400 text-center relative overflow-hidden transform hover:-translate-y-1 transition duration-300">
+             <div class="absolute -top-10 -right-10 text-9xl opacity-10 pointer-events-none">🎁</div>
+             <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600 mb-2">🔥 Top 3 AI Champions Contest! 🔥</h2>
+             <p class="text-gray-700 mb-6 font-medium text-sm md:text-base max-w-2xl mx-auto">Invite friends to use this tool. Every friend who logs in counts! Top 3 users win <b>₹500 Cash</b> & Lifetime Premium. Contest ends soon!</p>
+             
+             <div class="flex flex-col md:flex-row justify-center items-center gap-4 max-w-3xl mx-auto">
+                 <div class="bg-gray-100 p-2 md:p-3 rounded-xl flex-1 w-full flex items-center justify-between border-2 border-gray-300 border-dashed">
+                     <i class="fas fa-link text-gray-400 ml-2"></i>
+                     <input type="text" id="myRefLink" readonly class="bg-transparent w-full outline-none text-blue-600 font-bold font-mono text-sm px-3 text-center" value="Login to generate your referral link">
+                     <button onclick="window.copyRefLink()" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 md:px-6 py-2 rounded-lg font-bold shadow-md hover:shadow-lg transition flex items-center gap-2 whitespace-nowrap">
+                        <i class="fas fa-copy"></i> Copy Link
+                     </button>
+                 </div>
+                 <div class="bg-orange-100 border-2 border-orange-300 px-6 py-3 rounded-xl font-bold text-orange-700 w-full md:w-auto shadow-sm flex flex-col justify-center items-center">
+                     <span class="text-xs uppercase tracking-wider mb-1">My Referrals</span>
+                     <span id="myRefCount" class="text-3xl">0</span>
+                 </div>
+             </div>
+        </div>
+
         <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Your AI-Powered <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Photo Studio</span></h1>
         
-        <!-- Clear Features Bullet Points -->
         <div class="flex flex-wrap justify-center gap-3 md:gap-6 mb-8 text-sm md:text-base text-gray-700 font-medium">
-            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-magic text-blue-500"></i> AI Background Remove & Change</span>
-            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-expand-arrows-alt text-purple-500"></i> Pro Editor & Size Compressor</span>
-            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-exchange-alt text-green-500"></i> Format Converter</span>
+            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-magic text-blue-500"></i> AI Background Remove</span>
+            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-expand-arrows-alt text-purple-500"></i> Pro Editor</span>
+            <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-exchange-alt text-green-500"></i> Converter</span>
         </div>
         
         <!-- Tool Selector -->
@@ -119,7 +151,7 @@
                         <input type="color" id="bgColorPicker" value="#ffffff" class="w-10 h-10 rounded cursor-pointer border border-gray-300 bg-white">
                         <button id="applyBgColorBtn" class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 px-4 py-2 rounded text-sm transition font-bold shadow-sm hidden">Apply Color</button>
                     </div>
-                    <p class="text-yellow-600 font-medium text-xs mt-3"><i class="fas fa-info-circle"></i> Watermark applies to free limits. Upgrade for clean exports.</p>
+                    <p class="hidden text-yellow-600 font-medium text-xs mt-3"><i class="fas fa-info-circle"></i> Watermark applies to free limits. Upgrade for clean exports.</p>
                 </div>
 
                 <!-- Compress Tool -->
@@ -127,7 +159,6 @@
                     <div class="mb-4 text-left">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Target File Size (KB)</label>
                         <input type="number" id="targetKbInput" placeholder="e.g. 50 or 100" class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-blue-500 transition text-sm">
-                        <p class="text-xs text-gray-500 mt-1">Leave blank to use manual slider below.</p>
                     </div>
                     <div class="flex justify-between text-sm mb-2 font-medium text-gray-700">
                         <span>Manual Quality</span> <span id="qualityValue" class="text-blue-600 font-bold">70%</span>
@@ -171,122 +202,44 @@
         </div>
     </div>
 
-    <!-- Pricing Section -->
-    <div id="pricingSection" class="py-20 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-md mx-auto px-4">
-            <div class="bg-gradient-to-b from-white to-gray-50 rounded-3xl p-10 border-2 border-yellow-400 shadow-[0_0_40px_rgba(234,179,8,0.15)] relative transform hover:-translate-y-2 transition duration-300 text-center">
-                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black font-extrabold px-6 py-1 rounded-full text-sm shadow-md">PREMIUM PRO</div>
-                <h3 class="text-3xl font-bold mb-2 text-gray-900">Monthly Pass</h3>
-                <div class="mb-8"><span class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">₹49</span><span class="text-gray-500">/mo</span></div>
-                <ul class="space-y-4 mb-8 text-gray-700 font-medium text-left">
-                    <li class="flex items-center"><i class="fas fa-check-circle text-yellow-500 mr-3 text-xl"></i> Unlimited Background Removal</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-yellow-500 mr-3 text-xl"></i> Access to 4K Upscale Tools</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-yellow-500 mr-3 text-xl"></i> NO WATERMARKS (Clean Export)</li>
-                </ul>
-                <button onclick="window.handleProUpgrade()" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black py-4 rounded-xl font-extrabold shadow-lg text-lg hover:scale-105 transition">Subscribe Securely</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Limit Modal -->
     <div id="limitModal" class="hidden fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[100] flex justify-center items-center p-4">
         <div class="bg-white border-2 border-yellow-400 p-8 rounded-2xl w-full max-w-md text-center relative shadow-[0_0_40px_rgba(234,179,8,0.2)]">
             <button onclick="document.getElementById('limitModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl transition"><i class="fas fa-times"></i></button>
-            <i class="fas fa-lock text-6xl text-yellow-500 mb-4"></i>
+            <i class="fas fa-gift text-6xl text-orange-500 mb-4"></i>
             <h2 class="text-3xl font-bold mb-2 text-gray-900">Free Limit Reached!</h2>
-            <p class="text-gray-600 mb-6" id="limitMessage">You have used all your free credits.</p>
-            <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.handleProUpgrade();" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black py-3 rounded-lg font-bold shadow-md text-lg mb-3">Upgrade to Pro (₹49)</button>
-            <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.showAuthModal();" class="w-full bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-800 py-3 rounded-lg font-bold transition">Login for Bonus Credits</button>
+            <p class="text-gray-600 mb-6" id="limitMessage">Want more? Login and invite friends to get Unlimited Premium Features!</p>
+            <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.showAuthModal();" class="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:scale-105 text-white py-3 rounded-lg font-bold shadow-lg transition text-lg">Login to Unlock Bonus</button>
         </div>
     </div>
 
     <!-- 🚀 AUTH MODAL 🚀 -->
     <div id="authModal" class="hidden fixed inset-0 z-[200] bg-gray-900/60 backdrop-blur-sm flex justify-center items-center p-4 modal-transition overflow-y-auto">
         <div class="bg-white border border-gray-200 p-6 md:p-8 rounded-3xl w-full max-w-md shadow-2xl relative my-8">
-            <button onclick="window.hideAuthModal()" class="absolute top-4 right-5 text-gray-400 hover:text-gray-800 text-2xl transition">
-                <i class="fas fa-times"></i>
-            </button>
+            <button onclick="window.hideAuthModal()" class="absolute top-4 right-5 text-gray-400 hover:text-gray-800 text-2xl transition"><i class="fas fa-times"></i></button>
             <div class="text-center mb-6 mt-2">
                 <div class="text-3xl font-extrabold flex items-center justify-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-1">
                     <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 w-auto object-contain">
                     BG Remove
                 </div>
-                <p class="text-gray-500 text-sm" id="authSubtitle">Join to unlock premium features.</p>
+                <p class="text-gray-500 text-sm font-medium" id="authSubtitle">Login to participate in the Referral Challenge!</p>
             </div>
-            <!-- GOOGLE LOGIN BUTTON -->
+            
             <div class="mb-6">
                 <button onclick="window.loginWithGoogle()" class="w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 py-3 rounded-xl font-bold shadow-sm transition flex justify-center items-center gap-3 text-lg">
                     <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google"> Continue with Google
                 </button>
             </div>
+            
             <div class="flex items-center justify-center gap-2 mb-6">
                 <div class="h-px bg-gray-200 flex-1"></div>
-                <span class="text-gray-500 text-xs font-bold uppercase tracking-wider">Or select method</span>
+                <span class="text-gray-500 text-xs font-bold uppercase tracking-wider">Secure Connection</span>
                 <div class="h-px bg-gray-200 flex-1"></div>
             </div>
-            <!-- MAIN AUTH TYPE TABS -->
-            <div class="flex border-b border-gray-200 mb-5">
-                <button onclick="window.setAuthType('email')" id="tabEmailAuth" class="flex-1 pb-3 text-center font-bold text-blue-600 border-b-2 border-blue-600 transition-all">Email</button>
-                <button onclick="window.setAuthType('phone')" id="tabPhoneAuth" class="flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-800 transition-all">Mobile OTP</button>
-            </div>
-            <!-- EMAIL/PASSWORD SECTION -->
-            <div id="emailAuthContainer">
-                <div class="flex justify-center gap-6 mb-4 text-sm">
-                    <button onclick="window.setEmailMode('login')" id="subTabLogin" class="text-blue-600 font-bold underline transition">Login</button>
-                    <button onclick="window.setEmailMode('register')" id="subTabRegister" class="text-gray-500 hover:text-gray-800 font-bold transition">Register</button>
-                </div>
-                <form id="authForm" class="space-y-4">
-                    <div id="nameField" class="hidden">
-                        <div class="relative">
-                            <i class="fas fa-user absolute left-4 top-3 text-gray-400"></i>
-                            <input type="text" id="authName" class="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 transition text-sm shadow-sm" placeholder="Full Name">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="relative">
-                            <i class="fas fa-envelope absolute left-4 top-3 text-gray-400"></i>
-                            <input type="email" id="authEmail" required class="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 transition text-sm shadow-sm" placeholder="you@example.com">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="relative">
-                            <i class="fas fa-lock absolute left-4 top-3 text-gray-400"></i>
-                            <input type="password" id="authPassword" required minlength="6" class="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 transition text-sm shadow-sm" placeholder="Password (Min 6 chars)">
-                        </div>
-                    </div>
-                    <button type="submit" id="authSubmitBtn" class="w-full bg-gray-900 hover:bg-black text-white py-3 rounded-lg font-bold shadow-md transition mt-2">
-                        Log in
-                    </button>
-                </form>
-            </div>
-            <!-- MOBILE OTP SECTION -->
-            <div id="phoneAuthContainer" class="hidden">
-                <div id="phoneEnterSection">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
-                    <div class="relative mb-4">
-                        <span class="absolute left-4 top-2.5 text-gray-500 font-bold border-r border-gray-300 pr-2">+91</span>
-                        <input type="tel" id="phoneNumber" class="w-full bg-white border border-gray-300 rounded-lg pl-16 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 transition tracking-wider shadow-sm" placeholder="9876543210" maxlength="10">
-                    </div>
-                    <button onclick="window.sendOtp()" id="sendOtpBtn" class="w-full bg-gray-900 hover:bg-black text-white py-3 rounded-lg font-bold shadow-md transition mt-2">
-                        Send OTP
-                    </button>
-                </div>
-                <div id="otpVerifySection" class="hidden">
-                    <label class="block text-sm font-medium text-gray-700 mb-1 text-center">Enter 6-Digit OTP</label>
-                    <div class="relative mb-4">
-                        <i class="fas fa-key absolute left-4 top-3 text-gray-400"></i>
-                        <input type="number" id="otpCode" class="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-2.5 text-gray-900 focus:outline-none focus:border-green-500 transition text-center tracking-[0.5em] text-lg font-bold shadow-sm" placeholder="••••••" maxlength="6">
-                    </div>
-                    <button onclick="window.verifyOtp()" id="verifyOtpBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold shadow-md transition mt-2">
-                        Verify & Login
-                    </button>
-                    <button onclick="window.resetPhoneAuth()" class="w-full text-center text-sm text-gray-500 hover:text-gray-800 mt-4 underline">Change Number</button>
-                </div>
-            </div>
+            
             <div id="authError" class="bg-red-50 border border-red-200 text-red-600 text-xs p-2.5 rounded-lg hidden font-medium items-start gap-2 mt-4 text-left">
                 <i class="fas fa-exclamation-circle mt-0.5"></i> <span id="authErrorText">Error message</span>
             </div>
-            <div id="recaptcha-container"></div>
         </div>
     </div>
 
@@ -295,36 +248,23 @@
         <h3 class="text-xl font-bold mb-6 text-gray-500 uppercase tracking-widest text-sm">Developed By</h3>
         <div class="inline-block relative">
             <div class="absolute inset-0 bg-blue-400 rounded-full blur-md opacity-30"></div>
-            <img src="5421.jpg" alt="Mahiey Parihar" class="relative w-32 h-32 rounded-full object-cover border-4 border-white z-10 shadow-lg">
+            <img src="5421.jpg" alt="Mahiey Parihar" class="relative w-32 h-32 rounded-full object-cover border-4 border-white z-10 shadow-lg" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
         </div>
         <h4 class="text-3xl font-extrabold mt-4 text-gray-900">Mahiey Parihar</h4>
-        <p class="text-blue-600 font-bold mt-1">Creator & CEO</p>
+        <p class="text-blue-600 font-bold mt-1">Creator</p>
     </div>
 
     <footer class="bg-white py-10 border-t border-gray-200">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-2xl font-extrabold flex items-center justify-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 w-auto object-contain">
-                BG Remove
-            </div>
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-sm font-medium text-gray-600">
-                <a href="#" class="hover:text-blue-600 transition">Privacy Policy</a>
-                <a href="#" class="hover:text-blue-600 transition">Terms & Conditions</a>
-                <a href="#" class="hover:text-blue-600 transition">Refund Policy</a>
-                <a href="#" class="hover:text-blue-600 transition">Contact Us</a>
-            </div>
-        </div>
         <div class="text-center text-gray-500 text-xs mt-8">
             <p>&copy; 2026 BG Remove by Mahiey Parihar. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- 🔥 FIREBASE & JS LOGIC (UNCHANGED) 🔥 -->
+    <!-- 🔥 FIREBASE & JS LOGIC 🔥 -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyDSFwn1log1-ehfYwLudOAPVWzGfsp86Bg",
@@ -332,203 +272,129 @@
           projectId: "mahieyai",
           storageBucket: "mahieyai.firebasestorage.app",
           messagingSenderId: "618821654527",
-          appId: "1:618821654527:web:21b27ff53fb6a923d839ca",
-          measurementId: "G-89MLHB1C9Z"
+          appId: "1:618821654527:web:21b27ff53fb6a923d839ca"
         };
 
         const REMOVE_BG_API_KEY = "2PnoaUqvHRv7HLhvD7nkNT76"; 
-        const RAZORPAY_LINK = "https://rzp.io/rzp/YGPfF69R";
 
-        let app, auth, db, analytics;
+        let app, auth, db;
         try {
             app = initializeApp(firebaseConfig);
             auth = getAuth(app);
             db = getFirestore(app);
-            analytics = getAnalytics(app);
             auth.useDeviceLanguage(); 
         } catch(e) { console.error("Firebase Error:", e); }
 
         const googleProvider = new GoogleAuthProvider();
 
         let currentUser = null;
-        let userData = { bgUses: 0, basicUses: 0, isPro: false };
+        let userData = { bgUses: 0, basicUses: 0, referrals: 0 };
         let guestBgUses = parseInt(localStorage.getItem('guest_bg_uses')) || 0;
         let guestBasicUses = parseInt(localStorage.getItem('guest_basic_uses')) || 0;
         const MAX_BG = 5;
         const MAX_BASIC = 10;
-        let emailMode = 'login'; 
         let transparentBgImage = null;
+
+        // --- TRACK REFERRAL LINK CLICKS ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const refId = urlParams.get('ref');
+        if (refId) {
+            sessionStorage.setItem('referredBy', refId); // Save referrer ID in browser session
+        }
 
         window.showAuthModal = (msg) => {
             if(msg) document.getElementById('authSubtitle').innerText = msg;
             document.getElementById('authModal').classList.remove('hidden');
-            document.getElementById('authError').classList.add('hidden');
-            window.resetPhoneAuth(); 
         };
-
         window.hideAuthModal = () => { document.getElementById('authModal').classList.add('hidden'); };
 
-        function showError(msg) {
-            document.getElementById('authErrorText').innerText = msg;
-            document.getElementById('authError').classList.remove('hidden');
-            document.getElementById('authError').classList.add('flex');
-        }
-
-        window.setAuthType = (type) => {
-            document.getElementById('authError').classList.add('hidden');
-            const isEmail = type === 'email';
-            document.getElementById('tabEmailAuth').className = isEmail ? "flex-1 pb-3 text-center font-bold text-blue-600 border-b-2 border-blue-600 transition-all" : "flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-800 transition-all";
-            document.getElementById('tabPhoneAuth').className = !isEmail ? "flex-1 pb-3 text-center font-bold text-blue-600 border-b-2 border-blue-600 transition-all" : "flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-800 transition-all";
-            document.getElementById('emailAuthContainer').classList.toggle('hidden', !isEmail);
-            document.getElementById('phoneAuthContainer').classList.toggle('hidden', isEmail);
-            if(!isEmail && !window.recaptchaVerifier) {
-                window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
-            }
-        };
-
-        window.setEmailMode = (mode) => {
-            emailMode = mode;
-            const isReg = mode === 'register';
-            document.getElementById('subTabLogin').className = !isReg ? "text-blue-600 font-bold underline transition" : "text-gray-500 hover:text-gray-800 font-bold transition";
-            document.getElementById('subTabRegister').className = isReg ? "text-blue-600 font-bold underline transition" : "text-gray-500 hover:text-gray-800 font-bold transition";
-            document.getElementById('nameField').classList.toggle('hidden', !isReg);
-            document.getElementById('authName').required = isReg;
-            document.getElementById('authSubmitBtn').innerText = isReg ? "Create Account" : "Log in";
-            document.getElementById('authError').classList.add('hidden');
-        };
-
         window.loginWithGoogle = async () => {
-            document.getElementById('authError').classList.add('hidden');
             try { await signInWithPopup(auth, googleProvider); } 
-            catch (error) { showError(error.message.replace("Firebase: ", "")); }
+            catch (error) { console.error(error); }
         };
 
-        window.sendOtp = async () => {
-            let phone = document.getElementById('phoneNumber').value.trim();
-            if(phone.length !== 10) { showError("Enter a valid 10-digit mobile number."); return; }
-            const fullNumber = "+91" + phone;
-            const btn = document.getElementById('sendOtpBtn');
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-            document.getElementById('authError').classList.add('hidden');
-            try {
-                window.confirmationResult = await signInWithPhoneNumber(auth, fullNumber, window.recaptchaVerifier);
-                document.getElementById('phoneEnterSection').classList.add('hidden');
-                document.getElementById('otpVerifySection').classList.remove('hidden');
-            } catch (error) {
-                showError("Ensure Authorized Domains are set in Firebase Console.");
-                if(window.recaptchaVerifier) window.recaptchaVerifier.render().then(w => w.reset());
-            } finally { btn.innerHTML = "Send OTP"; }
-        };
-
-        window.verifyOtp = async () => {
-            let otp = document.getElementById('otpCode').value.trim();
-            if(otp.length !== 6) { showError("Enter 6-digit OTP."); return; }
-            const btn = document.getElementById('verifyOtpBtn');
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-            document.getElementById('authError').classList.add('hidden');
-            try { await window.confirmationResult.confirm(otp); } 
-            catch (error) { showError("Invalid OTP Code."); btn.innerHTML = "Verify & Login"; }
-        };
-
-        window.resetPhoneAuth = () => {
-            document.getElementById('otpCode').value = '';
-            document.getElementById('phoneEnterSection').classList.remove('hidden');
-            document.getElementById('otpVerifySection').classList.add('hidden');
-            document.getElementById('authError').classList.add('hidden');
-        };
-
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('authEmail').value.trim().toLowerCase();
-            const password = document.getElementById('authPassword').value;
-            const btn = document.getElementById('authSubmitBtn');
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-            btn.disabled = true;
-            document.getElementById('authError').classList.add('hidden');
-            try {
-                if (emailMode === 'register') {
-                    const name = document.getElementById('authName').value;
-                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                    await updateProfile(userCredential.user, { displayName: name });
-                    setDoc(doc(db, "users", userCredential.user.uid), {
-                        bgUses: 0, basicUses: 0, isPro: false, email: email, name: name
-                    }).catch(err => console.warn(err));
-                } else {
-                    await signInWithEmailAndPassword(auth, email, password);
-                }
-            } catch (error) {
-                let msg = error.message;
-                if(msg.includes("invalid-credential")) msg = "Incorrect email or password.";
-                if(msg.includes("email-already-in-use")) msg = "Email already registered. Please Login.";
-                showError(msg.replace("Firebase: ", "").replace(/\(auth.*\)./, ""));
-            } finally {
-                btn.disabled = false;
-                btn.innerText = emailMode === 'register' ? "Create Account" : "Log in";
+        window.copyRefLink = () => {
+            const linkInput = document.getElementById('myRefLink');
+            if(linkInput.value.includes('Login')) {
+                window.showAuthModal("Login to generate your Referral Link!");
+                return;
             }
-        });
+            linkInput.select();
+            navigator.clipboard.writeText(linkInput.value);
+            alert("Link Copied! Share it on WhatsApp, Telegram & Insta to win!");
+        };
 
         if(auth) {
             onAuthStateChanged(auth, async (user) => {
                 const navAuthArea = document.getElementById('navAuthArea');
+                const linkInput = document.getElementById('myRefLink');
+                const refCountUI = document.getElementById('myRefCount');
+
                 if (user) {
                     currentUser = user;
                     window.hideAuthModal(); 
                     try {
                         const userDocRef = doc(db, "users", user.uid);
                         const userSnap = await getDoc(userDocRef);
-                        if(userSnap.exists()) { userData = userSnap.data(); } 
-                        else {
-                            let displayName = user.displayName || (user.phoneNumber ? "Mobile User" : "Pro User");
-                            let emailOrPhone = user.email || user.phoneNumber || "Unknown";
-                            userData = { bgUses: 0, basicUses: 0, isPro: false, identifier: emailOrPhone, name: displayName };
+                        
+                        if(userSnap.exists()) { 
+                            userData = userSnap.data(); 
+                        } else {
+                            // NEW USER REGISTRATION!
+                            userData = { bgUses: 0, basicUses: 0, referrals: 0, name: user.displayName, email: user.email };
+                            
+                            // Check if they came from a referral link
+                            const referredBy = sessionStorage.getItem('referredBy');
+                            if(referredBy && referredBy !== user.uid) {
+                                userData.referredBy = referredBy;
+                                // Automatically give 1 point to the friend who invited them!
+                                try {
+                                    const referrerRef = doc(db, "users", referredBy);
+                                    await updateDoc(referrerRef, { referrals: increment(1) });
+                                } catch(e) { console.warn("Referral update failed", e); }
+                            }
                             await setDoc(userDocRef, userData);
                         }
-                    } catch(err) { console.warn("DB init warning", err); }
+                    } catch(err) { console.warn(err); }
+                    
                     updateCountersUI();
+                    
+                    // Generate Unique Link & Update UI
+                    const myLink = `${window.location.origin}/?ref=${user.uid}`;
+                    linkInput.value = myLink;
+                    refCountUI.innerText = userData.referrals || 0;
+
                     navAuthArea.innerHTML = `
                         <div class="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">
-                            <img src="${user.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-200" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
-                            <span class="text-sm font-semibold text-gray-800 max-w-[100px] truncate">${user.displayName || (user.phoneNumber ? 'Verified' : 'User')}</span>
+                            <img src="${user.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-200">
+                            <span class="text-sm font-semibold text-gray-800 max-w-[100px] truncate">${user.displayName || 'User'}</span>
                         </div>
-                        <button onclick="window.handleProUpgrade()" class="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-4 py-1.5 rounded-full font-bold shadow-sm transition hover:scale-105 text-sm">
-                            <i class="fas fa-crown mr-1"></i> Pro
-                        </button>
                         <button onclick="window.logoutUser()" class="text-gray-500 hover:text-red-500 ml-1 text-lg"><i class="fas fa-sign-out-alt"></i></button>
                     `;
                 } else {
                     currentUser = null;
-                    userData = { bgUses: 0, basicUses: 0, isPro: false }; 
+                    userData = { bgUses: 0, basicUses: 0, referrals: 0 }; 
                     updateCountersUI();
-                    navAuthArea.innerHTML = `<button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition text-sm">Login / Sign Up</button>`;
+                    linkInput.value = "Login to generate your referral link";
+                    refCountUI.innerText = "0";
+                    navAuthArea.innerHTML = `<button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition text-sm shadow-md animate-bounce">Login to Get Link</button>`;
                 }
             });
         }
 
         window.logoutUser = async () => { if(auth) await signOut(auth); };
-        window.handleProUpgrade = () => {
-            if(!currentUser) { window.showAuthModal("Please login to upgrade to Pro."); } 
-            else { window.open(RAZORPAY_LINK, "_blank"); }
-        };
 
         function updateCountersUI() {
-            let bgLeft = currentUser ? (userData.isPro ? "Unlimited" : Math.max(0, MAX_BG - userData.bgUses)) : Math.max(0, MAX_BG - guestBgUses);
-            let basicLeft = currentUser ? (userData.isPro ? "Unlimited" : Math.max(0, MAX_BASIC - userData.basicUses)) : Math.max(0, MAX_BASIC - guestBasicUses);
+            let bgLeft = currentUser ? "Unlimited" : Math.max(0, MAX_BG - guestBgUses);
+            let basicLeft = currentUser ? "Unlimited" : Math.max(0, MAX_BASIC - guestBasicUses);
             document.getElementById('bgCountDisplay').innerText = bgLeft === "Unlimited" ? "Unlimited" : `${bgLeft}/${MAX_BG} Left`;
             document.getElementById('compressCountDisplay').innerText = basicLeft === "Unlimited" ? "Unlimited" : `${basicLeft}/${MAX_BASIC} Left`;
         }
 
         async function incrementUsage(type) {
-            if(currentUser && userData.isPro) return; 
-            if (currentUser) {
-                try {
-                    const userRef = doc(db, "users", currentUser.uid);
-                    if(type === 'bg') { userData.bgUses += 1; await updateDoc(userRef, { bgUses: userData.bgUses }); } 
-                    else { userData.basicUses += 1; await updateDoc(userRef, { basicUses: userData.basicUses }); }
-                } catch(e) { console.log(e); }
-            } else {
-                if(type === 'bg') { guestBgUses += 1; localStorage.setItem('guest_bg_uses', guestBgUses); } 
-                else { guestBasicUses += 1; localStorage.setItem('guest_basic_uses', guestBasicUses); }
-            }
+            if(currentUser) return; 
+            if(type === 'bg') { guestBgUses += 1; localStorage.setItem('guest_bg_uses', guestBgUses); } 
+            else { guestBasicUses += 1; localStorage.setItem('guest_basic_uses', guestBasicUses); }
             updateCountersUI();
         }
 
@@ -542,7 +408,6 @@
         let originalImageSrc = null;
         let currentFile = null;
 
-        // SWITCH TOOLS LOGIC
         window.switchTool = (tool) => {
             const allTools = ['bg-remove', 'compress', 'edit', 'convert'];
             allTools.forEach(t => {
@@ -587,32 +452,18 @@
             }
         });
 
-        function applyWatermark(canvas, ctx) {
-            if (currentUser && userData.isPro) return; 
-            const text = "BG Remove";
-            const fontSize = Math.max(16, canvas.width * 0.03); 
-            ctx.font = `bold ${fontSize}px Arial`;
-            ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-            ctx.textAlign = "right";
-            ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
-            ctx.shadowBlur = 5; ctx.shadowOffsetX = 2; ctx.shadowOffsetY = 2;
-            ctx.fillText(text, canvas.width - 20, canvas.height - 20);
-            ctx.shadowColor = "transparent"; 
-        }
-
-        function checkLimits(type, toolName) {
-            let isPro = currentUser && userData.isPro;
-            if(isPro) return true;
-            let currentUses = currentUser ? (type === 'bg' ? userData.bgUses : userData.basicUses) : (type === 'bg' ? guestBgUses : guestBasicUses);
+        function checkLimits(type) {
+            if(currentUser) return true;
+            let currentUses = type === 'bg' ? guestBgUses : guestBasicUses;
             let maxUses = type === 'bg' ? MAX_BG : MAX_BASIC;
             if(currentUses >= maxUses) { document.getElementById('limitModal').classList.remove('hidden'); return false; }
             return true;
         }
 
-        // BACKGROUND REMOVE & CHANGE LOGIC
+        // BACKGROUND REMOVE API
         document.getElementById('removeBgBtn').addEventListener('click', async () => {
             if (!currentFile) { alert("Please upload an image first."); return; }
-            if (!checkLimits('bg', 'Background Remover')) return;
+            if (!checkLimits('bg')) return;
             
             loadingText.innerText = "AI is removing background...";
             loadingOverlay.classList.remove('hidden');
@@ -649,61 +500,32 @@
             const canvas = document.createElement('canvas');
             canvas.width = transparentBgImage.width; canvas.height = transparentBgImage.height;
             const ctx = canvas.getContext('2d');
-            
-            if(bgColor) {
-                ctx.fillStyle = bgColor;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-            }
-            
+            if(bgColor) { ctx.fillStyle = bgColor; ctx.fillRect(0, 0, canvas.width, canvas.height); }
             ctx.drawImage(transparentBgImage, 0, 0);
-            applyWatermark(canvas, ctx);
             
-            const finalExt = bgColor ? 'image/jpeg' : 'image/png';
-            const finalImgUrl = canvas.toDataURL(finalExt);
+            const finalImgUrl = canvas.toDataURL(bgColor ? 'image/jpeg' : 'image/png');
             imagePreview.src = finalImgUrl;
             downloadBtn.href = finalImgUrl; 
             downloadBtn.download = bgColor ? "BG_Remove_New_BG.jpg" : "BG_Remove_No_BG.png";
             downloadSection.classList.remove('hidden');
         }
 
-        // ADVANCED COMPRESSOR LOGIC 
+        // COMPRESSOR
         document.getElementById('compressBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
-            if (!checkLimits('basic', 'Compressor')) return;
-
-            const targetKbInput = document.getElementById('targetKbInput').value;
+            if (!checkLimits('basic')) return;
             let quality = document.getElementById('compressQuality').value / 100;
-            
-            loadingText.innerText = targetKbInput ? `Compressing to ~${targetKbInput}KB...` : "Compressing image...";
+            loadingText.innerText = "Compressing image...";
             loadingOverlay.classList.remove('hidden');
             
-            setTimeout(() => {
+            setTimeout(async () => {
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 const img = new Image();
                 img.onload = async () => {
                     canvas.width = img.width; canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
-                    applyWatermark(canvas, ctx);
-                    
-                    let finalDataUrl = "";
-                    if(targetKbInput && targetKbInput > 0) {
-                        let min_q = 0.01, max_q = 1.0;
-                        let targetBytes = targetKbInput * 1024;
-                        
-                        for(let i=0; i<7; i++) {
-                            let test_q = (min_q + max_q) / 2;
-                            let testUrl = canvas.toDataURL('image/jpeg', test_q);
-                            let sizeBytes = Math.round((testUrl.length * 3) / 4);
-                            
-                            if(sizeBytes > targetBytes) { max_q = test_q; } 
-                            else { min_q = test_q; }
-                            finalDataUrl = testUrl;
-                        }
-                    } else {
-                        finalDataUrl = canvas.toDataURL('image/jpeg', quality);
-                    }
-                    
+                    const finalDataUrl = canvas.toDataURL('image/jpeg', quality);
                     imagePreview.src = finalDataUrl;
                     downloadBtn.href = finalDataUrl; 
                     downloadBtn.download = "BG_Remove_Compressed.jpg";
@@ -715,36 +537,19 @@
             }, 500);
         });
 
-        // PRO EDITOR LOGIC
-        const eBright = document.getElementById('editBright');
-        const eContrast = document.getElementById('editContrast');
-        const eSat = document.getElementById('editSat');
-        const eBlur = document.getElementById('editBlur');
-        const eSepia = document.getElementById('editSepia');
-        const eHue = document.getElementById('editHue');
-
+        // PRO EDITOR
+        const eBright = document.getElementById('editBright'), eContrast = document.getElementById('editContrast'), eSat = document.getElementById('editSat'), eBlur = document.getElementById('editBlur'), eSepia = document.getElementById('editSepia'), eHue = document.getElementById('editHue');
         [eBright, eContrast, eSat, eBlur, eSepia, eHue].forEach(slider => {
             slider.addEventListener('input', () => {
-                document.getElementById('valBright').innerText = eBright.value + '%';
-                document.getElementById('valContrast').innerText = eContrast.value + '%';
-                document.getElementById('valSat').innerText = eSat.value + '%';
-                document.getElementById('valBlur').innerText = eBlur.value + 'px';
-                document.getElementById('valSepia').innerText = eSepia.value + '%';
-                document.getElementById('valHue').innerText = eHue.value + 'deg';
-                
-                if(originalImageSrc) {
-                    imagePreview.style.filter = `brightness(${eBright.value}%) contrast(${eContrast.value}%) saturate(${eSat.value}%) blur(${eBlur.value}px) sepia(${eSepia.value}%) hue-rotate(${eHue.value}deg)`;
-                }
+                if(originalImageSrc) imagePreview.style.filter = `brightness(${eBright.value}%) contrast(${eContrast.value}%) saturate(${eSat.value}%) blur(${eBlur.value}px) sepia(${eSepia.value}%) hue-rotate(${eHue.value}deg)`;
             });
         });
 
         document.getElementById('applyEditBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
-            if (!checkLimits('basic', 'Editor')) return;
-            
-            loadingText.innerText = "Applying Pro Filters...";
+            if (!checkLimits('basic')) return;
             loadingOverlay.classList.remove('hidden');
-            setTimeout(() => {
+            setTimeout(async () => {
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 const img = new Image();
@@ -752,8 +557,6 @@
                     canvas.width = img.width; canvas.height = img.height;
                     ctx.filter = `brightness(${eBright.value}%) contrast(${eContrast.value}%) saturate(${eSat.value}%) blur(${eBlur.value}px) sepia(${eSepia.value}%) hue-rotate(${eHue.value}deg)`;
                     ctx.drawImage(img, 0, 0);
-                    applyWatermark(canvas, ctx);
-                    
                     const finalDataUrl = canvas.toDataURL('image/jpeg', 0.9);
                     imagePreview.src = finalDataUrl;
                     downloadBtn.href = finalDataUrl; 
@@ -766,64 +569,34 @@
             }, 500);
         });
 
-        // FORMAT CONVERTER LOGIC (WITH PDF SUPPORT)
+        // FORMAT CONVERTER
         document.getElementById('convertBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
-            if (!checkLimits('basic', 'Converter')) return;
-            
+            if (!checkLimits('basic')) return;
             const format = document.getElementById('convertFormat').value; 
-            let ext = format.split('/')[1];
-            if(ext === 'jpeg') ext = 'jpg';
-            if(format === 'application/pdf') ext = 'pdf'; // PDF extension
-
-            loadingText.innerText = `Converting to ${ext.toUpperCase()}...`;
             loadingOverlay.classList.remove('hidden');
             
-            setTimeout(() => {
+            setTimeout(async () => {
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 const img = new Image();
                 img.onload = async () => {
                     canvas.width = img.width; canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
-                    applyWatermark(canvas, ctx);
                     
                     if (format === 'application/pdf') {
-                        // =====================================
-                        // PDF GENERATION LOGIC
-                        // =====================================
                         const { jsPDF } = window.jspdf;
-                        
-                        // Photo landscape hai ya portrait check karna
-                        const orientation = img.width > img.height ? 'l' : 'p';
-                        
-                        // Page size exactly photo jaisa set karna
-                        const pdf = new jsPDF({ 
-                            orientation: orientation, 
-                            unit: 'px', 
-                            format: [img.width, img.height] 
-                        });
-                        
+                        const pdf = new jsPDF({ orientation: img.width > img.height ? 'l' : 'p', unit: 'px', format: [img.width, img.height] });
                         const imgData = canvas.toDataURL('image/jpeg', 0.9);
                         pdf.addImage(imgData, 'JPEG', 0, 0, img.width, img.height);
-                        
-                        // PDF ka link banana
-                        const pdfBlob = pdf.output('blob');
-                        const pdfUrl = URL.createObjectURL(pdfBlob);
-                        
-                        imagePreview.src = imgData; // Preview me image dikhayenge
-                        downloadBtn.href = pdfUrl; 
+                        downloadBtn.href = URL.createObjectURL(pdf.output('blob')); 
                         downloadBtn.download = `BG_Remove_Converted.pdf`;
                     } else {
-                        // =====================================
-                        // NORMAL IMAGE GENERATION LOGIC
-                        // =====================================
                         const finalDataUrl = canvas.toDataURL(format, 0.9);
                         imagePreview.src = finalDataUrl;
                         downloadBtn.href = finalDataUrl; 
-                        downloadBtn.download = `BG_Remove_Converted.${ext}`;
+                        downloadBtn.download = `BG_Remove_Converted.${format.split('/')[1]}`;
                     }
-
                     downloadSection.classList.remove('hidden');
                     await incrementUsage('basic'); 
                     loadingOverlay.classList.add('hidden');
@@ -832,9 +605,7 @@
             }, 500);
         });
 
-        const compressSlider = document.getElementById('compressQuality');
-        compressSlider.addEventListener('input', (e) => document.getElementById('qualityValue').innerText = e.target.value + '%');
+        document.getElementById('compressQuality').addEventListener('input', (e) => document.getElementById('qualityValue').innerText = e.target.value + '%');
     </script>
-    <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
 </body>
 </html>
