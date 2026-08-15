@@ -13,18 +13,18 @@
     <!-- Google Search Console Verification Meta -->
     <meta name="google-site-verification" content="-rJq35mUQFmnfanMeO9_aG0I5tJIRGJtMoZlkKx9RW8" />
 
-    <!-- 🚀 OPEN GRAPH & LINK PREVIEW TAGS (NEWLY ADDED) 🚀 -->
+    <!-- 🚀 OPEN GRAPH & LINK PREVIEW TAGS (UPDATED WITH YOUR ACTUAL DOMAIN) 🚀 -->
     <meta property="og:title" content="🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now">
     <meta property="og:description" content="Background Remove, Photo Compress, Pro Editing aur bahut saare tools. Join the Refer & Earn Contest!">
-    <meta property="og:image" content="9676.png">
+    <meta property="og:image" content="https://mahieyai.vercel.app/9676_2.png">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bgremove.com/">
+    <meta property="og:url" content="https://mahieyai.vercel.app/">
     
     <!-- Twitter Card for Previews -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now">
     <meta name="twitter:description" content="Background Remove, Photo Compress, Pro Editing aur bahut saare tools. Join the Refer & Earn Contest!">
-    <meta name="twitter:image" content="9676.png">
+    <meta name="twitter:image" content="https://mahieyai.vercel.app/9676_2.png">
 
     <!-- Google Search ke liye Logo (Favicon) -->
     <link rel="icon" type="image/webp" href="7335_2.webp">
@@ -570,7 +570,7 @@
                     currentUser = user;
                     window.hideAuthModal(); 
                     
-                    refLinkInput.value = `https://bgremove.com/?ref=${user.uid}`;
+                    refLinkInput.value = `https://mahieyai.vercel.app/?ref=${user.uid}`;
                     refLinkInput.classList.replace('text-gray-500', 'text-gray-900');
 
                     try {
@@ -616,24 +616,23 @@
             else { window.open(RAZORPAY_LINK, "_blank"); }
         };
 
-        // 🔥 ADVANCED REFERRAL SHARE LOGIC 🔥
+        // 🔥 ADVANCED REFERRAL SHARE LOGIC (DOMAIN UPDATED) 🔥
         window.handleReferralShare = (platform) => {
             if (!currentUser) {
                 window.showAuthModal("Please login to share your referral link and win prizes!");
                 return;
             }
             
-            const link = `https://bgremove.com/?ref=${currentUser.uid}`;
+            const link = `https://mahieyai.vercel.app/?ref=${currentUser.uid}`;
             const shareTitle = "🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now";
             
-            // EXACT PROMOTIONAL MESSAGE AS REQUESTED
             const customMessage = `🔥 Bhai, ye FREE AI Photo Editor zaroor check kar! 😍\n\nBackground Remove, Photo Compress, Pro Editing, 4K Enhance aur bahut saare tools — sab ek hi jagah! 🚀\n\n🎁 Aur ab chal raha hai REFER & EARN CONTEST!\n\n🏆 1st Prize — ₹500 💰\n🥈 2nd Prize — ₹200 💰\n🥉 3rd Prize — ₹100 💰\n\n👥 Jitne zyada friends refer karoge, utna hi jeetne ka chance badhega! 🔥\n\n🎁 Referral se FREE Credits bhi mil sakte hain.\n\n👉 Mere referral link se abhi join karo:\n${link}\n\n⏳ Jaldi join karo aur contest miss mat karna! 🚀🔥`;
 
             if (platform === 'copy') {
                 const copyText = document.getElementById("referralLink");
                 copyText.select();
                 copyText.setSelectionRange(0, 99999); 
-                navigator.clipboard.writeText(customMessage); // Copying the entire message for convenience
+                navigator.clipboard.writeText(customMessage); 
                 alert("Referral text and link copied to clipboard!");
             } else if (platform === 'whatsapp') {
                 window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(customMessage)}`, '_blank');
@@ -644,7 +643,6 @@
                 alert("Link and Message copied! Open Instagram to paste and share with friends.");
                 window.open('instagram://app', '_blank');
             } else if (platform === 'more') {
-                // NATIVE WEB SHARE API (Mobile Phones ke liye best)
                 if (navigator.share) {
                     navigator.share({
                         title: shareTitle,
