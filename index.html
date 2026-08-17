@@ -7,7 +7,7 @@
     <!-- SEO Meta Tags & Favicon -->
     <title>BG Remove AI - Free 4K Photo Enhancer & Background Remover</title>
     <meta name="description" content="Free AI Background Remover, 4K Photo Enhancer, and Image Compressor. Upload your photo and remove bg automatically with BG Remove AI." />
-    <meta name="keywords" content="bg remove, background remover, bgremoveai, ai photo editor, remove bg free, bg remover ai, photo background change, compress image to 50kb, jpg to pdf converter">
+    <meta name="keywords" content="bg remove, background remover, bgremoveai, ai photo editor, remove bg free, bg remover ai, photo background change">
     <meta name="author" content="Mahiey Parihar">
     
     <!-- Google Search Console Verification Meta -->
@@ -296,15 +296,98 @@
         </div>
     </div>
 
+    <!-- 🎁 REFERRAL OFFER SECTION (LOGIN REQUIRED) 🎁 -->
+    <div class="py-16 bg-white border-t border-gray-200 mt-10" id="referral-offer">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 md:p-10 border border-purple-200 shadow-xl relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+                
+                <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-extrabold px-6 py-2 rounded-full text-sm shadow-md mb-6 inline-block uppercase tracking-wider relative z-10">🎉 Grand Referral Contest 🎉</span>
+                
+                <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 relative z-10">Refer & Win Cash Prizes!</h2>
+                <p class="text-gray-700 font-medium mb-8 text-lg relative z-10">Share your link and climb the leaderboard. <br class="hidden md:block"> <span class="text-purple-600 font-extrabold">Results will be released on 30th August!</span></p>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8 relative z-10">
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-trophy text-yellow-500"></i> Prize Pool</h3>
+                        <ul class="space-y-4 text-left">
+                            <li class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border border-yellow-200 shadow-sm">
+                                <span class="font-bold text-gray-800 flex items-center gap-3"><span class="bg-yellow-400 text-white w-7 h-7 flex items-center justify-center rounded-full text-sm shadow-sm">1</span> 1st Prize</span>
+                                <span class="text-2xl font-extrabold text-green-600">₹500</span>
+                            </li>
+                            <li class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
+                                <span class="font-bold text-gray-700 flex items-center gap-3"><span class="bg-gray-400 text-white w-7 h-7 flex items-center justify-center rounded-full text-sm shadow-sm">2</span> 2nd Prize</span>
+                                <span class="text-2xl font-extrabold text-green-600">₹200</span>
+                            </li>
+                            <li class="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-200 shadow-sm">
+                                <span class="font-bold text-gray-700 flex items-center gap-3"><span class="bg-orange-400 text-white w-7 h-7 flex items-center justify-center rounded-full text-sm shadow-sm">3</span> 3rd Prize</span>
+                                <span class="text-2xl font-extrabold text-green-600">₹100</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-chart-line text-blue-500"></i> Top Referrers</h3>
+                        <ul class="space-y-4 text-left">
+                            <li class="flex items-center justify-between p-3 border-b border-gray-100">
+                                <span class="font-bold text-gray-800 flex items-center gap-3"><i class="fas fa-medal text-yellow-500 text-xl"></i> Rahul K.</span>
+                                <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">1st</span>
+                            </li>
+                            <li class="flex items-center justify-between p-3 border-b border-gray-100">
+                                <span class="font-bold text-gray-700 flex items-center gap-3"><i class="fas fa-medal text-gray-400 text-xl"></i> Amit S.</span>
+                                <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">2nd</span>
+                            </li>
+                            <li class="flex items-center justify-between p-3 border-b border-gray-100">
+                                <span class="font-bold text-gray-700 flex items-center gap-3"><i class="fas fa-medal text-orange-400 text-xl"></i> Priya M.</span>
+                                <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">3rd</span>
+                            </li>
+                        </ul>
+                        <p class="text-xs text-gray-400 mt-4 text-center font-medium">*Leaderboard updates dynamically</p>
+                    </div>
+                </div>
+
+                <!-- Auth-based Referral Actions -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 relative z-10 max-w-2xl mx-auto">
+                    <h4 class="font-bold text-gray-800 mb-3 text-left">Your Unique Referral Link:</h4>
+                    <div class="flex flex-col md:flex-row items-center gap-3 mb-6">
+                        <input type="text" id="referralLink" value="Login to get your link" readonly class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-500 focus:outline-none text-sm font-mono font-medium shadow-inner">
+                        <button onclick="window.handleReferralShare('copy')" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-md transition flex-shrink-0 flex items-center justify-center gap-2">
+                            <i class="fas fa-copy"></i> Copy Link
+                        </button>
+                    </div>
+                    
+                    <h4 class="font-bold text-gray-800 mb-4">Share directly via:</h4>
+                    <div class="flex justify-center gap-4 md:gap-6 flex-wrap">
+                        <button onclick="window.handleReferralShare('whatsapp')" class="w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center text-3xl shadow-lg transition transform hover:scale-110">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button onclick="window.handleReferralShare('telegram')" class="w-14 h-14 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl shadow-lg transition transform hover:scale-110">
+                            <i class="fab fa-telegram-plane"></i>
+                        </button>
+                        <button onclick="window.handleReferralShare('instagram')" class="w-14 h-14 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 hover:opacity-90 text-white rounded-full flex items-center justify-center text-3xl shadow-lg transition transform hover:scale-110">
+                            <i class="fab fa-instagram"></i>
+                        </button>
+                        <!-- Native Share Button -->
+                        <button onclick="window.handleReferralShare('more')" class="w-14 h-14 bg-gray-800 hover:bg-gray-900 text-white rounded-full flex items-center justify-center text-2xl shadow-lg transition transform hover:scale-110" title="More Options">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-yellow-600 mt-4 font-bold text-center"><i class="fas fa-exclamation-triangle"></i> Refferal valid only when your friend signs up!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Creator Section -->
-    <div class="py-16 text-center border-t border-gray-200 bg-gray-50 mt-10">
+    <div class="py-16 text-center border-t border-gray-200 bg-gray-50">
         <h3 class="text-xl font-bold mb-6 text-gray-500 uppercase tracking-widest text-sm">Developed By</h3>
         <div class="inline-block relative">
             <div class="absolute inset-0 bg-blue-400 rounded-full blur-md opacity-30"></div>
             <img src="5421.jpg" alt="Mahiey Parihar" class="relative w-32 h-32 rounded-full object-cover border-4 border-white z-10 shadow-lg">
         </div>
         <h4 class="text-3xl font-extrabold mt-4 text-gray-900">Mahiey Parihar</h4>
-        <p class="text-blue-600 font-bold mt-1">Creator</p>
+        <p class="text-blue-600 font-bold mt-1">Creator & CEO</p>
     </div>
 
     <footer class="bg-white py-10 border-t border-gray-200">
@@ -316,6 +399,7 @@
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-sm font-medium text-gray-600">
                 <a href="#" class="hover:text-blue-600 transition">Privacy Policy</a>
                 <a href="#" class="hover:text-blue-600 transition">Terms & Conditions</a>
+                <a href="#" class="hover:text-blue-600 transition">Refund Policy</a>
                 <a href="#" class="hover:text-blue-600 transition">Contact Us</a>
             </div>
         </div>
@@ -364,8 +448,16 @@
         let emailMode = 'login'; 
         let transparentBgImage = null;
 
+        // URL Se Referral Code Check Karna
+        const urlParams = new URLSearchParams(window.location.search);
+        const refCode = urlParams.get('ref');
+        if(refCode) {
+            localStorage.setItem('referred_by', refCode);
+        }
+
         window.showAuthModal = (msg) => {
             if(msg) document.getElementById('authSubtitle').innerText = msg;
+            else document.getElementById('authSubtitle').innerText = "Join to unlock premium features.";
             document.getElementById('authModal').classList.remove('hidden');
             document.getElementById('authError').classList.add('hidden');
             window.resetPhoneAuth(); 
@@ -455,9 +547,13 @@
                     const name = document.getElementById('authName').value;
                     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                     await updateProfile(userCredential.user, { displayName: name });
+                    
+                    const referredBy = localStorage.getItem('referred_by') || null;
+                    
                     setDoc(doc(db, "users", userCredential.user.uid), {
-                        bgUses: 0, basicUses: 0, isPro: false, email: email, name: name
+                        bgUses: 0, basicUses: 0, isPro: false, email: email, name: name, referredBy: referredBy
                     }).catch(err => console.warn(err));
+                    
                 } else {
                     await signInWithEmailAndPassword(auth, email, password);
                 }
@@ -475,9 +571,15 @@
         if(auth) {
             onAuthStateChanged(auth, async (user) => {
                 const navAuthArea = document.getElementById('navAuthArea');
+                const refLinkInput = document.getElementById('referralLink');
+                
                 if (user) {
                     currentUser = user;
                     window.hideAuthModal(); 
+                    
+                    refLinkInput.value = `https://mahieyai.vercel.app/?ref=${user.uid}`;
+                    refLinkInput.classList.replace('text-gray-500', 'text-gray-900');
+
                     try {
                         const userDocRef = doc(db, "users", user.uid);
                         const userSnap = await getDoc(userDocRef);
@@ -485,12 +587,13 @@
                         else {
                             let displayName = user.displayName || (user.phoneNumber ? "Mobile User" : "Pro User");
                             let emailOrPhone = user.email || user.phoneNumber || "Unknown";
-                            userData = { bgUses: 0, basicUses: 0, isPro: false, identifier: emailOrPhone, name: displayName };
+                            
+                            const referredBy = localStorage.getItem('referred_by') || null;
+                            userData = { bgUses: 0, basicUses: 0, isPro: false, identifier: emailOrPhone, name: displayName, referredBy: referredBy };
                             await setDoc(userDocRef, userData);
                         }
                     } catch(err) { console.warn("DB init warning", err); }
                     updateCountersUI();
-                    
                     navAuthArea.innerHTML = `
                         <div class="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">
                             <img src="${user.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-200" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
@@ -504,6 +607,10 @@
                 } else {
                     currentUser = null;
                     userData = { bgUses: 0, basicUses: 0, isPro: false }; 
+                    
+                    refLinkInput.value = "Login to get your link";
+                    refLinkInput.classList.replace('text-gray-900', 'text-gray-500');
+
                     updateCountersUI();
                     navAuthArea.innerHTML = `<button onclick="window.showAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition text-sm">Login / Sign Up</button>`;
                 }
@@ -514,6 +621,44 @@
         window.handleProUpgrade = () => {
             if(!currentUser) { window.showAuthModal("Please login to upgrade to Pro."); } 
             else { window.open(RAZORPAY_LINK, "_blank"); }
+        };
+
+        // 🔥 ADVANCED REFERRAL SHARE LOGIC (DOMAIN UPDATED) 🔥
+        window.handleReferralShare = (platform) => {
+            if (!currentUser) {
+                window.showAuthModal("Please login to share your referral link and win prizes!");
+                return;
+            }
+            
+            const link = `https://mahieyai.vercel.app/?ref=${currentUser.uid}`;
+            const shareTitle = "🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now";
+            
+            const customMessage = `🔥 Bhai, ye FREE AI Photo Editor zaroor check kar! 😍\n\nBackground Remove, Photo Compress, Pro Editing, 4K Enhance aur bahut saare tools — sab ek hi jagah! 🚀\n\n🎁 Aur ab chal raha hai REFER & EARN CONTEST!\n\n🏆 1st Prize — ₹500 💰\n🥈 2nd Prize — ₹200 💰\n🥉 3rd Prize — ₹100 💰\n\n👥 Jitne zyada friends refer karoge, utna hi jeetne ka chance badhega! 🔥\n\n🎁 Referral se FREE Credits bhi mil sakte hain.\n\n👉 Mere referral link se abhi join karo:\n${link}\n\n⏳ Jaldi join karo aur contest miss mat karna! 🚀🔥`;
+
+            if (platform === 'copy') {
+                const copyText = document.getElementById("referralLink");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); 
+                navigator.clipboard.writeText(customMessage); 
+                alert("Referral text and link copied to clipboard!");
+            } else if (platform === 'whatsapp') {
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(customMessage)}`, '_blank');
+            } else if (platform === 'telegram') {
+                window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(customMessage)}`, '_blank');
+            } else if (platform === 'instagram') {
+                navigator.clipboard.writeText(customMessage);
+                alert("Link and Message copied! Open Instagram to paste and share with friends.");
+                window.open('instagram://app', '_blank');
+            } else if (platform === 'more') {
+                if (navigator.share) {
+                    navigator.share({
+                        title: shareTitle,
+                        text: customMessage
+                    }).catch(console.error);
+                } else {
+                    alert("Sharing options are not fully supported on this browser. Use Copy Link instead!");
+                }
+            }
         };
 
         function updateCountersUI() {
@@ -547,7 +692,6 @@
         const loadingText = document.getElementById('loadingText');
         let originalImageSrc = null;
         let currentFile = null;
-        let transparentBgImage = null;
 
         window.switchTool = (tool) => {
             const allTools = ['bg-remove', 'compress', 'edit', 'convert'];
@@ -671,7 +815,6 @@
             downloadSection.classList.remove('hidden');
         }
 
-        // 🚀 COMPRESSOR LOGIC (BUG FIXED WITH FINALLY) 🚀
         document.getElementById('compressBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
             if (!checkLimits('basic', 'Compressor')) return;
@@ -686,44 +829,36 @@
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 const img = new Image();
-                
                 img.onload = async () => {
-                    try {
-                        canvas.width = img.width; canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-                        applyWatermark(canvas, ctx);
+                    canvas.width = img.width; canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    applyWatermark(canvas, ctx);
+                    
+                    let finalDataUrl = "";
+                    if(targetKbInput && targetKbInput > 0) {
+                        let min_q = 0.01, max_q = 1.0;
+                        let targetBytes = targetKbInput * 1024;
                         
-                        let finalDataUrl = "";
-                        if(targetKbInput && targetKbInput > 0) {
-                            let min_q = 0.01, max_q = 1.0;
-                            let targetBytes = targetKbInput * 1024;
+                        for(let i=0; i<7; i++) {
+                            let test_q = (min_q + max_q) / 2;
+                            let testUrl = canvas.toDataURL('image/jpeg', test_q);
+                            let sizeBytes = Math.round((testUrl.length * 3) / 4);
                             
-                            for(let i=0; i<7; i++) {
-                                let test_q = (min_q + max_q) / 2;
-                                let testUrl = canvas.toDataURL('image/jpeg', test_q);
-                                let sizeBytes = Math.round((testUrl.length * 3) / 4);
-                                
-                                if(sizeBytes > targetBytes) { max_q = test_q; } 
-                                else { min_q = test_q; }
-                                finalDataUrl = testUrl;
-                            }
-                        } else {
-                            finalDataUrl = canvas.toDataURL('image/jpeg', quality);
+                            if(sizeBytes > targetBytes) { max_q = test_q; } 
+                            else { min_q = test_q; }
+                            finalDataUrl = testUrl;
                         }
-                        
-                        imagePreview.src = finalDataUrl;
-                        downloadBtn.href = finalDataUrl; 
-                        downloadBtn.download = "BG_Remove_Compressed.jpg";
-                        downloadSection.classList.remove('hidden');
-                        await incrementUsage('basic'); 
-                    } catch (error) {
-                        console.error(error);
-                        alert("Compression error.");
-                    } finally {
-                        loadingOverlay.classList.add('hidden');
+                    } else {
+                        finalDataUrl = canvas.toDataURL('image/jpeg', quality);
                     }
+                    
+                    imagePreview.src = finalDataUrl;
+                    downloadBtn.href = finalDataUrl; 
+                    downloadBtn.download = "BG_Remove_Compressed.jpg";
+                    downloadSection.classList.remove('hidden');
+                    await incrementUsage('basic'); 
+                    loadingOverlay.classList.add('hidden');
                 };
-                img.onerror = () => { loadingOverlay.classList.add('hidden'); };
                 img.src = originalImageSrc;
             }, 500);
         });
@@ -761,29 +896,23 @@
                 const ctx = canvas.getContext('2d');
                 const img = new Image();
                 img.onload = async () => {
-                    try {
-                        canvas.width = img.width; canvas.height = img.height;
-                        ctx.filter = `brightness(${eBright.value}%) contrast(${eContrast.value}%) saturate(${eSat.value}%) blur(${eBlur.value}px) sepia(${eSepia.value}%) hue-rotate(${eHue.value}deg)`;
-                        ctx.drawImage(img, 0, 0);
-                        applyWatermark(canvas, ctx);
-                        
-                        const finalDataUrl = canvas.toDataURL('image/jpeg', 0.9);
-                        imagePreview.src = finalDataUrl;
-                        downloadBtn.href = finalDataUrl; 
-                        downloadBtn.download = "BG_Remove_ProEdit.jpg";
-                        downloadSection.classList.remove('hidden');
-                        await incrementUsage('basic'); 
-                    } catch(e) {
-                        console.error(e);
-                    } finally {
-                        loadingOverlay.classList.add('hidden');
-                    }
+                    canvas.width = img.width; canvas.height = img.height;
+                    ctx.filter = `brightness(${eBright.value}%) contrast(${eContrast.value}%) saturate(${eSat.value}%) blur(${eBlur.value}px) sepia(${eSepia.value}%) hue-rotate(${eHue.value}deg)`;
+                    ctx.drawImage(img, 0, 0);
+                    applyWatermark(canvas, ctx);
+                    
+                    const finalDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    imagePreview.src = finalDataUrl;
+                    downloadBtn.href = finalDataUrl; 
+                    downloadBtn.download = "BG_Remove_ProEdit.jpg";
+                    downloadSection.classList.remove('hidden');
+                    await incrementUsage('basic'); 
+                    loadingOverlay.classList.add('hidden');
                 };
                 img.src = originalImageSrc;
             }, 500);
         });
 
-        // 🚀 CONVERTER LOGIC (BUG FIXED WITH FINALLY) 🚀
         document.getElementById('convertBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
             if (!checkLimits('basic', 'Converter')) return;
@@ -800,44 +929,36 @@
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 const img = new Image();
-                
                 img.onload = async () => {
-                    try {
-                        canvas.width = img.width; canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-                        applyWatermark(canvas, ctx);
+                    canvas.width = img.width; canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    applyWatermark(canvas, ctx);
+                    
+                    if (format === 'application/pdf') {
+                        const { jsPDF } = window.jspdf;
+                        const orientation = img.width > img.height ? 'l' : 'p';
+                        const pdf = new jsPDF({ orientation: orientation, unit: 'px', format: [img.width, img.height] });
                         
-                        if (format === 'application/pdf') {
-                            const { jsPDF } = window.jspdf;
-                            const orientation = img.width > img.height ? 'l' : 'p';
-                            const pdf = new jsPDF({ orientation: orientation, unit: 'px', format: [img.width, img.height] });
-                            
-                            const imgData = canvas.toDataURL('image/jpeg', 0.9);
-                            pdf.addImage(imgData, 'JPEG', 0, 0, img.width, img.height);
-                            
-                            const pdfBlob = pdf.output('blob');
-                            const pdfUrl = URL.createObjectURL(pdfBlob);
-                            
-                            imagePreview.src = imgData; 
-                            downloadBtn.href = pdfUrl; 
-                            downloadBtn.download = `BG_Remove_Converted.pdf`;
-                        } else {
-                            const finalDataUrl = canvas.toDataURL(format, 0.9);
-                            imagePreview.src = finalDataUrl;
-                            downloadBtn.href = finalDataUrl; 
-                            downloadBtn.download = `BG_Remove_Converted.${ext}`;
-                        }
-
-                        downloadSection.classList.remove('hidden');
-                        await incrementUsage('basic'); 
-                    } catch (error) {
-                        console.error(error);
-                        alert("Conversion error.");
-                    } finally {
-                        loadingOverlay.classList.add('hidden');
+                        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                        pdf.addImage(imgData, 'JPEG', 0, 0, img.width, img.height);
+                        
+                        const pdfBlob = pdf.output('blob');
+                        const pdfUrl = URL.createObjectURL(pdfBlob);
+                        
+                        imagePreview.src = imgData; 
+                        downloadBtn.href = pdfUrl; 
+                        downloadBtn.download = `BG_Remove_Converted.pdf`;
+                    } else {
+                        const finalDataUrl = canvas.toDataURL(format, 0.9);
+                        imagePreview.src = finalDataUrl;
+                        downloadBtn.href = finalDataUrl; 
+                        downloadBtn.download = `BG_Remove_Converted.${ext}`;
                     }
+
+                    downloadSection.classList.remove('hidden');
+                    await incrementUsage('basic'); 
+                    loadingOverlay.classList.add('hidden');
                 };
-                img.onerror = () => { loadingOverlay.classList.add('hidden'); };
                 img.src = originalImageSrc;
             }, 500);
         });
