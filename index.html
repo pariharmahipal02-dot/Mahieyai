@@ -222,7 +222,8 @@
                 <p class="text-gray-500 text-sm" id="authSubtitle">Join to unlock premium features.</p>
             </div>
             <div class="mb-6">
-                <button onclick="window.loginWithGoogle()" class="w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 py-3 rounded-xl font-bold shadow-sm transition flex justify-center items-center gap-3 text-lg">
+                <!-- Modified onClick to pass event object for preventing double clicks -->
+                <button onclick="window.loginWithGoogle(event)" class="w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 py-3 rounded-xl font-bold shadow-sm transition flex justify-center items-center gap-3 text-lg">
                     <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google"> Continue with Google
                 </button>
             </div>
@@ -329,18 +330,24 @@
 
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
                         <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-chart-line text-blue-500"></i> Top Referrers</h3>
-                        <ul class="space-y-4 text-left">
+                        <ul id="leaderboardList" class="space-y-4 text-left">
                             <li class="flex items-center justify-between p-3 border-b border-gray-100">
                                 <span class="font-bold text-gray-800 flex items-center gap-3"><i class="fas fa-medal text-yellow-500 text-xl"></i> Rahul K.</span>
-                                <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">1st</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">1st</span>
+                                </div>
                             </li>
                             <li class="flex items-center justify-between p-3 border-b border-gray-100">
                                 <span class="font-bold text-gray-700 flex items-center gap-3"><i class="fas fa-medal text-gray-400 text-xl"></i> Amit S.</span>
-                                <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">2nd</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">2nd</span>
+                                </div>
                             </li>
                             <li class="flex items-center justify-between p-3 border-b border-gray-100">
                                 <span class="font-bold text-gray-700 flex items-center gap-3"><i class="fas fa-medal text-orange-400 text-xl"></i> Priya M.</span>
-                                <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">3rd</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">3rd</span>
+                                </div>
                             </li>
                         </ul>
                         <p class="text-xs text-gray-400 mt-4 text-center font-medium">*Leaderboard updates dynamically</p>
@@ -412,7 +419,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        // ADDED: increment, collection, query, orderBy, limit, getDocs for Leaderboard and Referral features
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 
         const firebaseConfig = {
@@ -429,12 +437,47 @@
         const RAZORPAY_LINK = "https://rzp.io/rzp/YGPfF69R";
 
         let app, auth, db, analytics;
+        
+        // LEADERBOARD FUNCTION
+        async function fetchLeaderboard() {
+            try {
+                const q = query(collection(db, "users"), orderBy("referralCount", "desc"), limit(3));
+                const querySnapshot = await getDocs(q);
+                const leaderboardList = document.getElementById('leaderboardList');
+                if (leaderboardList && !querySnapshot.empty) {
+                    leaderboardList.innerHTML = '';
+                    let rank = 1;
+                    const medals = ['text-yellow-500', 'text-gray-400', 'text-orange-400'];
+                    const suffixes = ['1st', '2nd', '3rd'];
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const name = data.name || 'User';
+                        const count = data.referralCount || 0;
+                        leaderboardList.innerHTML += `
+                        <li class="flex items-center justify-between p-3 border-b border-gray-100">
+                            <span class="font-bold text-gray-800 flex items-center gap-3">
+                                <i class="fas fa-medal ${medals[rank-1] || 'text-blue-400'} text-xl"></i> ${name}
+                            </span>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-bold text-gray-500">${count} Refers</span>
+                                <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">${suffixes[rank-1] || rank+'th'}</span>
+                            </div>
+                        </li>`;
+                        rank++;
+                    });
+                }
+            } catch(e) { console.warn("Leaderboard Error:", e); }
+        }
+
         try {
             app = initializeApp(firebaseConfig);
             auth = getAuth(app);
             db = getFirestore(app);
             analytics = getAnalytics(app);
             auth.useDeviceLanguage(); 
+            
+            // Automatically fetch leaderboard when app loads
+            fetchLeaderboard();
         } catch(e) { console.error("Firebase Error:", e); }
 
         const googleProvider = new GoogleAuthProvider();
@@ -494,10 +537,25 @@
             document.getElementById('authError').classList.add('hidden');
         };
 
-        window.loginWithGoogle = async () => {
+        // FIX: Google Double Click. Added event parameter and loading state
+        window.loginWithGoogle = async (e) => {
             document.getElementById('authError').classList.add('hidden');
-            try { await signInWithPopup(auth, googleProvider); } 
-            catch (error) { showError(error.message.replace("Firebase: ", "")); }
+            let btn = e ? e.currentTarget : null;
+            let originalText = "";
+            if (btn) {
+                originalText = btn.innerHTML;
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Please wait...`;
+                btn.disabled = true;
+            }
+            try { 
+                await signInWithPopup(auth, googleProvider); 
+            } catch (error) { 
+                showError(error.message.replace("Firebase: ", "")); 
+                if (btn) {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            }
         };
 
         window.sendOtp = async () => {
@@ -550,9 +608,15 @@
                     
                     const referredBy = localStorage.getItem('referred_by') || null;
                     
-                    setDoc(doc(db, "users", userCredential.user.uid), {
-                        bgUses: 0, basicUses: 0, isPro: false, email: email, name: name, referredBy: referredBy
-                    }).catch(err => console.warn(err));
+                    await setDoc(doc(db, "users", userCredential.user.uid), {
+                        bgUses: 0, basicUses: 0, isPro: false, email: email, name: name, referredBy: referredBy, referralCount: 0
+                    });
+
+                    // Update Referral Count for Referrer
+                    if(referredBy) {
+                        try { await updateDoc(doc(db, "users", referredBy), { referralCount: increment(1) }); } 
+                        catch(e) { console.warn(e); }
+                    }
                     
                 } else {
                     await signInWithEmailAndPassword(auth, email, password);
@@ -580,20 +644,7 @@
                     refLinkInput.value = `https://mahieyai.vercel.app/?ref=${user.uid}`;
                     refLinkInput.classList.replace('text-gray-500', 'text-gray-900');
 
-                    try {
-                        const userDocRef = doc(db, "users", user.uid);
-                        const userSnap = await getDoc(userDocRef);
-                        if(userSnap.exists()) { userData = userSnap.data(); } 
-                        else {
-                            let displayName = user.displayName || (user.phoneNumber ? "Mobile User" : "Pro User");
-                            let emailOrPhone = user.email || user.phoneNumber || "Unknown";
-                            
-                            const referredBy = localStorage.getItem('referred_by') || null;
-                            userData = { bgUses: 0, basicUses: 0, isPro: false, identifier: emailOrPhone, name: displayName, referredBy: referredBy };
-                            await setDoc(userDocRef, userData);
-                        }
-                    } catch(err) { console.warn("DB init warning", err); }
-                    updateCountersUI();
+                    // FIX: Immediate UI Update to avoid double clicks feeling
                     navAuthArea.innerHTML = `
                         <div class="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">
                             <img src="${user.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-200" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
@@ -604,6 +655,27 @@
                         </button>
                         <button onclick="window.logoutUser()" class="text-gray-500 hover:text-red-500 ml-1 text-lg"><i class="fas fa-sign-out-alt"></i></button>
                     `;
+
+                    try {
+                        const userDocRef = doc(db, "users", user.uid);
+                        const userSnap = await getDoc(userDocRef);
+                        if(userSnap.exists()) { userData = userSnap.data(); } 
+                        else {
+                            let displayName = user.displayName || (user.phoneNumber ? "Mobile User" : "Pro User");
+                            let emailOrPhone = user.email || user.phoneNumber || "Unknown";
+                            
+                            const referredBy = localStorage.getItem('referred_by') || null;
+                            userData = { bgUses: 0, basicUses: 0, isPro: false, identifier: emailOrPhone, name: displayName, referredBy: referredBy, referralCount: 0 };
+                            await setDoc(userDocRef, userData);
+
+                            // Add referral logic for first-time google login users
+                            if(referredBy) {
+                                try { await updateDoc(doc(db, "users", referredBy), { referralCount: increment(1) }); } 
+                                catch(e) { console.warn(e); }
+                            }
+                        }
+                    } catch(err) { console.warn("DB init warning", err); }
+                    updateCountersUI();
                 } else {
                     currentUser = null;
                     userData = { bgUses: 0, basicUses: 0, isPro: false }; 
@@ -780,7 +852,7 @@
                     transparentBgImage.onload = async () => {
                         renderBgImage(null); 
                         document.getElementById('applyBgColorBtn').classList.remove('hidden');
-                        await incrementUsage('bg'); 
+                        incrementUsage('bg'); 
                     }
                     transparentBgImage.src = imgUrl;
                 } else { alert("API Limit Reached or Error."); }
@@ -856,8 +928,10 @@
                     downloadBtn.href = finalDataUrl; 
                     downloadBtn.download = "BG_Remove_Compressed.jpg";
                     downloadSection.classList.remove('hidden');
-                    await incrementUsage('basic'); 
+                    
+                    // FIX: Hide loader first, then update usage to prevent spinning loop
                     loadingOverlay.classList.add('hidden');
+                    incrementUsage('basic'); 
                 };
                 img.src = originalImageSrc;
             }, 500);
@@ -906,8 +980,10 @@
                     downloadBtn.href = finalDataUrl; 
                     downloadBtn.download = "BG_Remove_ProEdit.jpg";
                     downloadSection.classList.remove('hidden');
-                    await incrementUsage('basic'); 
+                    
+                    // FIX: Hide loader first
                     loadingOverlay.classList.add('hidden');
+                    incrementUsage('basic'); 
                 };
                 img.src = originalImageSrc;
             }, 500);
@@ -956,8 +1032,10 @@
                     }
 
                     downloadSection.classList.remove('hidden');
-                    await incrementUsage('basic'); 
+                    
+                    // FIX: Hide loader first
                     loadingOverlay.classList.add('hidden');
+                    incrementUsage('basic'); 
                 };
                 img.src = originalImageSrc;
             }, 500);
