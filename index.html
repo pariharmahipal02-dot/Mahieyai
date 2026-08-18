@@ -530,19 +530,31 @@
             document.getElementById('authError').classList.add('hidden');
         };
 
+        // FIXED GOOGLE LOGIN FUNCTION
         window.loginWithGoogle = async (e) => {
             document.getElementById('authError').classList.add('hidden');
-            let btn = e ? e.currentTarget : null;
+            let btn = e ? e.currentTarget : document.querySelector('button[onclick="window.loginWithGoogle(event)"]');
             let originalText = "";
+            
             if (btn) {
                 originalText = btn.innerHTML;
                 btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Please wait...`;
                 btn.disabled = true;
             }
+            
             try { 
                 await signInWithPopup(auth, googleProvider); 
+                
+                if (btn) {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+                
+                window.hideAuthModal(); 
+                
             } catch (error) { 
                 showError(error.message.replace("Firebase: ", "")); 
+                
                 if (btn) {
                     btn.innerHTML = originalText;
                     btn.disabled = false;
@@ -721,7 +733,7 @@
             }
         };
 
-        // UPDATED: Handle Guest Limits & Firebase Limits
+        // Handle Guest Limits & Firebase Limits
         function updateCountersUI() {
             const types = ['bg', 'compress', 'edit', 'convert'];
             types.forEach(type => {
@@ -741,7 +753,7 @@
             });
         }
 
-        // UPDATED: Dynamically increment specific tool usage based on login status
+        // Dynamically increment specific tool usage based on login status
         async function incrementUsage(type) {
             if(currentUser && userData.isPro) return; 
 
@@ -829,7 +841,7 @@
             ctx.shadowColor = "transparent"; 
         }
 
-        // UPDATED: Now checks Guest Storage or Firebase logic properly and displays appropriate modal buttons
+        // Checks Guest Storage or Firebase logic properly and displays appropriate modal buttons
         function checkLimits(type, toolName) {
             if (currentUser && userData.isPro) return true;
             
