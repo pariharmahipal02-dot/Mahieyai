@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO Meta Tags & Favicon -->
     <title>BG Remove AI - Free 4K Photo Enhancer & Background Remover</title>
     <meta name="description" content="Free AI Background Remover, 4K Photo Enhancer, and Image Compressor. Upload your photo and remove bg automatically with BG Remove AI." />
     <meta name="keywords" content="bg remove, background remover, bgremoveai, ai photo editor, remove bg free, bg remover ai, photo background change">
     <meta name="author" content="Mahiey Parihar">
     
-    <!-- Google Search Console Verification Meta -->
     <meta name="google-site-verification" content="-rJq35mUQFmnfanMeO9_aG0I5tJIRGJtMoZlkKx9RW8" />
 
-    <!-- 🚀 OPEN GRAPH FOR WHATSAPP (COMPRESSED JPG) 🚀 -->
     <meta property="og:title" content="🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now">
     <meta property="og:description" content="Background Remove, Photo Compress, Pro Editing aur bahut saare tools. Join the Refer & Earn Contest!">
     
-    <!-- Exact Poster Details for WhatsApp -->
     <meta property="og:image" itemprop="image" content="https://mahieyai.vercel.app/poster.jpg">
     <meta property="og:image:secure_url" content="https://mahieyai.vercel.app/poster.jpg">
     <meta property="og:image:type" content="image/jpeg">
@@ -27,20 +23,16 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mahieyai.vercel.app/">
     
-    <!-- Twitter Card for Previews -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now">
     <meta name="twitter:description" content="Background Remove, Photo Compress, Pro Editing aur bahut saare tools. Join the Refer & Earn Contest!">
     <meta name="twitter:image" content="https://mahieyai.vercel.app/poster.jpg">
 
-    <!-- Google Search ke liye Logo (Favicon) -->
     <link rel="icon" type="image/webp" href="7335_2.webp">
     <link rel="apple-touch-icon" href="7335_2.webp">
 
-    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7150707787101119" crossorigin="anonymous"></script>
 
-    <!-- PDF Converter Tool -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -56,7 +48,6 @@
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased relative overflow-x-hidden">
 
-    <!-- Navbar -->
     <nav class="fixed w-full z-40 glass px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="text-2xl font-extrabold flex items-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 cursor-pointer">
             <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 md:h-10 w-auto object-contain">
@@ -70,7 +61,6 @@
         </div>
     </nav>
 
-    <!-- Main Workspace Section -->
     <div class="pt-28 pb-10 px-4 max-w-6xl mx-auto text-center">
         <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Your AI-Powered <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Photo Studio</span></h1>
         
@@ -179,7 +169,6 @@
         </div>
     </div>
 
-    <!-- Pricing Section -->
     <div id="pricingSection" class="py-20 bg-gray-50 border-t border-gray-200">
         <div class="max-w-md mx-auto px-4">
             <div class="bg-gradient-to-b from-white to-gray-50 rounded-3xl p-10 border-2 border-yellow-400 shadow-[0_0_40px_rgba(234,179,8,0.15)] relative transform hover:-translate-y-2 transition duration-300 text-center">
@@ -196,7 +185,6 @@
         </div>
     </div>
 
-    <!-- Limit Modal -->
     <div id="limitModal" class="hidden fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[100] flex justify-center items-center p-4">
         <div class="bg-white border-2 border-yellow-400 p-8 rounded-2xl w-full max-w-md text-center relative shadow-[0_0_40px_rgba(234,179,8,0.2)]">
             <button onclick="document.getElementById('limitModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl transition"><i class="fas fa-times"></i></button>
@@ -208,7 +196,6 @@
         </div>
     </div>
 
-    <!-- 🚀 AUTH MODAL 🚀 -->
     <div id="authModal" class="hidden fixed inset-0 z-[200] bg-gray-900/60 backdrop-blur-sm flex justify-center items-center p-4 modal-transition overflow-y-auto">
         <div class="bg-white border border-gray-200 p-6 md:p-8 rounded-3xl w-full max-w-md shadow-2xl relative my-8">
             <button onclick="window.hideAuthModal()" class="absolute top-4 right-5 text-gray-400 hover:text-gray-800 text-2xl transition">
@@ -222,7 +209,6 @@
                 <p class="text-gray-500 text-sm" id="authSubtitle">Join to unlock premium features.</p>
             </div>
             <div class="mb-6">
-                <!-- Modified onClick to pass event object for preventing double clicks -->
                 <button onclick="window.loginWithGoogle(event)" class="w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 py-3 rounded-xl font-bold shadow-sm transition flex justify-center items-center gap-3 text-lg">
                     <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google"> Continue with Google
                 </button>
@@ -236,7 +222,6 @@
                 <button onclick="window.setAuthType('email')" id="tabEmailAuth" class="flex-1 pb-3 text-center font-bold text-blue-600 border-b-2 border-blue-600 transition-all">Email</button>
                 <button onclick="window.setAuthType('phone')" id="tabPhoneAuth" class="flex-1 pb-3 text-center font-bold text-gray-500 hover:text-gray-800 transition-all">Mobile OTP</button>
             </div>
-            <!-- EMAIL/PASSWORD SECTION -->
             <div id="emailAuthContainer">
                 <div class="flex justify-center gap-6 mb-4 text-sm">
                     <button onclick="window.setEmailMode('login')" id="subTabLogin" class="text-blue-600 font-bold underline transition">Login</button>
@@ -266,7 +251,6 @@
                     </button>
                 </form>
             </div>
-            <!-- MOBILE OTP SECTION -->
             <div id="phoneAuthContainer" class="hidden">
                 <div id="phoneEnterSection">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
@@ -297,7 +281,6 @@
         </div>
     </div>
 
-    <!-- 🎁 REFERRAL OFFER SECTION (LOGIN REQUIRED) 🎁 -->
     <div class="py-16 bg-white border-t border-gray-200 mt-10" id="referral-offer">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 md:p-10 border border-purple-200 shadow-xl relative overflow-hidden">
@@ -354,7 +337,6 @@
                     </div>
                 </div>
 
-                <!-- Auth-based Referral Actions -->
                 <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 relative z-10 max-w-2xl mx-auto">
                     <h4 class="font-bold text-gray-800 mb-3 text-left">Your Unique Referral Link:</h4>
                     <div class="flex flex-col md:flex-row items-center gap-3 mb-6">
@@ -375,7 +357,6 @@
                         <button onclick="window.handleReferralShare('instagram')" class="w-14 h-14 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 hover:opacity-90 text-white rounded-full flex items-center justify-center text-3xl shadow-lg transition transform hover:scale-110">
                             <i class="fab fa-instagram"></i>
                         </button>
-                        <!-- Native Share Button -->
                         <button onclick="window.handleReferralShare('more')" class="w-14 h-14 bg-gray-800 hover:bg-gray-900 text-white rounded-full flex items-center justify-center text-2xl shadow-lg transition transform hover:scale-110" title="More Options">
                             <i class="fas fa-share-alt"></i>
                         </button>
@@ -386,7 +367,6 @@
         </div>
     </div>
 
-    <!-- Creator Section -->
     <div class="py-16 text-center border-t border-gray-200 bg-gray-50">
         <h3 class="text-xl font-bold mb-6 text-gray-500 uppercase tracking-widest text-sm">Developed By</h3>
         <div class="inline-block relative">
@@ -415,7 +395,6 @@
         </div>
     </footer>
 
-    <!-- 🔥 FIREBASE & JS LOGIC 🔥 -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -1045,5 +1024,50 @@
         compressSlider.addEventListener('input', (e) => document.getElementById('qualityValue').innerText = e.target.value + '%');
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
-</body>
+    
+    <a href="https://webdealshub.vercel.app/" target="_blank" rel="noopener noreferrer" id="wd-promo-badge" class="fixed z-50 bottom-[10px] right-[10px] md:bottom-[16px] md:right-[16px] w-[120px] md:w-[140px] h-[38px] md:h-[42px] bg-white border border-purple-200 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-lg transition-all duration-300 flex items-center p-1 md:p-1.5 cursor-pointer no-underline group" style="text-decoration: none;">
+        
+        <div onclick="closeWDPromo(event)" class="absolute -top-2 -right-2 w-4 h-4 md:w-5 md:h-5 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-gray-50 shadow-sm text-[10px] md:text-xs z-50 transition-colors" title="Close Ad">
+            <i class="fas fa-times"></i>
+        </div>
+
+        <div class="w-7 h-7 md:w-8 md:h-8 bg-gray-900 rounded-full flex items-center justify-center shrink-0 shadow-inner">
+            <span class="text-yellow-400 font-extrabold text-[10px] md:text-[11px] tracking-tighter">WD</span>
+        </div>
+
+        <div class="flex flex-col ml-1.5 md:ml-2 justify-center overflow-hidden">
+            <span class="text-purple-700 font-bold text-[10px] md:text-[12px] leading-none whitespace-nowrap">Web Deals Hub</span>
+            <span class="text-gray-900 font-semibold text-[7.5px] md:text-[8.5px] leading-tight mt-0.5 tracking-wide whitespace-nowrap">Buy • Sell • Build</span>
+        </div>
+
+        <div class="ml-auto text-purple-400 group-hover:text-purple-600 transition-colors pr-1">
+            <i class="fas fa-chevron-right text-[10px]"></i>
+        </div>
+    </a>
+
+    <script>
+        // Check session storage on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const badge = document.getElementById('wd-promo-badge');
+            if(badge && sessionStorage.getItem('wdPromoClosed') === 'true') {
+                badge.style.display = 'none';
+            }
+        });
+
+        // Close function logic
+        function closeWDPromo(event) {
+            event.preventDefault(); // Nayi tab open hone se rokega
+            event.stopPropagation(); // Parent link click trigger hone se rokega
+            
+            const badge = document.getElementById('wd-promo-badge');
+            if(badge) {
+                badge.style.opacity = '0';
+                setTimeout(() => {
+                    badge.style.display = 'none';
+                }, 200); 
+            }
+            sessionStorage.setItem('wdPromoClosed', 'true');
+        }
+    </script>
+    </body>
 </html>
