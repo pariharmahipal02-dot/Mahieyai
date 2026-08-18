@@ -18,9 +18,9 @@
     <meta property="og:description" content="Free AI Background Remover, Image Compressor, and Photo Enhancer. Edit photos easily online.">
     
     <!-- Exact Poster Details for Normal Share -->
-    <meta property="og:image" itemprop="image" content="https://mahieyai.vercel.app/10268.png">
-    <meta property="og:image:secure_url" content="https://mahieyai.vercel.app/10268.png">
-    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" itemprop="image" content="https://mahieyai.vercel.app/10268.jpg">
+    <meta property="og:image:secure_url" content="https://mahieyai.vercel.app/10268.jpg">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     
@@ -31,7 +31,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="BG Remove AI - Free Photo Studio & Tools">
     <meta name="twitter:description" content="Free AI Background Remover, Image Compressor, and Photo Enhancer.">
-    <meta name="twitter:image" content="https://mahieyai.vercel.app/10268.png">
+    <meta name="twitter:image" content="https://mahieyai.vercel.app/10268.jpg">
 
     <!-- Google Search ke liye Logo (Favicon) -->
     <link rel="icon" type="image/webp" href="7335_2.webp">
@@ -179,6 +179,7 @@
         </div>
     </div>
 
+    <!-- Pricing Section -->
     <div id="pricingSection" class="py-20 bg-gray-50 border-t border-gray-200">
         <div class="max-w-md mx-auto px-4">
             <div class="bg-gradient-to-b from-white to-gray-50 rounded-3xl p-10 border-2 border-yellow-400 shadow-[0_0_40px_rgba(234,179,8,0.15)] relative transform hover:-translate-y-2 transition duration-300 text-center">
@@ -195,6 +196,7 @@
         </div>
     </div>
 
+    <!-- Limit Modal -->
     <div id="limitModal" class="hidden fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[100] flex justify-center items-center p-4">
         <div class="bg-white border-2 border-yellow-400 p-8 rounded-2xl w-full max-w-md text-center relative shadow-[0_0_40px_rgba(234,179,8,0.2)]">
             <button onclick="document.getElementById('limitModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl transition"><i class="fas fa-times"></i></button>
@@ -206,6 +208,7 @@
         </div>
     </div>
 
+    <!-- 🚀 AUTH MODAL 🚀 -->
     <div id="authModal" class="hidden fixed inset-0 z-[200] bg-gray-900/60 backdrop-blur-sm flex justify-center items-center p-4 modal-transition overflow-y-auto">
         <div class="bg-white border border-gray-200 p-6 md:p-8 rounded-3xl w-full max-w-md shadow-2xl relative my-8">
             <button onclick="window.hideAuthModal()" class="absolute top-4 right-5 text-gray-400 hover:text-gray-800 text-2xl transition">
@@ -291,6 +294,7 @@
         </div>
     </div>
 
+    <!-- 🎁 REFERRAL OFFER SECTION (LOGIN REQUIRED) 🎁 -->
     <div class="py-16 bg-white border-t border-gray-200 mt-10" id="referral-offer">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 md:p-10 border border-purple-200 shadow-xl relative overflow-hidden">
@@ -377,6 +381,7 @@
         </div>
     </div>
 
+    <!-- Creator Section -->
     <div class="py-16 text-center border-t border-gray-200 bg-gray-50">
         <h3 class="text-xl font-bold mb-6 text-gray-500 uppercase tracking-widest text-sm">Developed By</h3>
         <div class="inline-block relative">
@@ -408,6 +413,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        // ADDED: increment, collection, query, orderBy, limit, getDocs for Leaderboard and Referral features
         import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 
@@ -426,6 +432,7 @@
 
         let app, auth, db, analytics;
         
+        // LEADERBOARD FUNCTION
         async function fetchLeaderboard() {
             try {
                 const q = query(collection(db, "users"), orderBy("referralCount", "desc"), limit(3));
@@ -462,6 +469,8 @@
             db = getFirestore(app);
             analytics = getAnalytics(app);
             auth.useDeviceLanguage(); 
+            
+            // Automatically fetch leaderboard when app loads
             fetchLeaderboard();
         } catch(e) { console.error("Firebase Error:", e); }
 
@@ -476,6 +485,7 @@
         let emailMode = 'login'; 
         let transparentBgImage = null;
 
+        // URL Se Referral Code Check Karna
         const urlParams = new URLSearchParams(window.location.search);
         const refCode = urlParams.get('ref');
         if(refCode) {
@@ -521,6 +531,7 @@
             document.getElementById('authError').classList.add('hidden');
         };
 
+        // FIX: Google Double Click. Added event parameter and loading state
         window.loginWithGoogle = async (e) => {
             document.getElementById('authError').classList.add('hidden');
             let btn = e ? e.currentTarget : null;
@@ -595,6 +606,7 @@
                         bgUses: 0, basicUses: 0, isPro: false, email: email, name: name, referredBy: referredBy, referralCount: 0
                     });
 
+                    // Update Referral Count for Referrer
                     if(referredBy) {
                         try { await updateDoc(doc(db, "users", referredBy), { referralCount: increment(1) }); } 
                         catch(e) { console.warn(e); }
@@ -626,6 +638,7 @@
                     refLinkInput.value = `https://mahieyai.vercel.app/?ref=${user.uid}`;
                     refLinkInput.classList.replace('text-gray-500', 'text-gray-900');
 
+                    // FIX: Immediate UI Update to avoid double clicks feeling
                     navAuthArea.innerHTML = `
                         <div class="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">
                             <img src="${user.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-200" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
@@ -649,6 +662,7 @@
                             userData = { bgUses: 0, basicUses: 0, isPro: false, identifier: emailOrPhone, name: displayName, referredBy: referredBy, referralCount: 0 };
                             await setDoc(userDocRef, userData);
 
+                            // Add referral logic for first-time google login users
                             if(referredBy) {
                                 try { await updateDoc(doc(db, "users", referredBy), { referralCount: increment(1) }); } 
                                 catch(e) { console.warn(e); }
@@ -910,6 +924,7 @@
                     downloadBtn.download = "BG_Remove_Compressed.jpg";
                     downloadSection.classList.remove('hidden');
                     
+                    // FIX: Hide loader first, then update usage to prevent spinning loop
                     loadingOverlay.classList.add('hidden');
                     incrementUsage('basic'); 
                 };
@@ -962,6 +977,7 @@
                         downloadBtn.download = "BG_Remove_ProEdit.jpg";
                         downloadSection.classList.remove('hidden');
                         
+                        // FIX: Hide loader first
                         loadingOverlay.classList.add('hidden');
                         incrementUsage('basic'); 
                     } catch(e) {
@@ -1018,6 +1034,7 @@
 
                     downloadSection.classList.remove('hidden');
                     
+                    // FIX: Hide loader first
                     loadingOverlay.classList.add('hidden');
                     incrementUsage('basic'); 
                 };
