@@ -4,35 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- SEO Meta Tags & Favicon -->
     <title>BG Remove AI - Free 4K Photo Enhancer & Background Remover</title>
     <meta name="description" content="Free AI Background Remover, 4K Photo Enhancer, and Image Compressor. Upload your photo and remove bg automatically with BG Remove AI." />
     <meta name="keywords" content="bg remove, background remover, bgremoveai, ai photo editor, remove bg free, bg remover ai, photo background change">
     <meta name="author" content="Mahiey Parihar">
     
+    <!-- Google Search Console Verification Meta -->
     <meta name="google-site-verification" content="-rJq35mUQFmnfanMeO9_aG0I5tJIRGJtMoZlkKx9RW8" />
 
-    <meta property="og:title" content="🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now">
-    <meta property="og:description" content="Background Remove, Photo Compress, Pro Editing aur bahut saare tools. Join the Refer & Earn Contest!">
+    <!-- 🚀 OPEN GRAPH FOR NORMAL SHARE (Professional Banner) 🚀 -->
+    <meta property="og:title" content="BG Remove AI - Free Photo Studio & Tools">
+    <meta property="og:description" content="Free AI Background Remover, Image Compressor, and Photo Enhancer. Edit photos easily online.">
     
-    <meta property="og:image" itemprop="image" content="https://mahieyai.vercel.app/poster.jpg">
-    <meta property="og:image:secure_url" content="https://mahieyai.vercel.app/poster.jpg">
-    <meta property="og:image:type" content="image/jpeg">
+    <!-- Exact Poster Details for Normal Share -->
+    <meta property="og:image" itemprop="image" content="https://mahieyai.vercel.app/10268.png">
+    <meta property="og:image:secure_url" content="https://mahieyai.vercel.app/10268.png">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mahieyai.vercel.app/">
     
+    <!-- Twitter Card for Previews -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now">
-    <meta name="twitter:description" content="Background Remove, Photo Compress, Pro Editing aur bahut saare tools. Join the Refer & Earn Contest!">
-    <meta name="twitter:image" content="https://mahieyai.vercel.app/poster.jpg">
+    <meta name="twitter:title" content="BG Remove AI - Free Photo Studio & Tools">
+    <meta name="twitter:description" content="Free AI Background Remover, Image Compressor, and Photo Enhancer.">
+    <meta name="twitter:image" content="https://mahieyai.vercel.app/10268.png">
 
+    <!-- Google Search ke liye Logo (Favicon) -->
     <link rel="icon" type="image/webp" href="7335_2.webp">
     <link rel="apple-touch-icon" href="7335_2.webp">
 
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7150707787101119" crossorigin="anonymous"></script>
 
+    <!-- PDF Converter Tool -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -48,6 +56,7 @@
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased relative overflow-x-hidden">
 
+    <!-- Navbar -->
     <nav class="fixed w-full z-40 glass px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="text-2xl font-extrabold flex items-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 cursor-pointer">
             <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 md:h-10 w-auto object-contain">
@@ -61,6 +70,7 @@
         </div>
     </nav>
 
+    <!-- Main Workspace Section -->
     <div class="pt-28 pb-10 px-4 max-w-6xl mx-auto text-center">
         <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Your AI-Powered <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Photo Studio</span></h1>
         
@@ -398,7 +408,6 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        // ADDED: increment, collection, query, orderBy, limit, getDocs for Leaderboard and Referral features
         import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 
@@ -417,7 +426,6 @@
 
         let app, auth, db, analytics;
         
-        // LEADERBOARD FUNCTION
         async function fetchLeaderboard() {
             try {
                 const q = query(collection(db, "users"), orderBy("referralCount", "desc"), limit(3));
@@ -454,8 +462,6 @@
             db = getFirestore(app);
             analytics = getAnalytics(app);
             auth.useDeviceLanguage(); 
-            
-            // Automatically fetch leaderboard when app loads
             fetchLeaderboard();
         } catch(e) { console.error("Firebase Error:", e); }
 
@@ -470,7 +476,6 @@
         let emailMode = 'login'; 
         let transparentBgImage = null;
 
-        // URL Se Referral Code Check Karna
         const urlParams = new URLSearchParams(window.location.search);
         const refCode = urlParams.get('ref');
         if(refCode) {
@@ -516,7 +521,6 @@
             document.getElementById('authError').classList.add('hidden');
         };
 
-        // FIX: Google Double Click. Added event parameter and loading state
         window.loginWithGoogle = async (e) => {
             document.getElementById('authError').classList.add('hidden');
             let btn = e ? e.currentTarget : null;
@@ -591,7 +595,6 @@
                         bgUses: 0, basicUses: 0, isPro: false, email: email, name: name, referredBy: referredBy, referralCount: 0
                     });
 
-                    // Update Referral Count for Referrer
                     if(referredBy) {
                         try { await updateDoc(doc(db, "users", referredBy), { referralCount: increment(1) }); } 
                         catch(e) { console.warn(e); }
@@ -623,7 +626,6 @@
                     refLinkInput.value = `https://mahieyai.vercel.app/?ref=${user.uid}`;
                     refLinkInput.classList.replace('text-gray-500', 'text-gray-900');
 
-                    // FIX: Immediate UI Update to avoid double clicks feeling
                     navAuthArea.innerHTML = `
                         <div class="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">
                             <img src="${user.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-200" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
@@ -647,7 +649,6 @@
                             userData = { bgUses: 0, basicUses: 0, isPro: false, identifier: emailOrPhone, name: displayName, referredBy: referredBy, referralCount: 0 };
                             await setDoc(userDocRef, userData);
 
-                            // Add referral logic for first-time google login users
                             if(referredBy) {
                                 try { await updateDoc(doc(db, "users", referredBy), { referralCount: increment(1) }); } 
                                 catch(e) { console.warn(e); }
@@ -674,14 +675,15 @@
             else { window.open(RAZORPAY_LINK, "_blank"); }
         };
 
-        // 🔥 ADVANCED REFERRAL SHARE LOGIC (DOMAIN UPDATED) 🔥
+        // 🚀 SHARE ME AAB REFER-SHARE.HTML WALA LINK JAYEGA 🚀
         window.handleReferralShare = (platform) => {
             if (!currentUser) {
                 window.showAuthModal("Please login to share your referral link and win prizes!");
                 return;
             }
             
-            const link = `https://mahieyai.vercel.app/?ref=${currentUser.uid}`;
+            // Yahan `refer-share.html` add kar diya hai
+            const link = `https://mahieyai.vercel.app/refer-share.html?ref=${currentUser.uid}`;
             const shareTitle = "🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now";
             
             const customMessage = `🔥 Bhai, ye FREE AI Photo Editor zaroor check kar! 😍\n\nBackground Remove, Photo Compress, Pro Editing, 4K Enhance aur bahut saare tools — sab ek hi jagah! 🚀\n\n🎁 Aur ab chal raha hai REFER & EARN CONTEST!\n\n🏆 1st Prize — ₹500 💰\n🥈 2nd Prize — ₹200 💰\n🥉 3rd Prize — ₹100 💰\n\n👥 Jitne zyada friends refer karoge, utna hi jeetne ka chance badhega! 🔥\n\n🎁 Referral se FREE Credits bhi mil sakte hain.\n\n👉 Mere referral link se abhi join karo:\n${link}\n\n⏳ Jaldi join karo aur contest miss mat karna! 🚀🔥`;
@@ -908,7 +910,6 @@
                     downloadBtn.download = "BG_Remove_Compressed.jpg";
                     downloadSection.classList.remove('hidden');
                     
-                    // FIX: Hide loader first, then update usage to prevent spinning loop
                     loadingOverlay.classList.add('hidden');
                     incrementUsage('basic'); 
                 };
@@ -949,20 +950,25 @@
                 const ctx = canvas.getContext('2d');
                 const img = new Image();
                 img.onload = async () => {
-                    canvas.width = img.width; canvas.height = img.height;
-                    ctx.filter = `brightness(${eBright.value}%) contrast(${eContrast.value}%) saturate(${eSat.value}%) blur(${eBlur.value}px) sepia(${eSepia.value}%) hue-rotate(${eHue.value}deg)`;
-                    ctx.drawImage(img, 0, 0);
-                    applyWatermark(canvas, ctx);
-                    
-                    const finalDataUrl = canvas.toDataURL('image/jpeg', 0.9);
-                    imagePreview.src = finalDataUrl;
-                    downloadBtn.href = finalDataUrl; 
-                    downloadBtn.download = "BG_Remove_ProEdit.jpg";
-                    downloadSection.classList.remove('hidden');
-                    
-                    // FIX: Hide loader first
-                    loadingOverlay.classList.add('hidden');
-                    incrementUsage('basic'); 
+                    try {
+                        canvas.width = img.width; canvas.height = img.height;
+                        ctx.filter = `brightness(${eBright.value}%) contrast(${eContrast.value}%) saturate(${eSat.value}%) blur(${eBlur.value}px) sepia(${eSepia.value}%) hue-rotate(${eHue.value}deg)`;
+                        ctx.drawImage(img, 0, 0);
+                        applyWatermark(canvas, ctx);
+                        
+                        const finalDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                        imagePreview.src = finalDataUrl;
+                        downloadBtn.href = finalDataUrl; 
+                        downloadBtn.download = "BG_Remove_ProEdit.jpg";
+                        downloadSection.classList.remove('hidden');
+                        
+                        loadingOverlay.classList.add('hidden');
+                        incrementUsage('basic'); 
+                    } catch(e) {
+                        console.error(e);
+                    } finally {
+                        loadingOverlay.classList.add('hidden');
+                    }
                 };
                 img.src = originalImageSrc;
             }, 500);
@@ -1012,7 +1018,6 @@
 
                     downloadSection.classList.remove('hidden');
                     
-                    // FIX: Hide loader first
                     loadingOverlay.classList.add('hidden');
                     incrementUsage('basic'); 
                 };
@@ -1046,7 +1051,6 @@
     </a>
 
     <script>
-        // Check session storage on page load
         document.addEventListener('DOMContentLoaded', () => {
             const badge = document.getElementById('wd-promo-badge');
             if(badge && sessionStorage.getItem('wdPromoClosed') === 'true') {
@@ -1054,10 +1058,9 @@
             }
         });
 
-        // Close function logic
         function closeWDPromo(event) {
-            event.preventDefault(); // Nayi tab open hone se rokega
-            event.stopPropagation(); // Parent link click trigger hone se rokega
+            event.preventDefault(); 
+            event.stopPropagation(); 
             
             const badge = document.getElementById('wd-promo-badge');
             if(badge) {
@@ -1069,5 +1072,5 @@
             sessionStorage.setItem('wdPromoClosed', 'true');
         }
     </script>
-    </body>
+</body>
 </html>
