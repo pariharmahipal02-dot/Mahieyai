@@ -80,7 +80,6 @@
             <span class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm"><i class="fas fa-exchange-alt text-green-500"></i> Format Converter</span>
         </div>
         
-        <!-- 4 Tools with 5/5 Limits -->
         <div class="flex flex-wrap justify-center gap-2 mb-8 bg-white p-2 rounded-xl inline-flex shadow-md border border-gray-200">
             <button onclick="window.switchTool('bg-remove')" id="tab-bg-remove" class="px-4 py-3 rounded-lg font-bold bg-blue-600 text-white shadow-md transition-all flex flex-col items-center gap-1 border border-transparent">
                 <div class="flex items-center gap-2"><i class="fas fa-eraser"></i> BG Tool</div>
@@ -203,9 +202,9 @@
             <button onclick="document.getElementById('limitModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl transition"><i class="fas fa-times"></i></button>
             <i class="fas fa-lock text-6xl text-yellow-500 mb-4"></i>
             <h2 class="text-3xl font-bold mb-2 text-gray-900">Free Limit Reached!</h2>
-            <p class="text-gray-600 mb-6" id="limitMessage">You have used all your free credits for this tool.</p>
+            <p class="text-gray-600 mb-6" id="limitMessage">You have used all your free credits.</p>
             <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.handleProUpgrade();" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black py-3 rounded-lg font-bold shadow-md text-lg mb-3">Upgrade to Pro (₹49)</button>
-            <button onclick="document.getElementById('limitModal').classList.add('hidden'); window.showAuthModal();" class="w-full bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-800 py-3 rounded-lg font-bold transition">Login / Switch Account</button>
+            <button id="limitLoginBtn" onclick="document.getElementById('limitModal').classList.add('hidden'); window.showAuthModal();" class="w-full bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-800 py-3 rounded-lg font-bold transition">Login for 5 Bonus Credits</button>
         </div>
     </div>
 
@@ -295,7 +294,7 @@
         </div>
     </div>
 
-    <!-- 🎁 REFERRAL OFFER SECTION (LOGIN REQUIRED) 🎁 -->
+    <!-- 🎁 REFERRAL OFFER SECTION -->
     <div class="py-16 bg-white border-t border-gray-200 mt-10" id="referral-offer">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 md:p-10 border border-purple-200 shadow-xl relative overflow-hidden">
@@ -376,7 +375,7 @@
                             <i class="fas fa-share-alt"></i>
                         </button>
                     </div>
-                    <p class="text-xs text-yellow-600 mt-4 font-bold text-center"><i class="fas fa-exclamation-triangle"></i> Referral valid only when your friend signs up!</p>
+                    <p class="text-xs text-yellow-600 mt-4 font-bold text-center"><i class="fas fa-exclamation-triangle"></i> Refferal valid only when your friend signs up!</p>
                 </div>
             </div>
         </div>
@@ -429,8 +428,21 @@
 
         const REMOVE_BG_API_KEY = "2PnoaUqvHRv7HLhvD7nkNT76"; 
         const RAZORPAY_LINK = "https://rzp.io/rzp/YGPfF69R";
+        const MAX_USES = 5; 
 
         let app, auth, db, analytics;
+        let currentUser = null;
+        let userData = { bgUses: 0, compressUses: 0, editUses: 0, convertUses: 0, isPro: false }; 
+        let emailMode = 'login'; 
+        let transparentBgImage = null;
+
+        // Guest Uses Tracking via LocalStorage
+        let guestUses = {
+            bg: parseInt(localStorage.getItem('guest_bg_uses')) || 0,
+            compress: parseInt(localStorage.getItem('guest_compress_uses')) || 0,
+            edit: parseInt(localStorage.getItem('guest_edit_uses')) || 0,
+            convert: parseInt(localStorage.getItem('guest_convert_uses')) || 0
+        };
         
         async function fetchLeaderboard() {
             try {
@@ -472,19 +484,6 @@
         } catch(e) { console.error("Firebase Error:", e); }
 
         const googleProvider = new GoogleAuthProvider();
-
-        let currentUser = null;
-        let userData = { bgUses: 0, compressUses: 0, editUses: 0, convertUses: 0, isPro: false };
-        
-        // Guest limits per tool (5 photos each)
-        let guestBgUses = parseInt(localStorage.getItem('guest_bg_uses')) || 0;
-        let guestCompressUses = parseInt(localStorage.getItem('guest_compress_uses')) || 0;
-        let guestEditUses = parseInt(localStorage.getItem('guest_edit_uses')) || 0;
-        let guestConvertUses = parseInt(localStorage.getItem('guest_convert_uses')) || 0;
-        
-        const MAX_LIMIT = 5;
-        let emailMode = 'login'; 
-        let transparentBgImage = null;
 
         const urlParams = new URLSearchParams(window.location.search);
         const refCode = urlParams.get('ref');
@@ -650,9 +649,8 @@
                     try {
                         const userDocRef = doc(db, "users", user.uid);
                         const userSnap = await getDoc(userDocRef);
-                        if(userSnap.exists()) { 
-                            userData = userSnap.data(); 
-                        } else {
+                        if(userSnap.exists()) { userData = userSnap.data(); } 
+                        else {
                             let displayName = user.displayName || (user.phoneNumber ? "Mobile User" : "Pro User");
                             let emailOrPhone = user.email || user.phoneNumber || "Unknown";
                             
@@ -694,7 +692,8 @@
             
             const link = `https://mahieyai.vercel.app/refer-share.html?ref=${currentUser.uid}`;
             const shareTitle = "🎉 Free AI Photo Studio + Win ₹500 Cash! Join Now";
-            const customMessage = `🔥 Bhai, ye FREE AI Photo Editor zaroor check kar! 😍\n\nBackground Remove, Photo Compress, Pro Editing, 4K Enhance aur bahut saare tools — sab ek hi jagah! 🚀\n\n🎁 Aur ab chal raha hai REFER & EARN CONTEST!\n\n🏆 1st Prize — ₹500 💰\n🥈 2nd Prize — ₹200 💰\n🥉 3rd Prize — ₹100 💰\n\n👥 Jitne zyada friends refer karoge, utna hi jeetne ka chance badhega! 🔥\n\n👉 Mere referral link se abhi join karo:\n${link}\n\n⏳ Jaldi join karo aur contest miss mat karna! 🚀🔥`;
+            
+            const customMessage = `🔥 Bhai, ye FREE AI Photo Editor zaroor check kar! 😍\n\nBackground Remove, Photo Compress, Pro Editing, 4K Enhance aur bahut saare tools — sab ek hi jagah! 🚀\n\n🎁 Aur ab chal raha hai REFER & EARN CONTEST!\n\n🏆 1st Prize — ₹500 💰\n🥈 2nd Prize — ₹200 💰\n🥉 3rd Prize — ₹100 💰\n\n👥 Jitne zyada friends refer karoge, utna hi jeetne ka chance badhega! 🔥\n\n🎁 Referral se FREE Credits bhi mil sakte hain.\n\n👉 Mere referral link se abhi join karo:\n${link}\n\n⏳ Jaldi join karo aur contest miss mat karna! 🚀🔥`;
 
             if (platform === 'copy') {
                 const copyText = document.getElementById("referralLink");
@@ -712,50 +711,53 @@
                 window.open('instagram://app', '_blank');
             } else if (platform === 'more') {
                 if (navigator.share) {
-                    navigator.share({ title: shareTitle, text: customMessage }).catch(console.error);
+                    navigator.share({
+                        title: shareTitle,
+                        text: customMessage
+                    }).catch(console.error);
                 } else {
                     alert("Sharing options are not fully supported on this browser. Use Copy Link instead!");
                 }
             }
         };
 
-        // Update all 4 counters in UI
+        // UPDATED: Handle Guest Limits & Firebase Limits
         function updateCountersUI() {
-            let bgLeft = currentUser ? (userData.isPro ? "Unlimited" : Math.max(0, MAX_LIMIT - (userData.bgUses || 0))) : Math.max(0, MAX_LIMIT - guestBgUses);
-            let compressLeft = currentUser ? (userData.isPro ? "Unlimited" : Math.max(0, MAX_LIMIT - (userData.compressUses || 0))) : Math.max(0, MAX_LIMIT - guestCompressUses);
-            let editLeft = currentUser ? (userData.isPro ? "Unlimited" : Math.max(0, MAX_LIMIT - (userData.editUses || 0))) : Math.max(0, MAX_LIMIT - guestEditUses);
-            let convertLeft = currentUser ? (userData.isPro ? "Unlimited" : Math.max(0, MAX_LIMIT - (userData.convertUses || 0))) : Math.max(0, MAX_LIMIT - guestConvertUses);
-
-            document.getElementById('bgCountDisplay').innerText = bgLeft === "Unlimited" ? "Unlimited" : `${bgLeft}/${MAX_LIMIT} Left`;
-            document.getElementById('compressCountDisplay').innerText = compressLeft === "Unlimited" ? "Unlimited" : `${compressLeft}/${MAX_LIMIT} Left`;
-            document.getElementById('editCountDisplay').innerText = editLeft === "Unlimited" ? "Unlimited" : `${editLeft}/${MAX_LIMIT} Left`;
-            document.getElementById('convertCountDisplay').innerText = convertLeft === "Unlimited" ? "Unlimited" : `${convertLeft}/${MAX_LIMIT} Left`;
+            const types = ['bg', 'compress', 'edit', 'convert'];
+            types.forEach(type => {
+                let left = 0;
+                if (currentUser && userData.isPro) {
+                    left = "Unlimited";
+                } else if (currentUser) {
+                    left = Math.max(0, MAX_USES - (userData[type + 'Uses'] || 0));
+                } else {
+                    left = Math.max(0, MAX_USES - guestUses[type]);
+                }
+                
+                const displayEl = document.getElementById(`${type}CountDisplay`);
+                if (displayEl) {
+                    displayEl.innerText = left === "Unlimited" ? "Unlimited" : `${left}/${MAX_USES} Left`;
+                }
+            });
         }
 
+        // UPDATED: Dynamically increment specific tool usage based on login status
         async function incrementUsage(type) {
             if(currentUser && userData.isPro) return; 
+
             if (currentUser) {
                 try {
                     const userRef = doc(db, "users", currentUser.uid);
-                    if(type === 'bg') { 
-                        userData.bgUses = (userData.bgUses || 0) + 1; 
-                        await updateDoc(userRef, { bgUses: userData.bgUses }); 
-                    } else if(type === 'compress') { 
-                        userData.compressUses = (userData.compressUses || 0) + 1; 
-                        await updateDoc(userRef, { compressUses: userData.compressUses }); 
-                    } else if(type === 'edit') { 
-                        userData.editUses = (userData.editUses || 0) + 1; 
-                        await updateDoc(userRef, { editUses: userData.editUses }); 
-                    } else if(type === 'convert') { 
-                        userData.convertUses = (userData.convertUses || 0) + 1; 
-                        await updateDoc(userRef, { convertUses: userData.convertUses }); 
-                    }
+                    let currentUses = userData[type + 'Uses'] || 0;
+                    userData[type + 'Uses'] = currentUses + 1;
+                    
+                    let updateData = {};
+                    updateData[type + 'Uses'] = userData[type + 'Uses'];
+                    await updateDoc(userRef, updateData);
                 } catch(e) { console.log(e); }
             } else {
-                if(type === 'bg') { guestBgUses += 1; localStorage.setItem('guest_bg_uses', guestBgUses); } 
-                else if(type === 'compress') { guestCompressUses += 1; localStorage.setItem('guest_compress_uses', guestCompressUses); }
-                else if(type === 'edit') { guestEditUses += 1; localStorage.setItem('guest_edit_uses', guestEditUses); }
-                else if(type === 'convert') { guestConvertUses += 1; localStorage.setItem('guest_convert_uses', guestConvertUses); }
+                guestUses[type] += 1;
+                localStorage.setItem(`guest_${type}_uses`, guestUses[type]);
             }
             updateCountersUI();
         }
@@ -827,26 +829,21 @@
             ctx.shadowColor = "transparent"; 
         }
 
-        // Check limits per tool
+        // UPDATED: Now checks Guest Storage or Firebase logic properly and displays appropriate modal buttons
         function checkLimits(type, toolName) {
-            let isPro = currentUser && userData.isPro;
-            if(isPro) return true;
-
-            let currentUses = 0;
-            if (currentUser) {
-                if(type === 'bg') currentUses = userData.bgUses || 0;
-                else if(type === 'compress') currentUses = userData.compressUses || 0;
-                else if(type === 'edit') currentUses = userData.editUses || 0;
-                else if(type === 'convert') currentUses = userData.convertUses || 0;
-            } else {
-                if(type === 'bg') currentUses = guestBgUses;
-                else if(type === 'compress') currentUses = guestCompressUses;
-                else if(type === 'edit') currentUses = guestEditUses;
-                else if(type === 'convert') currentUses = guestConvertUses;
-            }
-
-            if(currentUses >= MAX_LIMIT) { 
-                document.getElementById('limitMessage').innerText = `You have reached the limit of 5 free photos for ${toolName}.`;
+            if (currentUser && userData.isPro) return true;
+            
+            let currentUses = currentUser ? (userData[type + 'Uses'] || 0) : guestUses[type];
+            
+            if(currentUses >= MAX_USES) { 
+                document.getElementById('limitMessage').innerText = `You have used all ${MAX_USES} free credits for ${toolName}.`;
+                
+                // Login Button tabhi dikhega jab user guest ho. Agar logged in hai, toh hide kar do.
+                const loginBtn = document.getElementById('limitLoginBtn');
+                if (loginBtn) {
+                    loginBtn.style.display = currentUser ? 'none' : 'block';
+                }
+                
                 document.getElementById('limitModal').classList.remove('hidden'); 
                 return false; 
             }
@@ -911,7 +908,7 @@
 
         document.getElementById('compressBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
-            if (!checkLimits('compress', 'Image Compressor')) return;
+            if (!checkLimits('compress', 'Compressor')) return;
 
             const targetKbInput = document.getElementById('targetKbInput').value;
             let quality = document.getElementById('compressQuality').value / 100;
@@ -1007,6 +1004,7 @@
                         incrementUsage('edit'); 
                     } catch(e) {
                         console.error(e);
+                    } finally {
                         loadingOverlay.classList.add('hidden');
                     }
                 };
@@ -1016,7 +1014,7 @@
 
         document.getElementById('convertBtn').addEventListener('click', () => {
             if (!originalImageSrc) { alert("Please upload an image first."); return; }
-            if (!checkLimits('convert', 'Format Converter')) return;
+            if (!checkLimits('convert', 'Converter')) return;
             
             const format = document.getElementById('convertFormat').value; 
             let ext = format.split('/')[1];
