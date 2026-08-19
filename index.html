@@ -1085,48 +1085,6 @@
         compressSlider.addEventListener('input', (e) => document.getElementById('qualityValue').innerText = e.target.value + '%');
     </script>
     <script>setTimeout(() => { if(typeof updateCountersUI === 'function') updateCountersUI(); }, 1000);</script>
-    
-    <a href="https://webdealshub.vercel.app/" target="_blank" rel="noopener noreferrer" id="wd-promo-badge" class="fixed z-50 bottom-[10px] right-[10px] md:bottom-[16px] md:right-[16px] w-[120px] md:w-[140px] h-[38px] md:h-[42px] bg-white border border-purple-200 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-lg transition-all duration-300 flex items-center p-1 md:p-1.5 cursor-pointer no-underline group" style="text-decoration: none;">
-        
-        <div onclick="closeWDPromo(event)" class="absolute -top-2 -right-2 w-4 h-4 md:w-5 md:h-5 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-gray-50 shadow-sm text-[10px] md:text-xs z-50 transition-colors" title="Close Ad">
-            <i class="fas fa-times"></i>
-        </div>
 
-        <div class="w-7 h-7 md:w-8 md:h-8 bg-gray-900 rounded-full flex items-center justify-center shrink-0 shadow-inner">
-            <span class="text-yellow-400 font-extrabold text-[10px] md:text-[11px] tracking-tighter">WD</span>
-        </div>
-
-        <div class="flex flex-col ml-1.5 md:ml-2 justify-center overflow-hidden">
-            <span class="text-purple-700 font-bold text-[10px] md:text-[12px] leading-none whitespace-nowrap">Web Deals Hub</span>
-            <span class="text-gray-900 font-semibold text-[7.5px] md:text-[8.5px] leading-tight mt-0.5 tracking-wide whitespace-nowrap">Buy • Sell • Build</span>
-        </div>
-
-        <div class="ml-auto text-purple-400 group-hover:text-purple-600 transition-colors pr-1">
-            <i class="fas fa-chevron-right text-[10px]"></i>
-        </div>
-    </a>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const badge = document.getElementById('wd-promo-badge');
-            if(badge && sessionStorage.getItem('wdPromoClosed') === 'true') {
-                badge.style.display = 'none';
-            }
-        });
-
-        function closeWDPromo(event) {
-            event.preventDefault(); 
-            event.stopPropagation(); 
-            
-            const badge = document.getElementById('wd-promo-badge');
-            if(badge) {
-                badge.style.opacity = '0';
-                setTimeout(() => {
-                    badge.style.display = 'none';
-                }, 200); 
-            }
-            sessionStorage.setItem('wdPromoClosed', 'true');
-        }
-    </script>
 </body>
 </html>
