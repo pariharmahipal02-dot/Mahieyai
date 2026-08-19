@@ -398,11 +398,12 @@
                 <img src="7335_2.webp" alt="BG Remove Logo" class="h-8 w-auto object-contain">
                 BG Remove
             </div>
+            <!-- YAHAN MAIN CHANGE HUA HAI: Links update kar diye gaye hain -->
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-sm font-medium text-gray-600">
-                <a href="#" class="hover:text-blue-600 transition">Privacy Policy</a>
-                <a href="#" class="hover:text-blue-600 transition">Terms & Conditions</a>
-                <a href="#" class="hover:text-blue-600 transition">Refund Policy</a>
-                <a href="#" class="hover:text-blue-600 transition">Contact Us</a>
+                <a href="privacy.html" class="hover:text-blue-600 transition">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-blue-600 transition">Terms & Conditions</a>
+                <a href="refund.html" class="hover:text-blue-600 transition">Refund Policy</a>
+                <a href="contact.html" class="hover:text-blue-600 transition">Contact Us</a>
             </div>
         </div>
         <div class="text-center text-gray-500 text-xs mt-8">
@@ -530,7 +531,6 @@
             document.getElementById('authError').classList.add('hidden');
         };
 
-        // FIXED GOOGLE LOGIN FUNCTION
         window.loginWithGoogle = async (e) => {
             document.getElementById('authError').classList.add('hidden');
             let btn = e ? e.currentTarget : document.querySelector('button[onclick="window.loginWithGoogle(event)"]');
@@ -661,7 +661,17 @@
                     try {
                         const userDocRef = doc(db, "users", user.uid);
                         const userSnap = await getDoc(userDocRef);
-                        if(userSnap.exists()) { userData = userSnap.data(); } 
+                        if(userSnap.exists()) { 
+                            let data = userSnap.data(); 
+                            userData = {
+                                ...data,
+                                bgUses: data.bgUses || 0,
+                                compressUses: data.compressUses || 0,
+                                editUses: data.editUses || 0,
+                                convertUses: data.convertUses || 0,
+                                isPro: data.isPro || false
+                            };
+                        } 
                         else {
                             let displayName = user.displayName || (user.phoneNumber ? "Mobile User" : "Pro User");
                             let emailOrPhone = user.email || user.phoneNumber || "Unknown";
@@ -733,7 +743,6 @@
             }
         };
 
-        // Handle Guest Limits & Firebase Limits
         function updateCountersUI() {
             const types = ['bg', 'compress', 'edit', 'convert'];
             types.forEach(type => {
@@ -753,7 +762,6 @@
             });
         }
 
-        // Dynamically increment specific tool usage based on login status
         async function incrementUsage(type) {
             if(currentUser && userData.isPro) return; 
 
@@ -765,8 +773,8 @@
                     
                     let updateData = {};
                     updateData[type + 'Uses'] = userData[type + 'Uses'];
-                    await updateDoc(userRef, updateData);
-                } catch(e) { console.log(e); }
+                    await setDoc(userRef, updateData, { merge: true });
+                } catch(e) { console.log("Firebase Save Error:", e); }
             } else {
                 guestUses[type] += 1;
                 localStorage.setItem(`guest_${type}_uses`, guestUses[type]);
@@ -841,7 +849,6 @@
             ctx.shadowColor = "transparent"; 
         }
 
-        // Checks Guest Storage or Firebase logic properly and displays appropriate modal buttons
         function checkLimits(type, toolName) {
             if (currentUser && userData.isPro) return true;
             
@@ -850,7 +857,6 @@
             if(currentUses >= MAX_USES) { 
                 document.getElementById('limitMessage').innerText = `You have used all ${MAX_USES} free credits for ${toolName}.`;
                 
-                // Login Button tabhi dikhega jab user guest ho. Agar logged in hai, toh hide kar do.
                 const loginBtn = document.getElementById('limitLoginBtn');
                 if (loginBtn) {
                     loginBtn.style.display = currentUser ? 'none' : 'block';
