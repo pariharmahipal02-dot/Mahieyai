@@ -674,13 +674,26 @@
                         const userSnap = await getDoc(userDocRef);
                         if(userSnap.exists()) { 
                             let data = userSnap.data(); 
+
+                            // --- 1 MONTH EXPIRY CHECK ---
+                            let isUserPro = data.isPro || false;
+                            if (isUserPro && data.proExpiry) {
+                                const expiryDate = data.proExpiry.toDate ? data.proExpiry.toDate() : new Date(data.proExpiry);
+                                if (new Date() > expiryDate) {
+                                    isUserPro = false; // 30 din khatam! Pro hatao.
+                                    // Database me wapas free kar do aur limits 0 kar do
+                                    updateDoc(userDocRef, { isPro: false, bgUses: 0, compressUses: 0, editUses: 0, convertUses: 0 }).catch(e=>console.warn(e));
+                                }
+                            }
+                            // ----------------------------
+
                             userData = {
                                 ...data,
                                 bgUses: data.bgUses || 0,
                                 compressUses: data.compressUses || 0,
                                 editUses: data.editUses || 0,
                                 convertUses: data.convertUses || 0,
-                                isPro: data.isPro || false
+                                isPro: isUserPro
                             };
                         } 
                         else {

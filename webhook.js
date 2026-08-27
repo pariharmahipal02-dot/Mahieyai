@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
   }
 
   // ==========================================
-  // PURANA: RAZORPAY WEBHOOK ROUTE (Bilkul Untouched)
+  // PURANA: RAZORPAY WEBHOOK ROUTE
   // ==========================================
   const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
   const signature = req.headers['x-razorpay-signature'];
@@ -80,15 +80,23 @@ module.exports = async (req, res) => {
 
         if (!snapshot.empty) {
           const batch = db.batch();
+          
+          // Aaj se 30 din aage ki date set karna
+          const expiryDate = new Date();
+          expiryDate.setDate(expiryDate.getDate() + 30); 
+
           snapshot.forEach((doc) => {
-            // User ka Pro account CHALU karna!
-            batch.update(doc.ref, { isPro: true });
+            // User ka Pro account CHALU karna, aur 30 din ki expiry set karna!
+            batch.update(doc.ref, { 
+              isPro: true,
+              proExpiry: admin.firestore.Timestamp.fromDate(expiryDate)
+            });
           });
           await batch.commit();
         }
       }
       // Razorpay ko OK report bhejna
-      return res.status(200).send('Payment Verified & Pro Activated');
+      return res.status(200).send('Payment Verified & Pro Activated for 30 Days');
     } catch (error) {
       console.error("Webhook Error:", error);
       return res.status(500).send('Server Error');
