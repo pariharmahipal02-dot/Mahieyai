@@ -744,6 +744,32 @@
                     displayEl.innerText = left === "Unlimited" ? "Unlimited" : `${left}/${MAX_USES} Left`;
                 }
             });
+
+            // NAYA CODE: Pro users ke liye Button aur Pricing UI change karna
+            if (currentUser && userData.isPro) {
+                // 1. Niche wala Pricing Section chhupao
+                const pricingSection = document.getElementById('pricingSection');
+                if(pricingSection) pricingSection.classList.add('hidden');
+
+                // 2. Upar Nav bar mein Button ko "Pro Active" banakar click band karo
+                const navAuthArea = document.getElementById('navAuthArea');
+                if(navAuthArea && navAuthArea.innerHTML.includes('handleProUpgrade')) {
+                    navAuthArea.innerHTML = `
+                        <div class="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">
+                            <img src="${currentUser.photoURL || 'https://www.svgrepo.com/show/5125/avatar.svg'}" class="w-6 h-6 rounded-full bg-gray-200" onerror="this.src='https://www.svgrepo.com/show/5125/avatar.svg'">
+                            <span class="text-sm font-semibold text-gray-800 max-w-[100px] truncate">${currentUser.displayName || (currentUser.phoneNumber ? 'Verified' : 'User')}</span>
+                        </div>
+                        <button class="bg-green-100 text-green-700 border border-green-300 px-4 py-1.5 rounded-full font-bold shadow-sm text-sm cursor-default">
+                            <i class="fas fa-check-circle mr-1"></i> Pro Active
+                        </button>
+                        <button onclick="window.logoutUser()" class="text-gray-500 hover:text-red-500 ml-1 text-lg"><i class="fas fa-sign-out-alt"></i></button>
+                    `;
+                }
+            } else {
+                // Agar free user hai toh wapas Pricing dikhao
+                const pricingSection = document.getElementById('pricingSection');
+                if(pricingSection) pricingSection.classList.remove('hidden');
+            }
         }
 
         async function incrementUsage(type) {
