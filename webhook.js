@@ -75,9 +75,18 @@ module.exports = async (req, res) => {
       if (userEmail) {
         const db = admin.firestore();
         const usersRef = db.collection('users');
-        // Firebase Database me us email ko dhoondhna
-        const snapshot = await usersRef.where('email', '==', userEmail.toLowerCase()).get();
+        
+        // BUG FIX: Dono jagah check karo (Manual login ke liye 'email' aur Google login ke liye 'identifier')
+        let snapshot = await usersRef.where('email', '==', userEmail.toLowerCase()).get();
+        
+        if (snapshot.empty) {
+          snapshot = await usersRef.where('identifier', '==', userEmail.toLowerCase()).get();
+        }
+        if (snapshot.empty) {
+          snapshot = await usersRef.where('identifier', '==', userEmail).get();
+        }
 
+        // Agar user mil gaya toh Pro active karo
         if (!snapshot.empty) {
           const batch = db.batch();
           
