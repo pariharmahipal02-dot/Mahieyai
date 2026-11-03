@@ -65,8 +65,8 @@
 <p data-hi="NEXITE को अपने दोस्तों के साथ शेयर करें। लीडरबोर्ड में शामिल होने के लिए कम-से-कम 10 सफल रेफरल पूरे करें। सबसे अधिक वैध रेफरल वाले टॉप 100 पात्र प्रतिभागियों में से प्रत्येक ₹1,000 जीत सकता है।" data-en="Invite people to discover NEXITE. Complete at least 10 valid referrals to qualify for the leaderboard. Each of the top 100 eligible participants can win ₹1,000.">NEXITE को अपने दोस्तों के साथ शेयर करें। लीडरबोर्ड में शामिल होने के लिए कम-से-कम 10 सफल रेफरल पूरे करें। सबसे अधिक वैध रेफरल वाले टॉप 100 पात्र प्रतिभागियों में से प्रत्येक ₹1,000 जीत सकता है।</p>
 <div class="prize"><strong>₹1,000</strong><small data-hi="प्रति विजेता<br>टॉप 100 प्रतिभागी" data-en="PER WINNER<br>TOP 100 PARTICIPANTS">प्रति विजेता<br>टॉप 100 प्रतिभागी</small></div>
 
-<!-- Yahan Direct Popup Login Button hai -->
-<a class="cta" id="campaignLoginLink" href="javascript:void(0)"><span data-hi="लॉगिन करें / अकाउंट बनाएँ" data-en="Login / Create NEXITE Account">लॉगिन करें / अकाउंट बनाएँ</span> →</a>
+<!-- Yahan pe URL parameter laga diya taaki index.html ko pata chale user kahan se aaya hai aur usko login popup dikhana hai -->
+<a class="cta" id="campaignLoginLink" href="https://nexiteai.in/?action=login&redirect=diwali"><span data-hi="लॉगिन करें / अकाउंट बनाएँ" data-en="Login / Create NEXITE Account">लॉगिन करें / अकाउंट बनाएँ</span> →</a>
 
 <p class="fine" data-hi="कैंपेन दिवाली, 8 नवंबर 2026 को रात 11:59 बजे (IST) बंद होगा। सभी रेफरल की जाँच और आधिकारिक नियम लागू होंगे।" data-en="Campaign closes on Diwali, 8 November 2026 at 11:59 PM IST. All referrals are subject to verification and official terms.">कैंपेन दिवाली, 8 नवंबर 2026 को रात 11:59 बजे (IST) बंद होगा। सभी रेफरल की जाँच और आधिकारिक नियम लागू होंगे।</p></section>
 <section class="stats"><div class="stat"><b>100</b><span data-hi="विजेता" data-en="Winners">विजेता</span></div><div class="stat"><b>₹1,000</b><span data-hi="प्रति विजेता इनाम" data-en="Prize per winner">प्रति विजेता इनाम</span></div><div class="stat"><b>₹1,00,000</b><span data-hi="अधिकतम कुल इनाम राशि" data-en="Maximum total prize pool">अधिकतम कुल इनाम राशि</span></div></section>
@@ -141,7 +141,7 @@ function closePopup(){
 </script>
 <script type="module">
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSFwn1log1-ehfYwLudOAPVWzGfsp86Bg",
@@ -154,8 +154,6 @@ const firebaseConfig = {
 };
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
 const linkBox = document.getElementById('personalReferralLink');
 const shareArea = document.getElementById('shareArea');
 const shareHint = document.getElementById('shareHint');
@@ -211,19 +209,6 @@ if(incomingRef && /^[A-Za-z0-9_-]{6,128}$/.test(incomingRef)){
   try { localStorage.setItem('referred_by',incomingRef); } catch(e) {}
 }
 
-// Yahan login button ka popup trigger set kiya hai
-if(loginLink){
-  loginLink.addEventListener('click', (e) => {
-    // Agar user logged in nahi hai, toh Google Popup open karein
-    if(!auth.currentUser) {
-      e.preventDefault();
-      signInWithPopup(auth, provider).catch((error) => {
-        console.error("Login Error:", error);
-      });
-    }
-  });
-}
-
 onAuthStateChanged(auth,(user)=>{
   if(user && user.uid){
     personalLink=location.origin+location.pathname+'?ref='+encodeURIComponent(user.uid);
@@ -246,7 +231,7 @@ onAuthStateChanged(auth,(user)=>{
     shareArea.hidden=true;
     
     if(loginLink){
-      loginLink.href = 'javascript:void(0)';
+      loginLink.href = 'https://nexiteai.in/?action=login&redirect=diwali';
       loginLink.innerHTML = document.documentElement.lang === 'en' ? 'Login / Create NEXITE Account →' : 'लॉगिन करें / अकाउंट बनाएँ →';
       loginLink.style.background = '#172033';
     }
