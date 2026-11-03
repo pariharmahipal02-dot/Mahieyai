@@ -90,6 +90,7 @@
         </div>
     </nav>
 
+
     <!-- Main Workspace Section -->
     <div class="pt-28 pb-10 px-4 max-w-6xl mx-auto text-center">
         <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Your AI-Powered <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Image Studio</span></h1>
@@ -215,6 +216,25 @@
             </div>
         </div>
     </div>
+
+    <!-- NEXITE Diwali Campaign Banner: placed immediately below the Monthly Pass card -->
+    <section class="px-4 py-8 bg-white border-t border-amber-100">
+        <div class="max-w-5xl mx-auto">
+            <a href="diwali.html" aria-label="Open NEXITE Diwali Referral Campaign" class="group block overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 via-white to-orange-50 shadow-sm hover:shadow-md transition-all">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-4 md:px-7">
+                    <div class="flex items-center gap-3 text-center sm:text-left">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-2xl">🪔</span>
+                        <span>
+                            <span class="block text-xs font-extrabold tracking-[.18em] text-amber-700">NEXITE • DIWALI SPECIAL</span>
+                            <span class="mt-1 block text-lg md:text-xl font-extrabold text-slate-900">Refer &amp; Win <span class="text-amber-600">₹1,000</span></span>
+                            <span class="block text-xs md:text-sm text-slate-600">Top 100 winners · 10 successful referrals required</span>
+                        </span>
+                    </div>
+                    <span class="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-bold text-white group-hover:bg-amber-600 transition-colors">Explore Campaign <span aria-hidden="true">→</span></span>
+                </div>
+            </a>
+        </div>
+    </section>
 
     <!-- Limit Modal -->
     <div id="limitModal" class="hidden fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[100] flex justify-center items-center p-4">
@@ -516,6 +536,12 @@
         };
 
         window.hideAuthModal = () => { document.getElementById('authModal').classList.add('hidden'); };
+
+        // Open the existing login modal when a visitor returns from the Diwali campaign page.
+        if (sessionStorage.getItem('nexite_campaign_login') === '1') {
+            sessionStorage.removeItem('nexite_campaign_login');
+            window.showAuthModal();
+        }
 
         function showError(msg) {
             document.getElementById('authErrorText').innerText = msg;
