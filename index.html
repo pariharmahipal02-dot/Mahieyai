@@ -357,7 +357,7 @@
 
                 <!-- Step 3 -->
                 <div class="flex-1 max-w-xs relative">
-                    <div class="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center text-2xl font-extrabold mx-auto mb-6 shadow-lg relative transform hover:-translate-y-2 transition duration-300">3</div>
+                    <div class="w-16 h-16 bg-green-50 text-white rounded-2xl flex items-center justify-center text-2xl font-extrabold mx-auto mb-6 shadow-lg relative transform hover:-translate-y-2 transition duration-300">3</div>
                     <h3 class="text-xl font-bold mb-2 text-gray-900">Download Result</h3>
                     <p class="text-gray-500 text-sm font-medium">Instantly download your high-quality, processed image directly to your device.</p>
                 </div>
@@ -538,10 +538,13 @@
         window.hideAuthModal = () => { document.getElementById('authModal').classList.add('hidden'); };
 
         // Open the existing login modal when a visitor returns from the Diwali campaign page.
-        if (sessionStorage.getItem('nexite_campaign_login') === '1') {
-            sessionStorage.removeItem('nexite_campaign_login');
-            window.showAuthModal();
-        }
+        // Ye diwali.html se "action=login" check karke trigger hoga
+        window.addEventListener('DOMContentLoaded', () => {
+            if (urlParams.get('action') === 'login' || sessionStorage.getItem('nexite_campaign_login') === '1') {
+                sessionStorage.removeItem('nexite_campaign_login');
+                window.showAuthModal();
+            }
+        });
 
         function showError(msg) {
             document.getElementById('authErrorText').innerText = msg;
@@ -683,6 +686,12 @@
                 if (user) {
                     currentUser = user;
                     window.hideAuthModal(); 
+                    
+                    // Agar redirect param diwali hai, wapas bhej do
+                    if (urlParams.get('redirect') === 'diwali') {
+                        window.location.href = 'diwali.html';
+                        return; // Rok do baki execution page load hone tak
+                    }
 
                     navAuthArea.innerHTML = `
                         <div class="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">
